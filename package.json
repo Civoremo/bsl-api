@@ -1,0 +1,15 @@
+{
+	"name": "bsl-api",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/Civoremo/bsl-api.git",
+	"author": "Civoremo <omerovic_n@hotmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"graphql-yoga": "^1.18.3",
+		"prisma-client-lib": "^1.34.10"
+	},
+	"scripts": {
+		"start": "node src/index.js"
+	}
+}
