@@ -12,6 +12,6 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `https://bsl-api-59b4e8d7a4.herokuapp.com/backyard-sports-league-api/dev`
+  endpoint: `https://bsl-api-4bac55b41d.herokuapp.com/backyard-sports-league/dev`
 });
 exports.prisma = new exports.Prisma();

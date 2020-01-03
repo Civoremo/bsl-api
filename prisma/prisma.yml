@@ -1,5 +1,4 @@
-#endpoint: ""
-#endpoint: ""endpoint: https://bsl-api-59b4e8d7a4.herokuapp.com/backyard-sports-league-api/dev
+#endpoint: ""endpoint: https://bsl-api-4bac55b41d.herokuapp.com/backyard-sports-league/dev
 
 
 datamodel: datamodel.prisma
