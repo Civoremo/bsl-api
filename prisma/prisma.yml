@@ -1,0 +1,9 @@
+#endpoint: ""
+#endpoint: ""endpoint: https://bsl-api-59b4e8d7a4.herokuapp.com/backyard-sports-league-api/dev
+
+
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client
