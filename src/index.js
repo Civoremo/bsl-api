@@ -4,17 +4,15 @@ const { prisma } = require("./generated/prisma-client");
 const resolvers = {
 	Query: {
 		info: () => "This is the API of BSL",
-		feed: (root, args, context, info) => {
-			return context.prisma.links();
-		},
 	},
 	Mutation: {
-		post: (root, args, context) => {
-			return context.prisma.createLink({
-				url: args.url,
-				description: args.description,
-			});
-		},
+		// post: (root, args, context) => {
+		// 	return context.prisma.createLink({
+		// 		url: args.url,
+		// 		description: args.description,
+		// 	});
+		// },
+		post: () => "We made a post",
 	},
 };
 

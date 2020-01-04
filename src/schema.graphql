@@ -1,17 +1,89 @@
 type Query {
 	info: String!
-	feed: [Link!]!
-	link(id: ID!): Link
+	# feed: [Link!]!
+	# link(id: ID!): Link
+	me: User
+	leagues: [League!]!
+	league(id: ID!): League
+	teams: [Team!]!
+	team(id: ID!): Team
+	players: [Player!]!
+	player(id: ID!): Player
 }
 
 type Mutation {
-	post(url: String!, description: String!): Link!
-	updateLink(id: ID!, url: String, description: String): Link
-	deleteLink(id: ID!): Link
+	post: String!
+	# post(url: String!, description: String!): Link!
+	# updateLink(id: ID!, url: String, description: String): Link
+	# deleteLink(id: ID!): Link
 }
 
-type Link {
+# type Link {
+# 	id: ID!
+# 	description: String!
+# 	url: String!
+# }
+
+# type AuthPayload {
+# 	token: String!
+# 	user: String!
+# }
+
+type Team {
 	id: ID!
-	description: String!
-	url: String!
+	name: String!
+	wins: [Win!]!
+	losses: [Loss!]!
+	players: [Player!]!
+	league: League!
+}
+
+type Player {
+	id: ID!
+	name: String!
+	played: Int!
+	goals: Int!
+	assists: Int!
+	saves: Int!
+	createdBy: User!
+	team: Team!
+}
+
+type Win {
+	id: ID!
+	team: Team!
+	game: [Game!]!
+}
+
+type Loss {
+	id: ID!
+	team: Team!
+	game: [Game!]!
+}
+
+type Game {
+	id: ID!
+	day: String!
+	homeTeam: Team
+	awayTeam: Team
+	score: String!
+	time: String!
+	videoURL: String!
+}
+
+type League {
+	id: ID!
+	teams: [Team!]!
+	location: String!
+	name: String!
+}
+
+type User {
+	id: ID!
+	name: String!
+	email: String!
+	leagues: [League!]!
+	teams: [Team!]!
+	games: [Game!]!
+	players: [Player!]!
 }
