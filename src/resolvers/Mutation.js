@@ -60,9 +60,9 @@ const postTeam = async (parent, args, context, info) => {
       }
     }
   `;
-	const users = await context.prisma.league({ id: args.leagueId }).$fragment(leagueFragment);
+	const posterInfo = await context.prisma.league({ id: args.leagueId }).$fragment(leagueFragment);
 
-	if (users.postedBy.id != userId) {
+	if (posterInfo.postedBy.id != userId) {
 		throw new Error("Not your league to add team to!");
 	}
 	return await context.prisma.createTeam({
@@ -72,9 +72,34 @@ const postTeam = async (parent, args, context, info) => {
 	});
 };
 
+const postPlayer = async (parent, args, context, info) => {
+	const userId = getUserId(context);
+
+	const teamFragment = `
+    fragment teamPostedByUser on Team {
+      postedBy {
+        id
+        name
+      }
+    }
+  `;
+	const posterInfo = await context.prisma.team({ id: args.teamId }).$fragment(teamFragment);
+
+	if (posterInfo.postedBy.id != userId) {
+		throw new Error("Not your team to add player to!");
+	}
+
+	return await context.prisma.createPlayer({
+		name: args.name,
+		team: { connect: { id: args.teamId } },
+		postedBy: { connect: { id: userId } },
+	});
+};
+
 module.exports = {
 	signup,
 	login,
 	postLeague,
 	postTeam,
+	postPlayer,
 };

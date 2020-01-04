@@ -18,6 +18,7 @@ type Mutation {
 	login(email: String!, password: String!): AuthPayload!
 	postLeague(name: String!, location: String!): League
 	postTeam(name: String!, leagueId: String!): Team
+	postPlayer(name: String!, teamId: String!): Player
 }
 
 type AuthPayload {
