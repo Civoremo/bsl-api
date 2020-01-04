@@ -1311,7 +1311,9 @@ type Query {
 }
 
 enum Role {
+  SUPERADMIN
   ADMIN
+  PLAYER
   USER
 }
 

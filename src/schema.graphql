@@ -3,6 +3,8 @@ type Query {
 	# feed: [Link!]!
 	# link(id: ID!): Link
 	me: User
+	allUsers: [User!]!
+	allLeagues: [League!]!
 	leagues: [League!]!
 	league(id: ID!): League
 	teams: [Team!]!
@@ -13,6 +15,9 @@ type Query {
 
 type Mutation {
 	post: String!
+	signup(name: String!, email: String!, password: String!): AuthPayload!
+	login(email: String!, password: String!): AuthPayload!
+	postLeague(name: String!, location: String!): League
 	# post(url: String!, description: String!): Link!
 	# updateLink(id: ID!, url: String, description: String): Link
 	# deleteLink(id: ID!): Link
@@ -24,10 +29,10 @@ type Mutation {
 # 	url: String!
 # }
 
-# type AuthPayload {
-# 	token: String!
-# 	user: String!
-# }
+type AuthPayload {
+	token: String!
+	user: User!
+}
 
 type Team {
 	id: ID!
@@ -36,6 +41,7 @@ type Team {
 	losses: [Loss!]!
 	players: [Player!]!
 	league: League!
+	postedBy: User!
 }
 
 type Player {
@@ -45,7 +51,7 @@ type Player {
 	goals: Int!
 	assists: Int!
 	saves: Int!
-	createdBy: User!
+	postedBy: User!
 	team: Team!
 }
 
@@ -69,6 +75,7 @@ type Game {
 	score: String!
 	time: String!
 	videoURL: String!
+	postedBy: User!
 }
 
 type League {
@@ -76,6 +83,7 @@ type League {
 	teams: [Team!]!
 	location: String!
 	name: String!
+	postedBy: User!
 }
 
 type User {
