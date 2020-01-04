@@ -1,9 +1,3 @@
-# type Link {
-# 	id: ID! @id
-# 	url: String!
-# 	description: String!
-# }
-
 type User {
 	id: ID! @id
 	createdAt: DateTime @createdAt
