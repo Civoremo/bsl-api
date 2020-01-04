@@ -981,11 +981,16 @@ input PlayerCreateInput {
   goals: Int
   assists: Int
   saves: Int
-  team: TeamCreateOneInput!
+  team: TeamCreateOneWithoutPlayersInput!
 }
 
 input PlayerCreateManyWithoutPostedByInput {
   create: [PlayerCreateWithoutPostedByInput!]
+  connect: [PlayerWhereUniqueInput!]
+}
+
+input PlayerCreateManyWithoutTeamInput {
+  create: [PlayerCreateWithoutTeamInput!]
   connect: [PlayerWhereUniqueInput!]
 }
 
@@ -996,7 +1001,17 @@ input PlayerCreateWithoutPostedByInput {
   goals: Int
   assists: Int
   saves: Int
-  team: TeamCreateOneInput!
+  team: TeamCreateOneWithoutPlayersInput!
+}
+
+input PlayerCreateWithoutTeamInput {
+  id: ID
+  postedBy: UserCreateOneWithoutPlayersInput!
+  name: String!
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
 }
 
 type PlayerEdge {
@@ -1141,7 +1156,7 @@ input PlayerUpdateInput {
   goals: Int
   assists: Int
   saves: Int
-  team: TeamUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutPlayersInput
 }
 
 input PlayerUpdateManyDataInput {
@@ -1172,6 +1187,18 @@ input PlayerUpdateManyWithoutPostedByInput {
   updateMany: [PlayerUpdateManyWithWhereNestedInput!]
 }
 
+input PlayerUpdateManyWithoutTeamInput {
+  create: [PlayerCreateWithoutTeamInput!]
+  delete: [PlayerWhereUniqueInput!]
+  connect: [PlayerWhereUniqueInput!]
+  set: [PlayerWhereUniqueInput!]
+  disconnect: [PlayerWhereUniqueInput!]
+  update: [PlayerUpdateWithWhereUniqueWithoutTeamInput!]
+  upsert: [PlayerUpsertWithWhereUniqueWithoutTeamInput!]
+  deleteMany: [PlayerScalarWhereInput!]
+  updateMany: [PlayerUpdateManyWithWhereNestedInput!]
+}
+
 input PlayerUpdateManyWithWhereNestedInput {
   where: PlayerScalarWhereInput!
   data: PlayerUpdateManyDataInput!
@@ -1183,7 +1210,16 @@ input PlayerUpdateWithoutPostedByDataInput {
   goals: Int
   assists: Int
   saves: Int
-  team: TeamUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutPlayersInput
+}
+
+input PlayerUpdateWithoutTeamDataInput {
+  postedBy: UserUpdateOneRequiredWithoutPlayersInput
+  name: String
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
 }
 
 input PlayerUpdateWithWhereUniqueWithoutPostedByInput {
@@ -1191,10 +1227,21 @@ input PlayerUpdateWithWhereUniqueWithoutPostedByInput {
   data: PlayerUpdateWithoutPostedByDataInput!
 }
 
+input PlayerUpdateWithWhereUniqueWithoutTeamInput {
+  where: PlayerWhereUniqueInput!
+  data: PlayerUpdateWithoutTeamDataInput!
+}
+
 input PlayerUpsertWithWhereUniqueWithoutPostedByInput {
   where: PlayerWhereUniqueInput!
   update: PlayerUpdateWithoutPostedByDataInput!
   create: PlayerCreateWithoutPostedByInput!
+}
+
+input PlayerUpsertWithWhereUniqueWithoutTeamInput {
+  where: PlayerWhereUniqueInput!
+  update: PlayerUpdateWithoutTeamDataInput!
+  create: PlayerCreateWithoutTeamInput!
 }
 
 input PlayerWhereInput {
@@ -1336,6 +1383,7 @@ type Team {
   wins(where: WinWhereInput, orderBy: WinOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Win!]
   losses(where: LossWhereInput, orderBy: LossOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loss!]
   league: League!
+  players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
 }
 
 type TeamConnection {
@@ -1351,6 +1399,7 @@ input TeamCreateInput {
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
+  players: PlayerCreateManyWithoutTeamInput
 }
 
 input TeamCreateManyWithoutLeagueInput {
@@ -1373,6 +1422,11 @@ input TeamCreateOneWithoutLossesInput {
   connect: TeamWhereUniqueInput
 }
 
+input TeamCreateOneWithoutPlayersInput {
+  create: TeamCreateWithoutPlayersInput
+  connect: TeamWhereUniqueInput
+}
+
 input TeamCreateOneWithoutWinsInput {
   create: TeamCreateWithoutWinsInput
   connect: TeamWhereUniqueInput
@@ -1384,6 +1438,7 @@ input TeamCreateWithoutLeagueInput {
   name: String!
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
+  players: PlayerCreateManyWithoutTeamInput
 }
 
 input TeamCreateWithoutLossesInput {
@@ -1391,6 +1446,16 @@ input TeamCreateWithoutLossesInput {
   postedBy: UserCreateOneWithoutTeamsInput!
   name: String!
   wins: WinCreateManyWithoutTeamInput
+  league: LeagueCreateOneWithoutTeamsInput!
+  players: PlayerCreateManyWithoutTeamInput
+}
+
+input TeamCreateWithoutPlayersInput {
+  id: ID
+  postedBy: UserCreateOneWithoutTeamsInput!
+  name: String!
+  wins: WinCreateManyWithoutTeamInput
+  losses: LossCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
 }
 
@@ -1400,6 +1465,7 @@ input TeamCreateWithoutPostedByInput {
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
+  players: PlayerCreateManyWithoutTeamInput
 }
 
 input TeamCreateWithoutWinsInput {
@@ -1408,6 +1474,7 @@ input TeamCreateWithoutWinsInput {
   name: String!
   losses: LossCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
+  players: PlayerCreateManyWithoutTeamInput
 }
 
 type TeamEdge {
@@ -1507,6 +1574,7 @@ input TeamUpdateDataInput {
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
+  players: PlayerUpdateManyWithoutTeamInput
 }
 
 input TeamUpdateInput {
@@ -1515,6 +1583,7 @@ input TeamUpdateInput {
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
+  players: PlayerUpdateManyWithoutTeamInput
 }
 
 input TeamUpdateManyDataInput {
@@ -1568,6 +1637,13 @@ input TeamUpdateOneRequiredWithoutLossesInput {
   connect: TeamWhereUniqueInput
 }
 
+input TeamUpdateOneRequiredWithoutPlayersInput {
+  create: TeamCreateWithoutPlayersInput
+  update: TeamUpdateWithoutPlayersDataInput
+  upsert: TeamUpsertWithoutPlayersInput
+  connect: TeamWhereUniqueInput
+}
+
 input TeamUpdateOneRequiredWithoutWinsInput {
   create: TeamCreateWithoutWinsInput
   update: TeamUpdateWithoutWinsDataInput
@@ -1580,12 +1656,22 @@ input TeamUpdateWithoutLeagueDataInput {
   name: String
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
+  players: PlayerUpdateManyWithoutTeamInput
 }
 
 input TeamUpdateWithoutLossesDataInput {
   postedBy: UserUpdateOneRequiredWithoutTeamsInput
   name: String
   wins: WinUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+  players: PlayerUpdateManyWithoutTeamInput
+}
+
+input TeamUpdateWithoutPlayersDataInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  losses: LossUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
 }
 
@@ -1594,6 +1680,7 @@ input TeamUpdateWithoutPostedByDataInput {
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
+  players: PlayerUpdateManyWithoutTeamInput
 }
 
 input TeamUpdateWithoutWinsDataInput {
@@ -1601,6 +1688,7 @@ input TeamUpdateWithoutWinsDataInput {
   name: String
   losses: LossUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
+  players: PlayerUpdateManyWithoutTeamInput
 }
 
 input TeamUpdateWithWhereUniqueWithoutLeagueInput {
@@ -1621,6 +1709,11 @@ input TeamUpsertNestedInput {
 input TeamUpsertWithoutLossesInput {
   update: TeamUpdateWithoutLossesDataInput!
   create: TeamCreateWithoutLossesInput!
+}
+
+input TeamUpsertWithoutPlayersInput {
+  update: TeamUpdateWithoutPlayersDataInput!
+  create: TeamCreateWithoutPlayersInput!
 }
 
 input TeamUpsertWithoutWinsInput {
@@ -1693,6 +1786,9 @@ input TeamWhereInput {
   losses_some: LossWhereInput
   losses_none: LossWhereInput
   league: LeagueWhereInput
+  players_every: PlayerWhereInput
+  players_some: PlayerWhereInput
+  players_none: PlayerWhereInput
   AND: [TeamWhereInput!]
   OR: [TeamWhereInput!]
   NOT: [TeamWhereInput!]

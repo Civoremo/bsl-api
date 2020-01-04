@@ -10,6 +10,8 @@ const League = require("./resolvers/League");
 const Team = require("./resolvers/Team");
 const Player = require("./resolvers/Player");
 const Game = require("./resolvers/Game");
+const Win = require("./resolvers/Win");
+const Loss = require("./resolvers/Loss");
 
 const resolvers = {
 	// Query: {
@@ -34,6 +36,8 @@ const resolvers = {
 	Team,
 	Player,
 	Game,
+	Win,
+	Loss,
 };
 
 const server = new GraphQLServer({

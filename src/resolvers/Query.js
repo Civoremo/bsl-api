@@ -29,6 +29,22 @@ const allPlayers = (parent, args, context, info) => {
 	return context.prisma.players();
 };
 
+const league = (parent, args, context, info) => {
+	return context.prisma.league({ id: args.id });
+};
+
+const team = (parent, args, context, info) => {
+	return context.prisma.team({ id: args.id });
+};
+
+const game = (parent, args, context, info) => {
+	return context.prisma.game({ id: args.id });
+};
+
+const player = (parent, args, context, info) => {
+	return context.prisma.player({ id: args.id });
+};
+
 module.exports = {
 	info,
 	me,
@@ -37,4 +53,8 @@ module.exports = {
 	allTeams,
 	allGames,
 	allPlayers,
+	league,
+	team,
+	game,
+	player,
 };
