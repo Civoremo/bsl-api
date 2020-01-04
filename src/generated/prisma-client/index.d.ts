@@ -363,7 +363,7 @@ export type LossOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type Role = "ADMIN" | "USER";
+export type Role = "SUPERADMIN" | "ADMIN" | "PLAYER" | "USER";
 
 export type PlayerOrderByInput =
   | "id_ASC"
