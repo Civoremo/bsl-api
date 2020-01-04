@@ -6,12 +6,10 @@ type Query {
 	allTeams: [Team!]!
 	allGames: [Game!]!
 	allPlayers: [Player!]!
-	leagues: [League!]!
 	league(id: ID!): League
-	teams: [Team!]!
 	team(id: ID!): Team
-	players: [Player!]!
 	player(id: ID!): Player
+	game(id: ID!): Game
 }
 
 type Mutation {
@@ -19,6 +17,7 @@ type Mutation {
 	signup(name: String!, email: String!, password: String!): AuthPayload!
 	login(email: String!, password: String!): AuthPayload!
 	postLeague(name: String!, location: String!): League
+	postTeam(name: String!, leagueId: String!): Team
 }
 
 type AuthPayload {
