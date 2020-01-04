@@ -14,7 +14,13 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
-  link: (where?: LinkWhereInput) => Promise<boolean>;
+  game: (where?: GameWhereInput) => Promise<boolean>;
+  league: (where?: LeagueWhereInput) => Promise<boolean>;
+  loss: (where?: LossWhereInput) => Promise<boolean>;
+  player: (where?: PlayerWhereInput) => Promise<boolean>;
+  team: (where?: TeamWhereInput) => Promise<boolean>;
+  user: (where?: UserWhereInput) => Promise<boolean>;
+  win: (where?: WinWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -36,47 +42,249 @@ export interface Prisma {
    * Queries
    */
 
-  link: (where: LinkWhereUniqueInput) => LinkPromise;
-  links: (args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  game: (where: GameWhereUniqueInput) => GamePromise;
+  games: (args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Link>;
-  linksConnection: (args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  }) => FragmentableArray<Game>;
+  gamesConnection: (args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => LinkConnectionPromise;
+  }) => GameConnectionPromise;
+  league: (where: LeagueWhereUniqueInput) => LeaguePromise;
+  leagues: (args?: {
+    where?: LeagueWhereInput;
+    orderBy?: LeagueOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<League>;
+  leaguesConnection: (args?: {
+    where?: LeagueWhereInput;
+    orderBy?: LeagueOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => LeagueConnectionPromise;
+  loss: (where: LossWhereUniqueInput) => LossPromise;
+  losses: (args?: {
+    where?: LossWhereInput;
+    orderBy?: LossOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Loss>;
+  lossesConnection: (args?: {
+    where?: LossWhereInput;
+    orderBy?: LossOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => LossConnectionPromise;
+  player: (where: PlayerWhereUniqueInput) => PlayerPromise;
+  players: (args?: {
+    where?: PlayerWhereInput;
+    orderBy?: PlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Player>;
+  playersConnection: (args?: {
+    where?: PlayerWhereInput;
+    orderBy?: PlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PlayerConnectionPromise;
+  team: (where: TeamWhereUniqueInput) => TeamPromise;
+  teams: (args?: {
+    where?: TeamWhereInput;
+    orderBy?: TeamOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Team>;
+  teamsConnection: (args?: {
+    where?: TeamWhereInput;
+    orderBy?: TeamOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => TeamConnectionPromise;
+  user: (where: UserWhereUniqueInput) => UserPromise;
+  users: (args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<User>;
+  usersConnection: (args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => UserConnectionPromise;
+  win: (where: WinWhereUniqueInput) => WinPromise;
+  wins: (args?: {
+    where?: WinWhereInput;
+    orderBy?: WinOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Win>;
+  winsConnection: (args?: {
+    where?: WinWhereInput;
+    orderBy?: WinOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => WinConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
-  createLink: (data: LinkCreateInput) => LinkPromise;
-  updateLink: (args: {
-    data: LinkUpdateInput;
-    where: LinkWhereUniqueInput;
-  }) => LinkPromise;
-  updateManyLinks: (args: {
-    data: LinkUpdateManyMutationInput;
-    where?: LinkWhereInput;
+  createGame: (data: GameCreateInput) => GamePromise;
+  updateGame: (args: {
+    data: GameUpdateInput;
+    where: GameWhereUniqueInput;
+  }) => GamePromise;
+  updateManyGames: (args: {
+    data: GameUpdateManyMutationInput;
+    where?: GameWhereInput;
   }) => BatchPayloadPromise;
-  upsertLink: (args: {
-    where: LinkWhereUniqueInput;
-    create: LinkCreateInput;
-    update: LinkUpdateInput;
-  }) => LinkPromise;
-  deleteLink: (where: LinkWhereUniqueInput) => LinkPromise;
-  deleteManyLinks: (where?: LinkWhereInput) => BatchPayloadPromise;
+  upsertGame: (args: {
+    where: GameWhereUniqueInput;
+    create: GameCreateInput;
+    update: GameUpdateInput;
+  }) => GamePromise;
+  deleteGame: (where: GameWhereUniqueInput) => GamePromise;
+  deleteManyGames: (where?: GameWhereInput) => BatchPayloadPromise;
+  createLeague: (data: LeagueCreateInput) => LeaguePromise;
+  updateLeague: (args: {
+    data: LeagueUpdateInput;
+    where: LeagueWhereUniqueInput;
+  }) => LeaguePromise;
+  updateManyLeagues: (args: {
+    data: LeagueUpdateManyMutationInput;
+    where?: LeagueWhereInput;
+  }) => BatchPayloadPromise;
+  upsertLeague: (args: {
+    where: LeagueWhereUniqueInput;
+    create: LeagueCreateInput;
+    update: LeagueUpdateInput;
+  }) => LeaguePromise;
+  deleteLeague: (where: LeagueWhereUniqueInput) => LeaguePromise;
+  deleteManyLeagues: (where?: LeagueWhereInput) => BatchPayloadPromise;
+  createLoss: (data: LossCreateInput) => LossPromise;
+  updateLoss: (args: {
+    data: LossUpdateInput;
+    where: LossWhereUniqueInput;
+  }) => LossPromise;
+  upsertLoss: (args: {
+    where: LossWhereUniqueInput;
+    create: LossCreateInput;
+    update: LossUpdateInput;
+  }) => LossPromise;
+  deleteLoss: (where: LossWhereUniqueInput) => LossPromise;
+  deleteManyLosses: (where?: LossWhereInput) => BatchPayloadPromise;
+  createPlayer: (data: PlayerCreateInput) => PlayerPromise;
+  updatePlayer: (args: {
+    data: PlayerUpdateInput;
+    where: PlayerWhereUniqueInput;
+  }) => PlayerPromise;
+  updateManyPlayers: (args: {
+    data: PlayerUpdateManyMutationInput;
+    where?: PlayerWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPlayer: (args: {
+    where: PlayerWhereUniqueInput;
+    create: PlayerCreateInput;
+    update: PlayerUpdateInput;
+  }) => PlayerPromise;
+  deletePlayer: (where: PlayerWhereUniqueInput) => PlayerPromise;
+  deleteManyPlayers: (where?: PlayerWhereInput) => BatchPayloadPromise;
+  createTeam: (data: TeamCreateInput) => TeamPromise;
+  updateTeam: (args: {
+    data: TeamUpdateInput;
+    where: TeamWhereUniqueInput;
+  }) => TeamPromise;
+  updateManyTeams: (args: {
+    data: TeamUpdateManyMutationInput;
+    where?: TeamWhereInput;
+  }) => BatchPayloadPromise;
+  upsertTeam: (args: {
+    where: TeamWhereUniqueInput;
+    create: TeamCreateInput;
+    update: TeamUpdateInput;
+  }) => TeamPromise;
+  deleteTeam: (where: TeamWhereUniqueInput) => TeamPromise;
+  deleteManyTeams: (where?: TeamWhereInput) => BatchPayloadPromise;
+  createUser: (data: UserCreateInput) => UserPromise;
+  updateUser: (args: {
+    data: UserUpdateInput;
+    where: UserWhereUniqueInput;
+  }) => UserPromise;
+  updateManyUsers: (args: {
+    data: UserUpdateManyMutationInput;
+    where?: UserWhereInput;
+  }) => BatchPayloadPromise;
+  upsertUser: (args: {
+    where: UserWhereUniqueInput;
+    create: UserCreateInput;
+    update: UserUpdateInput;
+  }) => UserPromise;
+  deleteUser: (where: UserWhereUniqueInput) => UserPromise;
+  deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  createWin: (data: WinCreateInput) => WinPromise;
+  updateWin: (args: {
+    data: WinUpdateInput;
+    where: WinWhereUniqueInput;
+  }) => WinPromise;
+  upsertWin: (args: {
+    where: WinWhereUniqueInput;
+    create: WinCreateInput;
+    update: WinUpdateInput;
+  }) => WinPromise;
+  deleteWin: (where: WinWhereUniqueInput) => WinPromise;
+  deleteManyWins: (where?: WinWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -86,9 +294,27 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  link: (
-    where?: LinkSubscriptionWhereInput
-  ) => LinkSubscriptionPayloadSubscription;
+  game: (
+    where?: GameSubscriptionWhereInput
+  ) => GameSubscriptionPayloadSubscription;
+  league: (
+    where?: LeagueSubscriptionWhereInput
+  ) => LeagueSubscriptionPayloadSubscription;
+  loss: (
+    where?: LossSubscriptionWhereInput
+  ) => LossSubscriptionPayloadSubscription;
+  player: (
+    where?: PlayerSubscriptionWhereInput
+  ) => PlayerSubscriptionPayloadSubscription;
+  team: (
+    where?: TeamSubscriptionWhereInput
+  ) => TeamSubscriptionPayloadSubscription;
+  user: (
+    where?: UserSubscriptionWhereInput
+  ) => UserSubscriptionPayloadSubscription;
+  win: (
+    where?: WinSubscriptionWhereInput
+  ) => WinSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -99,30 +325,123 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type LinkOrderByInput =
+export type LeagueOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
-  | "description_ASC"
-  | "description_DESC"
-  | "url_ASC"
-  | "url_DESC";
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "location_ASC"
+  | "location_DESC";
+
+export type TeamOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "name_ASC"
+  | "name_DESC";
+
+export type WinOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type LossOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type Role = "ADMIN" | "USER";
+
+export type PlayerOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "played_ASC"
+  | "played_DESC"
+  | "goals_ASC"
+  | "goals_DESC"
+  | "assists_ASC"
+  | "assists_DESC"
+  | "saves_ASC"
+  | "saves_DESC";
+
+export type GameOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "score_ASC"
+  | "score_DESC"
+  | "day_ASC"
+  | "day_DESC"
+  | "time_ASC"
+  | "time_DESC"
+  | "videoURL_ASC"
+  | "videoURL_DESC";
+
+export type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "role_ASC"
+  | "role_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface LinkCreateInput {
-  id?: ID_Input;
-  description: String;
-  url: String;
+export interface WinUpdateManyWithoutTeamInput {
+  create?: WinCreateWithoutTeamInput[] | WinCreateWithoutTeamInput;
+  delete?: WinWhereUniqueInput[] | WinWhereUniqueInput;
+  connect?: WinWhereUniqueInput[] | WinWhereUniqueInput;
+  set?: WinWhereUniqueInput[] | WinWhereUniqueInput;
+  disconnect?: WinWhereUniqueInput[] | WinWhereUniqueInput;
+  update?:
+    | WinUpdateWithWhereUniqueWithoutTeamInput[]
+    | WinUpdateWithWhereUniqueWithoutTeamInput;
+  upsert?:
+    | WinUpsertWithWhereUniqueWithoutTeamInput[]
+    | WinUpsertWithWhereUniqueWithoutTeamInput;
+  deleteMany?: WinScalarWhereInput[] | WinScalarWhereInput;
 }
 
-export interface LinkUpdateInput {
-  description?: String;
-  url?: String;
+export type GameWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TeamUpdateWithWhereUniqueWithoutPostedByInput {
+  where: TeamWhereUniqueInput;
+  data: TeamUpdateWithoutPostedByDataInput;
 }
 
-export interface LinkWhereInput {
+export interface GameWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -145,78 +464,1870 @@ export interface LinkWhereInput {
   createdAt_lte?: DateTimeInput;
   createdAt_gt?: DateTimeInput;
   createdAt_gte?: DateTimeInput;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  AND?: LinkWhereInput[] | LinkWhereInput;
-  OR?: LinkWhereInput[] | LinkWhereInput;
-  NOT?: LinkWhereInput[] | LinkWhereInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  postedBy?: UserWhereInput;
+  homeTeam?: TeamWhereInput;
+  awayTeam?: TeamWhereInput;
+  score?: String;
+  score_not?: String;
+  score_in?: String[] | String;
+  score_not_in?: String[] | String;
+  score_lt?: String;
+  score_lte?: String;
+  score_gt?: String;
+  score_gte?: String;
+  score_contains?: String;
+  score_not_contains?: String;
+  score_starts_with?: String;
+  score_not_starts_with?: String;
+  score_ends_with?: String;
+  score_not_ends_with?: String;
+  day?: String;
+  day_not?: String;
+  day_in?: String[] | String;
+  day_not_in?: String[] | String;
+  day_lt?: String;
+  day_lte?: String;
+  day_gt?: String;
+  day_gte?: String;
+  day_contains?: String;
+  day_not_contains?: String;
+  day_starts_with?: String;
+  day_not_starts_with?: String;
+  day_ends_with?: String;
+  day_not_ends_with?: String;
+  time?: String;
+  time_not?: String;
+  time_in?: String[] | String;
+  time_not_in?: String[] | String;
+  time_lt?: String;
+  time_lte?: String;
+  time_gt?: String;
+  time_gte?: String;
+  time_contains?: String;
+  time_not_contains?: String;
+  time_starts_with?: String;
+  time_not_starts_with?: String;
+  time_ends_with?: String;
+  time_not_ends_with?: String;
+  videoURL?: String;
+  videoURL_not?: String;
+  videoURL_in?: String[] | String;
+  videoURL_not_in?: String[] | String;
+  videoURL_lt?: String;
+  videoURL_lte?: String;
+  videoURL_gt?: String;
+  videoURL_gte?: String;
+  videoURL_contains?: String;
+  videoURL_not_contains?: String;
+  videoURL_starts_with?: String;
+  videoURL_not_starts_with?: String;
+  videoURL_ends_with?: String;
+  videoURL_not_ends_with?: String;
+  AND?: GameWhereInput[] | GameWhereInput;
+  OR?: GameWhereInput[] | GameWhereInput;
+  NOT?: GameWhereInput[] | GameWhereInput;
 }
 
-export interface LinkUpdateManyMutationInput {
-  description?: String;
-  url?: String;
+export interface TeamUpdateWithoutPostedByDataInput {
+  name?: String;
+  wins?: WinUpdateManyWithoutTeamInput;
+  losses?: LossUpdateManyWithoutTeamInput;
+  league?: LeagueUpdateOneRequiredWithoutTeamsInput;
 }
 
-export interface LinkSubscriptionWhereInput {
+export interface PlayerWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  postedBy?: UserWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  played?: Int;
+  played_not?: Int;
+  played_in?: Int[] | Int;
+  played_not_in?: Int[] | Int;
+  played_lt?: Int;
+  played_lte?: Int;
+  played_gt?: Int;
+  played_gte?: Int;
+  goals?: Int;
+  goals_not?: Int;
+  goals_in?: Int[] | Int;
+  goals_not_in?: Int[] | Int;
+  goals_lt?: Int;
+  goals_lte?: Int;
+  goals_gt?: Int;
+  goals_gte?: Int;
+  assists?: Int;
+  assists_not?: Int;
+  assists_in?: Int[] | Int;
+  assists_not_in?: Int[] | Int;
+  assists_lt?: Int;
+  assists_lte?: Int;
+  assists_gt?: Int;
+  assists_gte?: Int;
+  saves?: Int;
+  saves_not?: Int;
+  saves_in?: Int[] | Int;
+  saves_not_in?: Int[] | Int;
+  saves_lt?: Int;
+  saves_lte?: Int;
+  saves_gt?: Int;
+  saves_gte?: Int;
+  team?: TeamWhereInput;
+  AND?: PlayerWhereInput[] | PlayerWhereInput;
+  OR?: PlayerWhereInput[] | PlayerWhereInput;
+  NOT?: PlayerWhereInput[] | PlayerWhereInput;
+}
+
+export interface LossUpdateManyWithoutTeamInput {
+  create?: LossCreateWithoutTeamInput[] | LossCreateWithoutTeamInput;
+  delete?: LossWhereUniqueInput[] | LossWhereUniqueInput;
+  connect?: LossWhereUniqueInput[] | LossWhereUniqueInput;
+  set?: LossWhereUniqueInput[] | LossWhereUniqueInput;
+  disconnect?: LossWhereUniqueInput[] | LossWhereUniqueInput;
+  update?:
+    | LossUpdateWithWhereUniqueWithoutTeamInput[]
+    | LossUpdateWithWhereUniqueWithoutTeamInput;
+  upsert?:
+    | LossUpsertWithWhereUniqueWithoutTeamInput[]
+    | LossUpsertWithWhereUniqueWithoutTeamInput;
+  deleteMany?: LossScalarWhereInput[] | LossScalarWhereInput;
+}
+
+export interface WinWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  postedBy?: UserWhereInput;
+  team?: TeamWhereInput;
+  game?: GameWhereInput;
+  AND?: WinWhereInput[] | WinWhereInput;
+  OR?: WinWhereInput[] | WinWhereInput;
+  NOT?: WinWhereInput[] | WinWhereInput;
+}
+
+export interface LossUpdateWithWhereUniqueWithoutTeamInput {
+  where: LossWhereUniqueInput;
+  data: LossUpdateWithoutTeamDataInput;
+}
+
+export interface TeamWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  postedBy?: UserWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  wins_every?: WinWhereInput;
+  wins_some?: WinWhereInput;
+  wins_none?: WinWhereInput;
+  losses_every?: LossWhereInput;
+  losses_some?: LossWhereInput;
+  losses_none?: LossWhereInput;
+  league?: LeagueWhereInput;
+  AND?: TeamWhereInput[] | TeamWhereInput;
+  OR?: TeamWhereInput[] | TeamWhereInput;
+  NOT?: TeamWhereInput[] | TeamWhereInput;
+}
+
+export interface LossUpdateWithoutTeamDataInput {
+  postedBy?: UserUpdateOneRequiredInput;
+  game?: GameUpdateOneRequiredInput;
+}
+
+export interface UserWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  role?: Role;
+  role_not?: Role;
+  role_in?: Role[] | Role;
+  role_not_in?: Role[] | Role;
+  leagues_every?: LeagueWhereInput;
+  leagues_some?: LeagueWhereInput;
+  leagues_none?: LeagueWhereInput;
+  teams_every?: TeamWhereInput;
+  teams_some?: TeamWhereInput;
+  teams_none?: TeamWhereInput;
+  players_every?: PlayerWhereInput;
+  players_some?: PlayerWhereInput;
+  players_none?: PlayerWhereInput;
+  games_every?: GameWhereInput;
+  games_some?: GameWhereInput;
+  games_none?: GameWhereInput;
+  AND?: UserWhereInput[] | UserWhereInput;
+  OR?: UserWhereInput[] | UserWhereInput;
+  NOT?: UserWhereInput[] | UserWhereInput;
+}
+
+export interface GameUpdateOneRequiredInput {
+  create?: GameCreateInput;
+  update?: GameUpdateDataInput;
+  upsert?: GameUpsertNestedInput;
+  connect?: GameWhereUniqueInput;
+}
+
+export interface LeagueWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  postedBy?: UserWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  teams_every?: TeamWhereInput;
+  teams_some?: TeamWhereInput;
+  teams_none?: TeamWhereInput;
+  location?: String;
+  location_not?: String;
+  location_in?: String[] | String;
+  location_not_in?: String[] | String;
+  location_lt?: String;
+  location_lte?: String;
+  location_gt?: String;
+  location_gte?: String;
+  location_contains?: String;
+  location_not_contains?: String;
+  location_starts_with?: String;
+  location_not_starts_with?: String;
+  location_ends_with?: String;
+  location_not_ends_with?: String;
+  AND?: LeagueWhereInput[] | LeagueWhereInput;
+  OR?: LeagueWhereInput[] | LeagueWhereInput;
+  NOT?: LeagueWhereInput[] | LeagueWhereInput;
+}
+
+export interface LeagueUpdateWithWhereUniqueWithoutPostedByInput {
+  where: LeagueWhereUniqueInput;
+  data: LeagueUpdateWithoutPostedByDataInput;
+}
+
+export interface LeagueUpdateInput {
+  postedBy?: UserUpdateOneRequiredWithoutLeaguesInput;
+  name?: String;
+  teams?: TeamUpdateManyWithoutLeagueInput;
+  location?: String;
+}
+
+export interface LeagueUpdateWithoutPostedByDataInput {
+  name?: String;
+  teams?: TeamUpdateManyWithoutLeagueInput;
+  location?: String;
+}
+
+export interface GameUpdateDataInput {
+  postedBy?: UserUpdateOneRequiredWithoutGamesInput;
+  homeTeam?: TeamUpdateOneRequiredInput;
+  awayTeam?: TeamUpdateOneRequiredInput;
+  score?: String;
+  day?: String;
+  time?: String;
+  videoURL?: String;
+}
+
+export interface TeamUpdateManyWithoutLeagueInput {
+  create?: TeamCreateWithoutLeagueInput[] | TeamCreateWithoutLeagueInput;
+  delete?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  connect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  set?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  disconnect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  update?:
+    | TeamUpdateWithWhereUniqueWithoutLeagueInput[]
+    | TeamUpdateWithWhereUniqueWithoutLeagueInput;
+  upsert?:
+    | TeamUpsertWithWhereUniqueWithoutLeagueInput[]
+    | TeamUpsertWithWhereUniqueWithoutLeagueInput;
+  deleteMany?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  updateMany?:
+    | TeamUpdateManyWithWhereNestedInput[]
+    | TeamUpdateManyWithWhereNestedInput;
+}
+
+export interface UserSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: LinkWhereInput;
-  AND?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-  OR?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-  NOT?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
-export type LinkWhereUniqueInput = AtLeastOne<{
+export interface TeamUpdateWithWhereUniqueWithoutLeagueInput {
+  where: TeamWhereUniqueInput;
+  data: TeamUpdateWithoutLeagueDataInput;
+}
+
+export interface PlayerSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: PlayerWhereInput;
+  AND?: PlayerSubscriptionWhereInput[] | PlayerSubscriptionWhereInput;
+  OR?: PlayerSubscriptionWhereInput[] | PlayerSubscriptionWhereInput;
+  NOT?: PlayerSubscriptionWhereInput[] | PlayerSubscriptionWhereInput;
+}
+
+export interface TeamUpdateWithoutLeagueDataInput {
+  postedBy?: UserUpdateOneRequiredWithoutTeamsInput;
+  name?: String;
+  wins?: WinUpdateManyWithoutTeamInput;
+  losses?: LossUpdateManyWithoutTeamInput;
+}
+
+export interface LeagueSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: LeagueWhereInput;
+  AND?: LeagueSubscriptionWhereInput[] | LeagueSubscriptionWhereInput;
+  OR?: LeagueSubscriptionWhereInput[] | LeagueSubscriptionWhereInput;
+  NOT?: LeagueSubscriptionWhereInput[] | LeagueSubscriptionWhereInput;
+}
+
+export interface UserUpdateOneRequiredWithoutTeamsInput {
+  create?: UserCreateWithoutTeamsInput;
+  update?: UserUpdateWithoutTeamsDataInput;
+  upsert?: UserUpsertWithoutTeamsInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface GameSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: GameWhereInput;
+  AND?: GameSubscriptionWhereInput[] | GameSubscriptionWhereInput;
+  OR?: GameSubscriptionWhereInput[] | GameSubscriptionWhereInput;
+  NOT?: GameSubscriptionWhereInput[] | GameSubscriptionWhereInput;
+}
+
+export interface UserUpdateWithoutTeamsDataInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+  leagues?: LeagueUpdateManyWithoutPostedByInput;
+  players?: PlayerUpdateManyWithoutPostedByInput;
+  games?: GameUpdateManyWithoutPostedByInput;
+}
+
+export interface TeamUpdateWithoutWinsDataInput {
+  postedBy?: UserUpdateOneRequiredWithoutTeamsInput;
+  name?: String;
+  losses?: LossUpdateManyWithoutTeamInput;
+  league?: LeagueUpdateOneRequiredWithoutTeamsInput;
+}
+
+export interface PlayerUpdateManyWithoutPostedByInput {
+  create?:
+    | PlayerCreateWithoutPostedByInput[]
+    | PlayerCreateWithoutPostedByInput;
+  delete?: PlayerWhereUniqueInput[] | PlayerWhereUniqueInput;
+  connect?: PlayerWhereUniqueInput[] | PlayerWhereUniqueInput;
+  set?: PlayerWhereUniqueInput[] | PlayerWhereUniqueInput;
+  disconnect?: PlayerWhereUniqueInput[] | PlayerWhereUniqueInput;
+  update?:
+    | PlayerUpdateWithWhereUniqueWithoutPostedByInput[]
+    | PlayerUpdateWithWhereUniqueWithoutPostedByInput;
+  upsert?:
+    | PlayerUpsertWithWhereUniqueWithoutPostedByInput[]
+    | PlayerUpsertWithWhereUniqueWithoutPostedByInput;
+  deleteMany?: PlayerScalarWhereInput[] | PlayerScalarWhereInput;
+  updateMany?:
+    | PlayerUpdateManyWithWhereNestedInput[]
+    | PlayerUpdateManyWithWhereNestedInput;
+}
+
+export interface TeamUpdateOneRequiredWithoutWinsInput {
+  create?: TeamCreateWithoutWinsInput;
+  update?: TeamUpdateWithoutWinsDataInput;
+  upsert?: TeamUpsertWithoutWinsInput;
+  connect?: TeamWhereUniqueInput;
+}
+
+export interface PlayerUpdateWithWhereUniqueWithoutPostedByInput {
+  where: PlayerWhereUniqueInput;
+  data: PlayerUpdateWithoutPostedByDataInput;
+}
+
+export interface TeamCreateWithoutWinsInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutTeamsInput;
+  name: String;
+  losses?: LossCreateManyWithoutTeamInput;
+  league: LeagueCreateOneWithoutTeamsInput;
+}
+
+export interface PlayerUpdateWithoutPostedByDataInput {
+  name?: String;
+  played?: Int;
+  goals?: Int;
+  assists?: Int;
+  saves?: Int;
+  team?: TeamUpdateOneRequiredInput;
+}
+
+export interface TeamCreateOneWithoutWinsInput {
+  create?: TeamCreateWithoutWinsInput;
+  connect?: TeamWhereUniqueInput;
+}
+
+export interface TeamUpdateOneRequiredInput {
+  create?: TeamCreateInput;
+  update?: TeamUpdateDataInput;
+  upsert?: TeamUpsertNestedInput;
+  connect?: TeamWhereUniqueInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+}
+
+export interface TeamUpdateDataInput {
+  postedBy?: UserUpdateOneRequiredWithoutTeamsInput;
+  name?: String;
+  wins?: WinUpdateManyWithoutTeamInput;
+  losses?: LossUpdateManyWithoutTeamInput;
+  league?: LeagueUpdateOneRequiredWithoutTeamsInput;
+}
+
+export interface UserUpdateInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+  leagues?: LeagueUpdateManyWithoutPostedByInput;
+  teams?: TeamUpdateManyWithoutPostedByInput;
+  players?: PlayerUpdateManyWithoutPostedByInput;
+  games?: GameUpdateManyWithoutPostedByInput;
+}
+
+export interface PlayerCreateInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutPlayersInput;
+  name: String;
+  played?: Int;
+  goals?: Int;
+  assists?: Int;
+  saves?: Int;
+  team: TeamCreateOneInput;
+}
+
+export interface TeamUpdateInput {
+  postedBy?: UserUpdateOneRequiredWithoutTeamsInput;
+  name?: String;
+  wins?: WinUpdateManyWithoutTeamInput;
+  losses?: LossUpdateManyWithoutTeamInput;
+  league?: LeagueUpdateOneRequiredWithoutTeamsInput;
+}
+
+export interface WinUpdateWithWhereUniqueWithoutTeamInput {
+  where: WinWhereUniqueInput;
+  data: WinUpdateWithoutTeamDataInput;
+}
+
+export interface PlayerUpdateManyMutationInput {
+  name?: String;
+  played?: Int;
+  goals?: Int;
+  assists?: Int;
+  saves?: Int;
+}
+
+export interface WinUpdateWithoutTeamDataInput {
+  postedBy?: UserUpdateOneRequiredInput;
+  game?: GameUpdateOneRequiredInput;
+}
+
+export interface UserUpdateWithoutPlayersDataInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+  leagues?: LeagueUpdateManyWithoutPostedByInput;
+  teams?: TeamUpdateManyWithoutPostedByInput;
+  games?: GameUpdateManyWithoutPostedByInput;
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput;
+  update?: UserUpdateDataInput;
+  upsert?: UserUpsertNestedInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export type WinWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
+
+export interface UserUpdateDataInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+  leagues?: LeagueUpdateManyWithoutPostedByInput;
+  teams?: TeamUpdateManyWithoutPostedByInput;
+  players?: PlayerUpdateManyWithoutPostedByInput;
+  games?: GameUpdateManyWithoutPostedByInput;
+}
+
+export interface UserCreateWithoutPlayersInput {
+  id?: ID_Input;
+  name: String;
+  password: String;
+  email: String;
+  role?: Role;
+  leagues?: LeagueCreateManyWithoutPostedByInput;
+  teams?: TeamCreateManyWithoutPostedByInput;
+  games?: GameCreateManyWithoutPostedByInput;
+}
+
+export interface TeamUpdateManyWithoutPostedByInput {
+  create?: TeamCreateWithoutPostedByInput[] | TeamCreateWithoutPostedByInput;
+  delete?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  connect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  set?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  disconnect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  update?:
+    | TeamUpdateWithWhereUniqueWithoutPostedByInput[]
+    | TeamUpdateWithWhereUniqueWithoutPostedByInput;
+  upsert?:
+    | TeamUpsertWithWhereUniqueWithoutPostedByInput[]
+    | TeamUpsertWithWhereUniqueWithoutPostedByInput;
+  deleteMany?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  updateMany?:
+    | TeamUpdateManyWithWhereNestedInput[]
+    | TeamUpdateManyWithWhereNestedInput;
+}
+
+export interface UserCreateOneWithoutGamesInput {
+  create?: UserCreateWithoutGamesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface LossWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  postedBy?: UserWhereInput;
+  team?: TeamWhereInput;
+  game?: GameWhereInput;
+  AND?: LossWhereInput[] | LossWhereInput;
+  OR?: LossWhereInput[] | LossWhereInput;
+  NOT?: LossWhereInput[] | LossWhereInput;
+}
+
+export interface LeagueCreateManyWithoutPostedByInput {
+  create?:
+    | LeagueCreateWithoutPostedByInput[]
+    | LeagueCreateWithoutPostedByInput;
+  connect?: LeagueWhereUniqueInput[] | LeagueWhereUniqueInput;
+}
+
+export interface TeamUpsertWithoutLossesInput {
+  update: TeamUpdateWithoutLossesDataInput;
+  create: TeamCreateWithoutLossesInput;
+}
+
+export interface TeamCreateManyWithoutLeagueInput {
+  create?: TeamCreateWithoutLeagueInput[] | TeamCreateWithoutLeagueInput;
+  connect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+}
+
+export interface TeamUpdateWithoutLossesDataInput {
+  postedBy?: UserUpdateOneRequiredWithoutTeamsInput;
+  name?: String;
+  wins?: WinUpdateManyWithoutTeamInput;
+  league?: LeagueUpdateOneRequiredWithoutTeamsInput;
+}
+
+export interface UserCreateOneWithoutTeamsInput {
+  create?: UserCreateWithoutTeamsInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface TeamUpdateOneRequiredWithoutLossesInput {
+  create?: TeamCreateWithoutLossesInput;
+  update?: TeamUpdateWithoutLossesDataInput;
+  upsert?: TeamUpsertWithoutLossesInput;
+  connect?: TeamWhereUniqueInput;
+}
+
+export interface PlayerCreateManyWithoutPostedByInput {
+  create?:
+    | PlayerCreateWithoutPostedByInput[]
+    | PlayerCreateWithoutPostedByInput;
+  connect?: PlayerWhereUniqueInput[] | PlayerWhereUniqueInput;
+}
+
+export interface LossUpdateInput {
+  postedBy?: UserUpdateOneRequiredInput;
+  team?: TeamUpdateOneRequiredWithoutLossesInput;
+  game?: GameUpdateOneRequiredInput;
+}
+
+export interface TeamCreateOneInput {
+  create?: TeamCreateInput;
+  connect?: TeamWhereUniqueInput;
+}
+
+export interface TeamCreateWithoutLossesInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutTeamsInput;
+  name: String;
+  wins?: WinCreateManyWithoutTeamInput;
+  league: LeagueCreateOneWithoutTeamsInput;
+}
+
+export interface WinCreateManyWithoutTeamInput {
+  create?: WinCreateWithoutTeamInput[] | WinCreateWithoutTeamInput;
+  connect?: WinWhereUniqueInput[] | WinWhereUniqueInput;
+}
+
+export interface TeamCreateOneWithoutLossesInput {
+  create?: TeamCreateWithoutLossesInput;
+  connect?: TeamWhereUniqueInput;
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface GameUpsertNestedInput {
+  update: GameUpdateDataInput;
+  create: GameCreateInput;
+}
+
+export interface TeamCreateManyWithoutPostedByInput {
+  create?: TeamCreateWithoutPostedByInput[] | TeamCreateWithoutPostedByInput;
+  connect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+}
+
+export interface LossUpsertWithWhereUniqueWithoutTeamInput {
+  where: LossWhereUniqueInput;
+  update: LossUpdateWithoutTeamDataInput;
+  create: LossCreateWithoutTeamInput;
+}
+
+export interface LossCreateManyWithoutTeamInput {
+  create?: LossCreateWithoutTeamInput[] | LossCreateWithoutTeamInput;
+  connect?: LossWhereUniqueInput[] | LossWhereUniqueInput;
+}
+
+export interface LossScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: LossScalarWhereInput[] | LossScalarWhereInput;
+  OR?: LossScalarWhereInput[] | LossScalarWhereInput;
+  NOT?: LossScalarWhereInput[] | LossScalarWhereInput;
+}
+
+export interface GameCreateOneInput {
+  create?: GameCreateInput;
+  connect?: GameWhereUniqueInput;
+}
+
+export interface LeagueUpdateOneRequiredWithoutTeamsInput {
+  create?: LeagueCreateWithoutTeamsInput;
+  update?: LeagueUpdateWithoutTeamsDataInput;
+  upsert?: LeagueUpsertWithoutTeamsInput;
+  connect?: LeagueWhereUniqueInput;
+}
+
+export interface LeagueCreateWithoutTeamsInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutLeaguesInput;
+  name: String;
+  location: String;
+}
+
+export interface LeagueUpdateWithoutTeamsDataInput {
+  postedBy?: UserUpdateOneRequiredWithoutLeaguesInput;
+  name?: String;
+  location?: String;
+}
+
+export interface UserCreateWithoutLeaguesInput {
+  id?: ID_Input;
+  name: String;
+  password: String;
+  email: String;
+  role?: Role;
+  teams?: TeamCreateManyWithoutPostedByInput;
+  players?: PlayerCreateManyWithoutPostedByInput;
+  games?: GameCreateManyWithoutPostedByInput;
+}
+
+export interface UserUpdateOneRequiredWithoutLeaguesInput {
+  create?: UserCreateWithoutLeaguesInput;
+  update?: UserUpdateWithoutLeaguesDataInput;
+  upsert?: UserUpsertWithoutLeaguesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface GameCreateWithoutPostedByInput {
+  id?: ID_Input;
+  homeTeam: TeamCreateOneInput;
+  awayTeam: TeamCreateOneInput;
+  score?: String;
+  day: String;
+  time?: String;
+  videoURL: String;
+}
+
+export interface UserUpdateWithoutLeaguesDataInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+  teams?: TeamUpdateManyWithoutPostedByInput;
+  players?: PlayerUpdateManyWithoutPostedByInput;
+  games?: GameUpdateManyWithoutPostedByInput;
+}
+
+export interface UserUpdateOneRequiredWithoutGamesInput {
+  create?: UserCreateWithoutGamesInput;
+  update?: UserUpdateWithoutGamesDataInput;
+  upsert?: UserUpsertWithoutGamesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface GameUpdateManyWithoutPostedByInput {
+  create?: GameCreateWithoutPostedByInput[] | GameCreateWithoutPostedByInput;
+  delete?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  connect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  set?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  disconnect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  update?:
+    | GameUpdateWithWhereUniqueWithoutPostedByInput[]
+    | GameUpdateWithWhereUniqueWithoutPostedByInput;
+  upsert?:
+    | GameUpsertWithWhereUniqueWithoutPostedByInput[]
+    | GameUpsertWithWhereUniqueWithoutPostedByInput;
+  deleteMany?: GameScalarWhereInput[] | GameScalarWhereInput;
+  updateMany?:
+    | GameUpdateManyWithWhereNestedInput[]
+    | GameUpdateManyWithWhereNestedInput;
+}
+
+export interface LeagueUpdateManyWithoutPostedByInput {
+  create?:
+    | LeagueCreateWithoutPostedByInput[]
+    | LeagueCreateWithoutPostedByInput;
+  delete?: LeagueWhereUniqueInput[] | LeagueWhereUniqueInput;
+  connect?: LeagueWhereUniqueInput[] | LeagueWhereUniqueInput;
+  set?: LeagueWhereUniqueInput[] | LeagueWhereUniqueInput;
+  disconnect?: LeagueWhereUniqueInput[] | LeagueWhereUniqueInput;
+  update?:
+    | LeagueUpdateWithWhereUniqueWithoutPostedByInput[]
+    | LeagueUpdateWithWhereUniqueWithoutPostedByInput;
+  upsert?:
+    | LeagueUpsertWithWhereUniqueWithoutPostedByInput[]
+    | LeagueUpsertWithWhereUniqueWithoutPostedByInput;
+  deleteMany?: LeagueScalarWhereInput[] | LeagueScalarWhereInput;
+  updateMany?:
+    | LeagueUpdateManyWithWhereNestedInput[]
+    | LeagueUpdateManyWithWhereNestedInput;
+}
+
+export interface GameUpdateWithWhereUniqueWithoutPostedByInput {
+  where: GameWhereUniqueInput;
+  data: GameUpdateWithoutPostedByDataInput;
+}
+
+export interface TeamSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TeamWhereInput;
+  AND?: TeamSubscriptionWhereInput[] | TeamSubscriptionWhereInput;
+  OR?: TeamSubscriptionWhereInput[] | TeamSubscriptionWhereInput;
+  NOT?: TeamSubscriptionWhereInput[] | TeamSubscriptionWhereInput;
+}
+
+export interface GameUpdateWithoutPostedByDataInput {
+  homeTeam?: TeamUpdateOneRequiredInput;
+  awayTeam?: TeamUpdateOneRequiredInput;
+  score?: String;
+  day?: String;
+  time?: String;
+  videoURL?: String;
+}
+
+export type LeagueWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface GameUpsertWithWhereUniqueWithoutPostedByInput {
+  where: GameWhereUniqueInput;
+  update: GameUpdateWithoutPostedByDataInput;
+  create: GameCreateWithoutPostedByInput;
+}
+
+export type LossWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface GameScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  score?: String;
+  score_not?: String;
+  score_in?: String[] | String;
+  score_not_in?: String[] | String;
+  score_lt?: String;
+  score_lte?: String;
+  score_gt?: String;
+  score_gte?: String;
+  score_contains?: String;
+  score_not_contains?: String;
+  score_starts_with?: String;
+  score_not_starts_with?: String;
+  score_ends_with?: String;
+  score_not_ends_with?: String;
+  day?: String;
+  day_not?: String;
+  day_in?: String[] | String;
+  day_not_in?: String[] | String;
+  day_lt?: String;
+  day_lte?: String;
+  day_gt?: String;
+  day_gte?: String;
+  day_contains?: String;
+  day_not_contains?: String;
+  day_starts_with?: String;
+  day_not_starts_with?: String;
+  day_ends_with?: String;
+  day_not_ends_with?: String;
+  time?: String;
+  time_not?: String;
+  time_in?: String[] | String;
+  time_not_in?: String[] | String;
+  time_lt?: String;
+  time_lte?: String;
+  time_gt?: String;
+  time_gte?: String;
+  time_contains?: String;
+  time_not_contains?: String;
+  time_starts_with?: String;
+  time_not_starts_with?: String;
+  time_ends_with?: String;
+  time_not_ends_with?: String;
+  videoURL?: String;
+  videoURL_not?: String;
+  videoURL_in?: String[] | String;
+  videoURL_not_in?: String[] | String;
+  videoURL_lt?: String;
+  videoURL_lte?: String;
+  videoURL_gt?: String;
+  videoURL_gte?: String;
+  videoURL_contains?: String;
+  videoURL_not_contains?: String;
+  videoURL_starts_with?: String;
+  videoURL_not_starts_with?: String;
+  videoURL_ends_with?: String;
+  videoURL_not_ends_with?: String;
+  AND?: GameScalarWhereInput[] | GameScalarWhereInput;
+  OR?: GameScalarWhereInput[] | GameScalarWhereInput;
+  NOT?: GameScalarWhereInput[] | GameScalarWhereInput;
+}
+
+export type PlayerWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface GameUpdateManyWithWhereNestedInput {
+  where: GameScalarWhereInput;
+  data: GameUpdateManyDataInput;
+}
+
+export type TeamWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface GameUpdateManyDataInput {
+  score?: String;
+  day?: String;
+  time?: String;
+  videoURL?: String;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+}>;
+
+export interface UserUpsertWithoutLeaguesInput {
+  update: UserUpdateWithoutLeaguesDataInput;
+  create: UserCreateWithoutLeaguesInput;
+}
+
+export interface UserUpdateOneRequiredWithoutPlayersInput {
+  create?: UserCreateWithoutPlayersInput;
+  update?: UserUpdateWithoutPlayersDataInput;
+  upsert?: UserUpsertWithoutPlayersInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface LeagueUpsertWithoutTeamsInput {
+  update: LeagueUpdateWithoutTeamsDataInput;
+  create: LeagueCreateWithoutTeamsInput;
+}
+
+export interface UserCreateOneWithoutPlayersInput {
+  create?: UserCreateWithoutPlayersInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface TeamUpsertWithWhereUniqueWithoutPostedByInput {
+  where: TeamWhereUniqueInput;
+  update: TeamUpdateWithoutPostedByDataInput;
+  create: TeamCreateWithoutPostedByInput;
+}
+
+export interface UserCreateWithoutGamesInput {
+  id?: ID_Input;
+  name: String;
+  password: String;
+  email: String;
+  role?: Role;
+  leagues?: LeagueCreateManyWithoutPostedByInput;
+  teams?: TeamCreateManyWithoutPostedByInput;
+  players?: PlayerCreateManyWithoutPostedByInput;
+}
+
+export interface TeamScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  OR?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  NOT?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+}
+
+export interface TeamCreateWithoutLeagueInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutTeamsInput;
+  name: String;
+  wins?: WinCreateManyWithoutTeamInput;
+  losses?: LossCreateManyWithoutTeamInput;
+}
+
+export interface TeamUpdateManyWithWhereNestedInput {
+  where: TeamScalarWhereInput;
+  data: TeamUpdateManyDataInput;
+}
+
+export interface PlayerCreateWithoutPostedByInput {
+  id?: ID_Input;
+  name: String;
+  played?: Int;
+  goals?: Int;
+  assists?: Int;
+  saves?: Int;
+  team: TeamCreateOneInput;
+}
+
+export interface TeamUpdateManyDataInput {
+  name?: String;
+}
+
+export interface WinCreateWithoutTeamInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneInput;
+  game: GameCreateOneInput;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface TeamCreateWithoutPostedByInput {
+  id?: ID_Input;
+  name: String;
+  wins?: WinCreateManyWithoutTeamInput;
+  losses?: LossCreateManyWithoutTeamInput;
+  league: LeagueCreateOneWithoutTeamsInput;
+}
+
+export interface WinUpsertWithWhereUniqueWithoutTeamInput {
+  where: WinWhereUniqueInput;
+  update: WinUpdateWithoutTeamDataInput;
+  create: WinCreateWithoutTeamInput;
+}
+
+export interface LeagueCreateOneWithoutTeamsInput {
+  create?: LeagueCreateWithoutTeamsInput;
+  connect?: LeagueWhereUniqueInput;
+}
+
+export interface WinScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: WinScalarWhereInput[] | WinScalarWhereInput;
+  OR?: WinScalarWhereInput[] | WinScalarWhereInput;
+  NOT?: WinScalarWhereInput[] | WinScalarWhereInput;
+}
+
+export interface GameCreateManyWithoutPostedByInput {
+  create?: GameCreateWithoutPostedByInput[] | GameCreateWithoutPostedByInput;
+  connect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+}
+
+export interface TeamUpsertNestedInput {
+  update: TeamUpdateDataInput;
+  create: TeamCreateInput;
+}
+
+export interface UserUpdateWithoutGamesDataInput {
+  name?: String;
+  password?: String;
+  email?: String;
+  role?: Role;
+  leagues?: LeagueUpdateManyWithoutPostedByInput;
+  teams?: TeamUpdateManyWithoutPostedByInput;
+  players?: PlayerUpdateManyWithoutPostedByInput;
+}
+
+export interface PlayerUpsertWithWhereUniqueWithoutPostedByInput {
+  where: PlayerWhereUniqueInput;
+  update: PlayerUpdateWithoutPostedByDataInput;
+  create: PlayerCreateWithoutPostedByInput;
+}
+
+export interface LossSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: LossWhereInput;
+  AND?: LossSubscriptionWhereInput[] | LossSubscriptionWhereInput;
+  OR?: LossSubscriptionWhereInput[] | LossSubscriptionWhereInput;
+  NOT?: LossSubscriptionWhereInput[] | LossSubscriptionWhereInput;
+}
+
+export interface PlayerScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  played?: Int;
+  played_not?: Int;
+  played_in?: Int[] | Int;
+  played_not_in?: Int[] | Int;
+  played_lt?: Int;
+  played_lte?: Int;
+  played_gt?: Int;
+  played_gte?: Int;
+  goals?: Int;
+  goals_not?: Int;
+  goals_in?: Int[] | Int;
+  goals_not_in?: Int[] | Int;
+  goals_lt?: Int;
+  goals_lte?: Int;
+  goals_gt?: Int;
+  goals_gte?: Int;
+  assists?: Int;
+  assists_not?: Int;
+  assists_in?: Int[] | Int;
+  assists_not_in?: Int[] | Int;
+  assists_lt?: Int;
+  assists_lte?: Int;
+  assists_gt?: Int;
+  assists_gte?: Int;
+  saves?: Int;
+  saves_not?: Int;
+  saves_in?: Int[] | Int;
+  saves_not_in?: Int[] | Int;
+  saves_lt?: Int;
+  saves_lte?: Int;
+  saves_gt?: Int;
+  saves_gte?: Int;
+  AND?: PlayerScalarWhereInput[] | PlayerScalarWhereInput;
+  OR?: PlayerScalarWhereInput[] | PlayerScalarWhereInput;
+  NOT?: PlayerScalarWhereInput[] | PlayerScalarWhereInput;
+}
+
+export interface WinUpdateInput {
+  postedBy?: UserUpdateOneRequiredInput;
+  team?: TeamUpdateOneRequiredWithoutWinsInput;
+  game?: GameUpdateOneRequiredInput;
+}
+
+export interface PlayerUpdateManyWithWhereNestedInput {
+  where: PlayerScalarWhereInput;
+  data: PlayerUpdateManyDataInput;
+}
+
+export interface TeamUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface PlayerUpdateManyDataInput {
+  name?: String;
+  played?: Int;
+  goals?: Int;
+  assists?: Int;
+  saves?: Int;
+}
+
+export interface PlayerUpdateInput {
+  postedBy?: UserUpdateOneRequiredWithoutPlayersInput;
+  name?: String;
+  played?: Int;
+  goals?: Int;
+  assists?: Int;
+  saves?: Int;
+  team?: TeamUpdateOneRequiredInput;
+}
+
+export interface UserUpsertWithoutTeamsInput {
+  update: UserUpdateWithoutTeamsDataInput;
+  create: UserCreateWithoutTeamsInput;
+}
+
+export interface LeagueCreateWithoutPostedByInput {
+  id?: ID_Input;
+  name: String;
+  teams?: TeamCreateManyWithoutLeagueInput;
+  location: String;
+}
+
+export interface TeamUpsertWithWhereUniqueWithoutLeagueInput {
+  where: TeamWhereUniqueInput;
+  update: TeamUpdateWithoutLeagueDataInput;
+  create: TeamCreateWithoutLeagueInput;
+}
+
+export interface TeamCreateInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutTeamsInput;
+  name: String;
+  wins?: WinCreateManyWithoutTeamInput;
+  losses?: LossCreateManyWithoutTeamInput;
+  league: LeagueCreateOneWithoutTeamsInput;
+}
+
+export interface LeagueUpsertWithWhereUniqueWithoutPostedByInput {
+  where: LeagueWhereUniqueInput;
+  update: LeagueUpdateWithoutPostedByDataInput;
+  create: LeagueCreateWithoutPostedByInput;
+}
+
+export interface LossCreateWithoutTeamInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneInput;
+  game: GameCreateOneInput;
+}
+
+export interface LeagueScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  location?: String;
+  location_not?: String;
+  location_in?: String[] | String;
+  location_not_in?: String[] | String;
+  location_lt?: String;
+  location_lte?: String;
+  location_gt?: String;
+  location_gte?: String;
+  location_contains?: String;
+  location_not_contains?: String;
+  location_starts_with?: String;
+  location_not_starts_with?: String;
+  location_ends_with?: String;
+  location_not_ends_with?: String;
+  AND?: LeagueScalarWhereInput[] | LeagueScalarWhereInput;
+  OR?: LeagueScalarWhereInput[] | LeagueScalarWhereInput;
+  NOT?: LeagueScalarWhereInput[] | LeagueScalarWhereInput;
+}
+
+export interface GameUpdateInput {
+  postedBy?: UserUpdateOneRequiredWithoutGamesInput;
+  homeTeam?: TeamUpdateOneRequiredInput;
+  awayTeam?: TeamUpdateOneRequiredInput;
+  score?: String;
+  day?: String;
+  time?: String;
+  videoURL?: String;
+}
+
+export interface LeagueUpdateManyWithWhereNestedInput {
+  where: LeagueScalarWhereInput;
+  data: LeagueUpdateManyDataInput;
+}
+
+export interface TeamUpsertWithoutWinsInput {
+  update: TeamUpdateWithoutWinsDataInput;
+  create: TeamCreateWithoutWinsInput;
+}
+
+export interface LeagueUpdateManyDataInput {
+  name?: String;
+  location?: String;
+}
+
+export interface UserUpsertWithoutPlayersInput {
+  update: UserUpdateWithoutPlayersDataInput;
+  create: UserCreateWithoutPlayersInput;
+}
+
+export interface UserUpsertWithoutGamesInput {
+  update: UserUpdateWithoutGamesDataInput;
+  create: UserCreateWithoutGamesInput;
+}
+
+export interface UserCreateWithoutTeamsInput {
+  id?: ID_Input;
+  name: String;
+  password: String;
+  email: String;
+  role?: Role;
+  leagues?: LeagueCreateManyWithoutPostedByInput;
+  players?: PlayerCreateManyWithoutPostedByInput;
+  games?: GameCreateManyWithoutPostedByInput;
+}
+
+export interface LeagueCreateInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutLeaguesInput;
+  name: String;
+  teams?: TeamCreateManyWithoutLeagueInput;
+  location: String;
+}
+
+export interface LeagueUpdateManyMutationInput {
+  name?: String;
+  location?: String;
+}
+
+export interface LossCreateInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneInput;
+  team: TeamCreateOneWithoutLossesInput;
+  game: GameCreateOneInput;
+}
+
+export interface GameUpdateManyMutationInput {
+  score?: String;
+  day?: String;
+  time?: String;
+  videoURL?: String;
+}
+
+export interface UserCreateInput {
+  id?: ID_Input;
+  name: String;
+  password: String;
+  email: String;
+  role?: Role;
+  leagues?: LeagueCreateManyWithoutPostedByInput;
+  teams?: TeamCreateManyWithoutPostedByInput;
+  players?: PlayerCreateManyWithoutPostedByInput;
+  games?: GameCreateManyWithoutPostedByInput;
+}
+
+export interface GameCreateInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneWithoutGamesInput;
+  homeTeam: TeamCreateOneInput;
+  awayTeam: TeamCreateOneInput;
+  score?: String;
+  day: String;
+  time?: String;
+  videoURL: String;
+}
+
+export interface WinCreateInput {
+  id?: ID_Input;
+  postedBy: UserCreateOneInput;
+  team: TeamCreateOneWithoutWinsInput;
+  game: GameCreateOneInput;
+}
+
+export interface WinSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: WinWhereInput;
+  AND?: WinSubscriptionWhereInput[] | WinSubscriptionWhereInput;
+  OR?: WinSubscriptionWhereInput[] | WinSubscriptionWhereInput;
+  NOT?: WinSubscriptionWhereInput[] | WinSubscriptionWhereInput;
+}
+
+export interface UserCreateOneWithoutLeaguesInput {
+  create?: UserCreateWithoutLeaguesInput;
+  connect?: UserWhereUniqueInput;
+}
 
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface LinkEdge {
-  node: Link;
+export interface WinPreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+}
+
+export interface WinPreviousValuesPromise
+  extends Promise<WinPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface WinPreviousValuesSubscription
+  extends Promise<AsyncIterator<WinPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateLoss {
+  count: Int;
+}
+
+export interface AggregateLossPromise
+  extends Promise<AggregateLoss>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateLossSubscription
+  extends Promise<AsyncIterator<AggregateLoss>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface GameConnection {
+  pageInfo: PageInfo;
+  edges: GameEdge[];
+}
+
+export interface GameConnectionPromise
+  extends Promise<GameConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<GameEdge>>() => T;
+  aggregate: <T = AggregateGamePromise>() => T;
+}
+
+export interface GameConnectionSubscription
+  extends Promise<AsyncIterator<GameConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<GameEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateGameSubscription>() => T;
+}
+
+export interface LossEdge {
+  node: Loss;
   cursor: String;
 }
 
-export interface LinkEdgePromise extends Promise<LinkEdge>, Fragmentable {
-  node: <T = LinkPromise>() => T;
+export interface LossEdgePromise extends Promise<LossEdge>, Fragmentable {
+  node: <T = LossPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface LinkEdgeSubscription
-  extends Promise<AsyncIterator<LinkEdge>>,
+export interface LossEdgeSubscription
+  extends Promise<AsyncIterator<LossEdge>>,
     Fragmentable {
-  node: <T = LinkSubscription>() => T;
+  node: <T = LossSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface LossConnection {
+  pageInfo: PageInfo;
+  edges: LossEdge[];
+}
+
+export interface LossConnectionPromise
+  extends Promise<LossConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<LossEdge>>() => T;
+  aggregate: <T = AggregateLossPromise>() => T;
+}
+
+export interface LossConnectionSubscription
+  extends Promise<AsyncIterator<LossConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<LossEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateLossSubscription>() => T;
 }
 
 export interface BatchPayload {
@@ -235,73 +2346,869 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface Link {
+export interface Loss {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  description: String;
-  url: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
 }
 
-export interface LinkPromise extends Promise<Link>, Fragmentable {
+export interface LossPromise extends Promise<Loss>, Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
-  description: () => Promise<String>;
-  url: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  postedBy: <T = UserPromise>() => T;
+  team: <T = TeamPromise>() => T;
+  game: <T = GamePromise>() => T;
 }
 
-export interface LinkSubscription
-  extends Promise<AsyncIterator<Link>>,
+export interface LossSubscription
+  extends Promise<AsyncIterator<Loss>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  description: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  postedBy: <T = UserSubscription>() => T;
+  team: <T = TeamSubscription>() => T;
+  game: <T = GameSubscription>() => T;
 }
 
-export interface LinkSubscriptionPayload {
+export interface AggregateLeague {
+  count: Int;
+}
+
+export interface AggregateLeaguePromise
+  extends Promise<AggregateLeague>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateLeagueSubscription
+  extends Promise<AsyncIterator<AggregateLeague>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Team {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+}
+
+export interface TeamPromise extends Promise<Team>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  postedBy: <T = UserPromise>() => T;
+  name: () => Promise<String>;
+  wins: <T = FragmentableArray<Win>>(args?: {
+    where?: WinWhereInput;
+    orderBy?: WinOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  losses: <T = FragmentableArray<Loss>>(args?: {
+    where?: LossWhereInput;
+    orderBy?: LossOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  league: <T = LeaguePromise>() => T;
+}
+
+export interface TeamSubscription
+  extends Promise<AsyncIterator<Team>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  postedBy: <T = UserSubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  wins: <T = Promise<AsyncIterator<WinSubscription>>>(args?: {
+    where?: WinWhereInput;
+    orderBy?: WinOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  losses: <T = Promise<AsyncIterator<LossSubscription>>>(args?: {
+    where?: LossWhereInput;
+    orderBy?: LossOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  league: <T = LeagueSubscription>() => T;
+}
+
+export interface LeagueEdge {
+  node: League;
+  cursor: String;
+}
+
+export interface LeagueEdgePromise extends Promise<LeagueEdge>, Fragmentable {
+  node: <T = LeaguePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface LeagueEdgeSubscription
+  extends Promise<AsyncIterator<LeagueEdge>>,
+    Fragmentable {
+  node: <T = LeagueSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WinSubscriptionPayload {
   mutation: MutationType;
-  node: Link;
+  node: Win;
   updatedFields: String[];
-  previousValues: LinkPreviousValues;
+  previousValues: WinPreviousValues;
 }
 
-export interface LinkSubscriptionPayloadPromise
-  extends Promise<LinkSubscriptionPayload>,
+export interface WinSubscriptionPayloadPromise
+  extends Promise<WinSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = LinkPromise>() => T;
+  node: <T = WinPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = LinkPreviousValuesPromise>() => T;
+  previousValues: <T = WinPreviousValuesPromise>() => T;
 }
 
-export interface LinkSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<LinkSubscriptionPayload>>,
+export interface WinSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<WinSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = LinkSubscription>() => T;
+  node: <T = WinSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = LinkPreviousValuesSubscription>() => T;
+  previousValues: <T = WinPreviousValuesSubscription>() => T;
 }
 
-export interface LinkConnection {
+export interface LeagueConnection {
   pageInfo: PageInfo;
-  edges: LinkEdge[];
+  edges: LeagueEdge[];
 }
 
-export interface LinkConnectionPromise
-  extends Promise<LinkConnection>,
+export interface LeagueConnectionPromise
+  extends Promise<LeagueConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<LinkEdge>>() => T;
-  aggregate: <T = AggregateLinkPromise>() => T;
+  edges: <T = FragmentableArray<LeagueEdge>>() => T;
+  aggregate: <T = AggregateLeaguePromise>() => T;
 }
 
-export interface LinkConnectionSubscription
-  extends Promise<AsyncIterator<LinkConnection>>,
+export interface LeagueConnectionSubscription
+  extends Promise<AsyncIterator<LeagueConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<LinkEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateLinkSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<LeagueEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateLeagueSubscription>() => T;
+}
+
+export interface AggregateWin {
+  count: Int;
+}
+
+export interface AggregateWinPromise
+  extends Promise<AggregateWin>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateWinSubscription
+  extends Promise<AsyncIterator<AggregateWin>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Game {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  score: String;
+  day: String;
+  time: String;
+  videoURL: String;
+}
+
+export interface GamePromise extends Promise<Game>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  postedBy: <T = UserPromise>() => T;
+  homeTeam: <T = TeamPromise>() => T;
+  awayTeam: <T = TeamPromise>() => T;
+  score: () => Promise<String>;
+  day: () => Promise<String>;
+  time: () => Promise<String>;
+  videoURL: () => Promise<String>;
+}
+
+export interface GameSubscription
+  extends Promise<AsyncIterator<Game>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  postedBy: <T = UserSubscription>() => T;
+  homeTeam: <T = TeamSubscription>() => T;
+  awayTeam: <T = TeamSubscription>() => T;
+  score: () => Promise<AsyncIterator<String>>;
+  day: () => Promise<AsyncIterator<String>>;
+  time: () => Promise<AsyncIterator<String>>;
+  videoURL: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WinConnection {
+  pageInfo: PageInfo;
+  edges: WinEdge[];
+}
+
+export interface WinConnectionPromise
+  extends Promise<WinConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<WinEdge>>() => T;
+  aggregate: <T = AggregateWinPromise>() => T;
+}
+
+export interface WinConnectionSubscription
+  extends Promise<AsyncIterator<WinConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WinEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWinSubscription>() => T;
+}
+
+export interface GameSubscriptionPayload {
+  mutation: MutationType;
+  node: Game;
+  updatedFields: String[];
+  previousValues: GamePreviousValues;
+}
+
+export interface GameSubscriptionPayloadPromise
+  extends Promise<GameSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = GamePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = GamePreviousValuesPromise>() => T;
+}
+
+export interface GameSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<GameSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = GameSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = GamePreviousValuesSubscription>() => T;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface GamePreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  score: String;
+  day: String;
+  time: String;
+  videoURL: String;
+}
+
+export interface GamePreviousValuesPromise
+  extends Promise<GamePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  score: () => Promise<String>;
+  day: () => Promise<String>;
+  time: () => Promise<String>;
+  videoURL: () => Promise<String>;
+}
+
+export interface GamePreviousValuesSubscription
+  extends Promise<AsyncIterator<GamePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  score: () => Promise<AsyncIterator<String>>;
+  day: () => Promise<AsyncIterator<String>>;
+  time: () => Promise<AsyncIterator<String>>;
+  videoURL: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserPreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+  password: String;
+  email: String;
+  role: Role;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  password: () => Promise<String>;
+  email: () => Promise<String>;
+  role: () => Promise<Role>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
+}
+
+export interface AggregateGame {
+  count: Int;
+}
+
+export interface AggregateGamePromise
+  extends Promise<AggregateGame>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateGameSubscription
+  extends Promise<AsyncIterator<AggregateGame>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface TeamEdge {
+  node: Team;
+  cursor: String;
+}
+
+export interface TeamEdgePromise extends Promise<TeamEdge>, Fragmentable {
+  node: <T = TeamPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TeamEdgeSubscription
+  extends Promise<AsyncIterator<TeamEdge>>,
+    Fragmentable {
+  node: <T = TeamSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface LeagueSubscriptionPayload {
+  mutation: MutationType;
+  node: League;
+  updatedFields: String[];
+  previousValues: LeaguePreviousValues;
+}
+
+export interface LeagueSubscriptionPayloadPromise
+  extends Promise<LeagueSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = LeaguePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = LeaguePreviousValuesPromise>() => T;
+}
+
+export interface LeagueSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<LeagueSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = LeagueSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = LeaguePreviousValuesSubscription>() => T;
+}
+
+export interface AggregatePlayer {
+  count: Int;
+}
+
+export interface AggregatePlayerPromise
+  extends Promise<AggregatePlayer>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePlayerSubscription
+  extends Promise<AsyncIterator<AggregatePlayer>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface LeaguePreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+  location: String;
+}
+
+export interface LeaguePreviousValuesPromise
+  extends Promise<LeaguePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  location: () => Promise<String>;
+}
+
+export interface LeaguePreviousValuesSubscription
+  extends Promise<AsyncIterator<LeaguePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  location: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PlayerConnection {
+  pageInfo: PageInfo;
+  edges: PlayerEdge[];
+}
+
+export interface PlayerConnectionPromise
+  extends Promise<PlayerConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PlayerEdge>>() => T;
+  aggregate: <T = AggregatePlayerPromise>() => T;
+}
+
+export interface PlayerConnectionSubscription
+  extends Promise<AsyncIterator<PlayerConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PlayerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePlayerSubscription>() => T;
+}
+
+export interface GameEdge {
+  node: Game;
+  cursor: String;
+}
+
+export interface GameEdgePromise extends Promise<GameEdge>, Fragmentable {
+  node: <T = GamePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface GameEdgeSubscription
+  extends Promise<AsyncIterator<GameEdge>>,
+    Fragmentable {
+  node: <T = GameSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Win {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+}
+
+export interface WinPromise extends Promise<Win>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  postedBy: <T = UserPromise>() => T;
+  team: <T = TeamPromise>() => T;
+  game: <T = GamePromise>() => T;
+}
+
+export interface WinSubscription
+  extends Promise<AsyncIterator<Win>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  postedBy: <T = UserSubscription>() => T;
+  team: <T = TeamSubscription>() => T;
+  game: <T = GameSubscription>() => T;
+}
+
+export interface LossSubscriptionPayload {
+  mutation: MutationType;
+  node: Loss;
+  updatedFields: String[];
+  previousValues: LossPreviousValues;
+}
+
+export interface LossSubscriptionPayloadPromise
+  extends Promise<LossSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = LossPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = LossPreviousValuesPromise>() => T;
+}
+
+export interface LossSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<LossSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = LossSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = LossPreviousValuesSubscription>() => T;
+}
+
+export interface User {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+  password: String;
+  email: String;
+  role: Role;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  password: () => Promise<String>;
+  email: () => Promise<String>;
+  role: () => Promise<Role>;
+  leagues: <T = FragmentableArray<League>>(args?: {
+    where?: LeagueWhereInput;
+    orderBy?: LeagueOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  teams: <T = FragmentableArray<Team>>(args?: {
+    where?: TeamWhereInput;
+    orderBy?: TeamOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  players: <T = FragmentableArray<Player>>(args?: {
+    where?: PlayerWhereInput;
+    orderBy?: PlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  games: <T = FragmentableArray<Game>>(args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
+  leagues: <T = Promise<AsyncIterator<LeagueSubscription>>>(args?: {
+    where?: LeagueWhereInput;
+    orderBy?: LeagueOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  teams: <T = Promise<AsyncIterator<TeamSubscription>>>(args?: {
+    where?: TeamWhereInput;
+    orderBy?: TeamOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  players: <T = Promise<AsyncIterator<PlayerSubscription>>>(args?: {
+    where?: PlayerWhereInput;
+    orderBy?: PlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  games: <T = Promise<AsyncIterator<GameSubscription>>>(args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface LossPreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+}
+
+export interface LossPreviousValuesPromise
+  extends Promise<LossPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface LossPreviousValuesSubscription
+  extends Promise<AsyncIterator<LossPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateTeam {
+  count: Int;
+}
+
+export interface AggregateTeamPromise
+  extends Promise<AggregateTeam>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTeamSubscription
+  extends Promise<AsyncIterator<AggregateTeam>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PlayerSubscriptionPayload {
+  mutation: MutationType;
+  node: Player;
+  updatedFields: String[];
+  previousValues: PlayerPreviousValues;
+}
+
+export interface PlayerSubscriptionPayloadPromise
+  extends Promise<PlayerSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PlayerPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PlayerPreviousValuesPromise>() => T;
+}
+
+export interface PlayerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PlayerSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PlayerSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PlayerPreviousValuesSubscription>() => T;
+}
+
+export interface PlayerEdge {
+  node: Player;
+  cursor: String;
+}
+
+export interface PlayerEdgePromise extends Promise<PlayerEdge>, Fragmentable {
+  node: <T = PlayerPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PlayerEdgeSubscription
+  extends Promise<AsyncIterator<PlayerEdge>>,
+    Fragmentable {
+  node: <T = PlayerSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface League {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+  location: String;
+}
+
+export interface LeaguePromise extends Promise<League>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  postedBy: <T = UserPromise>() => T;
+  name: () => Promise<String>;
+  teams: <T = FragmentableArray<Team>>(args?: {
+    where?: TeamWhereInput;
+    orderBy?: TeamOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  location: () => Promise<String>;
+}
+
+export interface LeagueSubscription
+  extends Promise<AsyncIterator<League>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  postedBy: <T = UserSubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  teams: <T = Promise<AsyncIterator<TeamSubscription>>>(args?: {
+    where?: TeamWhereInput;
+    orderBy?: TeamOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  location: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TeamPreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+}
+
+export interface TeamPreviousValuesPromise
+  extends Promise<TeamPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+}
+
+export interface TeamPreviousValuesSubscription
+  extends Promise<AsyncIterator<TeamPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TeamSubscriptionPayload {
+  mutation: MutationType;
+  node: Team;
+  updatedFields: String[];
+  previousValues: TeamPreviousValues;
+}
+
+export interface TeamSubscriptionPayloadPromise
+  extends Promise<TeamSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TeamPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TeamPreviousValuesPromise>() => T;
+}
+
+export interface TeamSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TeamSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TeamSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TeamPreviousValuesSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -327,45 +3234,139 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateLink {
-  count: Int;
-}
-
-export interface AggregateLinkPromise
-  extends Promise<AggregateLink>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateLinkSubscription
-  extends Promise<AsyncIterator<AggregateLink>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface LinkPreviousValues {
+export interface PlayerPreviousValues {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  description: String;
-  url: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+  played: Int;
+  goals: Int;
+  assists: Int;
+  saves: Int;
 }
 
-export interface LinkPreviousValuesPromise
-  extends Promise<LinkPreviousValues>,
+export interface PlayerPreviousValuesPromise
+  extends Promise<PlayerPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
-  description: () => Promise<String>;
-  url: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  played: () => Promise<Int>;
+  goals: () => Promise<Int>;
+  assists: () => Promise<Int>;
+  saves: () => Promise<Int>;
 }
 
-export interface LinkPreviousValuesSubscription
-  extends Promise<AsyncIterator<LinkPreviousValues>>,
+export interface PlayerPreviousValuesSubscription
+  extends Promise<AsyncIterator<PlayerPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  description: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  played: () => Promise<AsyncIterator<Int>>;
+  goals: () => Promise<AsyncIterator<Int>>;
+  assists: () => Promise<AsyncIterator<Int>>;
+  saves: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface WinEdge {
+  node: Win;
+  cursor: String;
+}
+
+export interface WinEdgePromise extends Promise<WinEdge>, Fragmentable {
+  node: <T = WinPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface WinEdgeSubscription
+  extends Promise<AsyncIterator<WinEdge>>,
+    Fragmentable {
+  node: <T = WinSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Player {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  name: String;
+  played: Int;
+  goals: Int;
+  assists: Int;
+  saves: Int;
+}
+
+export interface PlayerPromise extends Promise<Player>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  postedBy: <T = UserPromise>() => T;
+  name: () => Promise<String>;
+  played: () => Promise<Int>;
+  goals: () => Promise<Int>;
+  assists: () => Promise<Int>;
+  saves: () => Promise<Int>;
+  team: <T = TeamPromise>() => T;
+}
+
+export interface PlayerSubscription
+  extends Promise<AsyncIterator<Player>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  postedBy: <T = UserSubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  played: () => Promise<AsyncIterator<Int>>;
+  goals: () => Promise<AsyncIterator<Int>>;
+  assists: () => Promise<AsyncIterator<Int>>;
+  saves: () => Promise<AsyncIterator<Int>>;
+  team: <T = TeamSubscription>() => T;
+}
+
+export interface TeamConnection {
+  pageInfo: PageInfo;
+  edges: TeamEdge[];
+}
+
+export interface TeamConnectionPromise
+  extends Promise<TeamConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TeamEdge>>() => T;
+  aggregate: <T = AggregateTeamPromise>() => T;
+}
+
+export interface TeamConnectionSubscription
+  extends Promise<AsyncIterator<TeamConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TeamEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTeamSubscription>() => T;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 /*
@@ -373,10 +3374,7 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string;
 
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
+export type Long = string;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
@@ -399,7 +3397,10 @@ DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
 
-export type Long = string;
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /**
  * Model Metadata
@@ -407,7 +3408,35 @@ export type Long = string;
 
 export const models: Model[] = [
   {
-    name: "Link",
+    name: "User",
+    embedded: false
+  },
+  {
+    name: "League",
+    embedded: false
+  },
+  {
+    name: "Team",
+    embedded: false
+  },
+  {
+    name: "Player",
+    embedded: false
+  },
+  {
+    name: "Win",
+    embedded: false
+  },
+  {
+    name: "Loss",
+    embedded: false
+  },
+  {
+    name: "Game",
+    embedded: false
+  },
+  {
+    name: "Role",
     embedded: false
   }
 ];

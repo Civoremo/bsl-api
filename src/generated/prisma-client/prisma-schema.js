@@ -3,7 +3,31 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateLink {
+/* GraphQL */ `type AggregateGame {
+  count: Int!
+}
+
+type AggregateLeague {
+  count: Int!
+}
+
+type AggregateLoss {
+  count: Int!
+}
+
+type AggregatePlayer {
+  count: Int!
+}
+
+type AggregateTeam {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type AggregateWin {
   count: Int!
 }
 
@@ -13,77 +37,89 @@ type BatchPayload {
 
 scalar DateTime
 
-type Link {
+type Game {
   id: ID!
-  createdAt: DateTime!
-  description: String!
-  url: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  homeTeam: Team!
+  awayTeam: Team!
+  score: String!
+  day: String!
+  time: String!
+  videoURL: String!
 }
 
-type LinkConnection {
+type GameConnection {
   pageInfo: PageInfo!
-  edges: [LinkEdge]!
-  aggregate: AggregateLink!
+  edges: [GameEdge]!
+  aggregate: AggregateGame!
 }
 
-input LinkCreateInput {
+input GameCreateInput {
   id: ID
-  description: String!
-  url: String!
+  postedBy: UserCreateOneWithoutGamesInput!
+  homeTeam: TeamCreateOneInput!
+  awayTeam: TeamCreateOneInput!
+  score: String
+  day: String!
+  time: String
+  videoURL: String!
 }
 
-type LinkEdge {
-  node: Link!
+input GameCreateManyWithoutPostedByInput {
+  create: [GameCreateWithoutPostedByInput!]
+  connect: [GameWhereUniqueInput!]
+}
+
+input GameCreateOneInput {
+  create: GameCreateInput
+  connect: GameWhereUniqueInput
+}
+
+input GameCreateWithoutPostedByInput {
+  id: ID
+  homeTeam: TeamCreateOneInput!
+  awayTeam: TeamCreateOneInput!
+  score: String
+  day: String!
+  time: String
+  videoURL: String!
+}
+
+type GameEdge {
+  node: Game!
   cursor: String!
 }
 
-enum LinkOrderByInput {
+enum GameOrderByInput {
   id_ASC
   id_DESC
   createdAt_ASC
   createdAt_DESC
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  score_ASC
+  score_DESC
+  day_ASC
+  day_DESC
+  time_ASC
+  time_DESC
+  videoURL_ASC
+  videoURL_DESC
 }
 
-type LinkPreviousValues {
+type GamePreviousValues {
   id: ID!
-  createdAt: DateTime!
-  description: String!
-  url: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  score: String!
+  day: String!
+  time: String!
+  videoURL: String!
 }
 
-type LinkSubscriptionPayload {
-  mutation: MutationType!
-  node: Link
-  updatedFields: [String!]
-  previousValues: LinkPreviousValues
-}
-
-input LinkSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: LinkWhereInput
-  AND: [LinkSubscriptionWhereInput!]
-  OR: [LinkSubscriptionWhereInput!]
-  NOT: [LinkSubscriptionWhereInput!]
-}
-
-input LinkUpdateInput {
-  description: String
-  url: String
-}
-
-input LinkUpdateManyMutationInput {
-  description: String
-  url: String
-}
-
-input LinkWhereInput {
+input GameScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -106,52 +142,799 @@ input LinkWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  description: String
-  description_not: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  url: String
-  url_not: String
-  url_in: [String!]
-  url_not_in: [String!]
-  url_lt: String
-  url_lte: String
-  url_gt: String
-  url_gte: String
-  url_contains: String
-  url_not_contains: String
-  url_starts_with: String
-  url_not_starts_with: String
-  url_ends_with: String
-  url_not_ends_with: String
-  AND: [LinkWhereInput!]
-  OR: [LinkWhereInput!]
-  NOT: [LinkWhereInput!]
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  score: String
+  score_not: String
+  score_in: [String!]
+  score_not_in: [String!]
+  score_lt: String
+  score_lte: String
+  score_gt: String
+  score_gte: String
+  score_contains: String
+  score_not_contains: String
+  score_starts_with: String
+  score_not_starts_with: String
+  score_ends_with: String
+  score_not_ends_with: String
+  day: String
+  day_not: String
+  day_in: [String!]
+  day_not_in: [String!]
+  day_lt: String
+  day_lte: String
+  day_gt: String
+  day_gte: String
+  day_contains: String
+  day_not_contains: String
+  day_starts_with: String
+  day_not_starts_with: String
+  day_ends_with: String
+  day_not_ends_with: String
+  time: String
+  time_not: String
+  time_in: [String!]
+  time_not_in: [String!]
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_contains: String
+  time_not_contains: String
+  time_starts_with: String
+  time_not_starts_with: String
+  time_ends_with: String
+  time_not_ends_with: String
+  videoURL: String
+  videoURL_not: String
+  videoURL_in: [String!]
+  videoURL_not_in: [String!]
+  videoURL_lt: String
+  videoURL_lte: String
+  videoURL_gt: String
+  videoURL_gte: String
+  videoURL_contains: String
+  videoURL_not_contains: String
+  videoURL_starts_with: String
+  videoURL_not_starts_with: String
+  videoURL_ends_with: String
+  videoURL_not_ends_with: String
+  AND: [GameScalarWhereInput!]
+  OR: [GameScalarWhereInput!]
+  NOT: [GameScalarWhereInput!]
 }
 
-input LinkWhereUniqueInput {
+type GameSubscriptionPayload {
+  mutation: MutationType!
+  node: Game
+  updatedFields: [String!]
+  previousValues: GamePreviousValues
+}
+
+input GameSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: GameWhereInput
+  AND: [GameSubscriptionWhereInput!]
+  OR: [GameSubscriptionWhereInput!]
+  NOT: [GameSubscriptionWhereInput!]
+}
+
+input GameUpdateDataInput {
+  postedBy: UserUpdateOneRequiredWithoutGamesInput
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+}
+
+input GameUpdateInput {
+  postedBy: UserUpdateOneRequiredWithoutGamesInput
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+}
+
+input GameUpdateManyDataInput {
+  score: String
+  day: String
+  time: String
+  videoURL: String
+}
+
+input GameUpdateManyMutationInput {
+  score: String
+  day: String
+  time: String
+  videoURL: String
+}
+
+input GameUpdateManyWithoutPostedByInput {
+  create: [GameCreateWithoutPostedByInput!]
+  delete: [GameWhereUniqueInput!]
+  connect: [GameWhereUniqueInput!]
+  set: [GameWhereUniqueInput!]
+  disconnect: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutPostedByInput!]
+  deleteMany: [GameScalarWhereInput!]
+  updateMany: [GameUpdateManyWithWhereNestedInput!]
+}
+
+input GameUpdateManyWithWhereNestedInput {
+  where: GameScalarWhereInput!
+  data: GameUpdateManyDataInput!
+}
+
+input GameUpdateOneRequiredInput {
+  create: GameCreateInput
+  update: GameUpdateDataInput
+  upsert: GameUpsertNestedInput
+  connect: GameWhereUniqueInput
+}
+
+input GameUpdateWithoutPostedByDataInput {
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+}
+
+input GameUpdateWithWhereUniqueWithoutPostedByInput {
+  where: GameWhereUniqueInput!
+  data: GameUpdateWithoutPostedByDataInput!
+}
+
+input GameUpsertNestedInput {
+  update: GameUpdateDataInput!
+  create: GameCreateInput!
+}
+
+input GameUpsertWithWhereUniqueWithoutPostedByInput {
+  where: GameWhereUniqueInput!
+  update: GameUpdateWithoutPostedByDataInput!
+  create: GameCreateWithoutPostedByInput!
+}
+
+input GameWhereInput {
   id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  homeTeam: TeamWhereInput
+  awayTeam: TeamWhereInput
+  score: String
+  score_not: String
+  score_in: [String!]
+  score_not_in: [String!]
+  score_lt: String
+  score_lte: String
+  score_gt: String
+  score_gte: String
+  score_contains: String
+  score_not_contains: String
+  score_starts_with: String
+  score_not_starts_with: String
+  score_ends_with: String
+  score_not_ends_with: String
+  day: String
+  day_not: String
+  day_in: [String!]
+  day_not_in: [String!]
+  day_lt: String
+  day_lte: String
+  day_gt: String
+  day_gte: String
+  day_contains: String
+  day_not_contains: String
+  day_starts_with: String
+  day_not_starts_with: String
+  day_ends_with: String
+  day_not_ends_with: String
+  time: String
+  time_not: String
+  time_in: [String!]
+  time_not_in: [String!]
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_contains: String
+  time_not_contains: String
+  time_starts_with: String
+  time_not_starts_with: String
+  time_ends_with: String
+  time_not_ends_with: String
+  videoURL: String
+  videoURL_not: String
+  videoURL_in: [String!]
+  videoURL_not_in: [String!]
+  videoURL_lt: String
+  videoURL_lte: String
+  videoURL_gt: String
+  videoURL_gte: String
+  videoURL_contains: String
+  videoURL_not_contains: String
+  videoURL_starts_with: String
+  videoURL_not_starts_with: String
+  videoURL_ends_with: String
+  videoURL_not_ends_with: String
+  AND: [GameWhereInput!]
+  OR: [GameWhereInput!]
+  NOT: [GameWhereInput!]
+}
+
+input GameWhereUniqueInput {
+  id: ID
+}
+
+type League {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  name: String!
+  teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team!]
+  location: String!
+}
+
+type LeagueConnection {
+  pageInfo: PageInfo!
+  edges: [LeagueEdge]!
+  aggregate: AggregateLeague!
+}
+
+input LeagueCreateInput {
+  id: ID
+  postedBy: UserCreateOneWithoutLeaguesInput!
+  name: String!
+  teams: TeamCreateManyWithoutLeagueInput
+  location: String!
+}
+
+input LeagueCreateManyWithoutPostedByInput {
+  create: [LeagueCreateWithoutPostedByInput!]
+  connect: [LeagueWhereUniqueInput!]
+}
+
+input LeagueCreateOneWithoutTeamsInput {
+  create: LeagueCreateWithoutTeamsInput
+  connect: LeagueWhereUniqueInput
+}
+
+input LeagueCreateWithoutPostedByInput {
+  id: ID
+  name: String!
+  teams: TeamCreateManyWithoutLeagueInput
+  location: String!
+}
+
+input LeagueCreateWithoutTeamsInput {
+  id: ID
+  postedBy: UserCreateOneWithoutLeaguesInput!
+  name: String!
+  location: String!
+}
+
+type LeagueEdge {
+  node: League!
+  cursor: String!
+}
+
+enum LeagueOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  location_ASC
+  location_DESC
+}
+
+type LeaguePreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  location: String!
+}
+
+input LeagueScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  AND: [LeagueScalarWhereInput!]
+  OR: [LeagueScalarWhereInput!]
+  NOT: [LeagueScalarWhereInput!]
+}
+
+type LeagueSubscriptionPayload {
+  mutation: MutationType!
+  node: League
+  updatedFields: [String!]
+  previousValues: LeaguePreviousValues
+}
+
+input LeagueSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LeagueWhereInput
+  AND: [LeagueSubscriptionWhereInput!]
+  OR: [LeagueSubscriptionWhereInput!]
+  NOT: [LeagueSubscriptionWhereInput!]
+}
+
+input LeagueUpdateInput {
+  postedBy: UserUpdateOneRequiredWithoutLeaguesInput
+  name: String
+  teams: TeamUpdateManyWithoutLeagueInput
+  location: String
+}
+
+input LeagueUpdateManyDataInput {
+  name: String
+  location: String
+}
+
+input LeagueUpdateManyMutationInput {
+  name: String
+  location: String
+}
+
+input LeagueUpdateManyWithoutPostedByInput {
+  create: [LeagueCreateWithoutPostedByInput!]
+  delete: [LeagueWhereUniqueInput!]
+  connect: [LeagueWhereUniqueInput!]
+  set: [LeagueWhereUniqueInput!]
+  disconnect: [LeagueWhereUniqueInput!]
+  update: [LeagueUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [LeagueUpsertWithWhereUniqueWithoutPostedByInput!]
+  deleteMany: [LeagueScalarWhereInput!]
+  updateMany: [LeagueUpdateManyWithWhereNestedInput!]
+}
+
+input LeagueUpdateManyWithWhereNestedInput {
+  where: LeagueScalarWhereInput!
+  data: LeagueUpdateManyDataInput!
+}
+
+input LeagueUpdateOneRequiredWithoutTeamsInput {
+  create: LeagueCreateWithoutTeamsInput
+  update: LeagueUpdateWithoutTeamsDataInput
+  upsert: LeagueUpsertWithoutTeamsInput
+  connect: LeagueWhereUniqueInput
+}
+
+input LeagueUpdateWithoutPostedByDataInput {
+  name: String
+  teams: TeamUpdateManyWithoutLeagueInput
+  location: String
+}
+
+input LeagueUpdateWithoutTeamsDataInput {
+  postedBy: UserUpdateOneRequiredWithoutLeaguesInput
+  name: String
+  location: String
+}
+
+input LeagueUpdateWithWhereUniqueWithoutPostedByInput {
+  where: LeagueWhereUniqueInput!
+  data: LeagueUpdateWithoutPostedByDataInput!
+}
+
+input LeagueUpsertWithoutTeamsInput {
+  update: LeagueUpdateWithoutTeamsDataInput!
+  create: LeagueCreateWithoutTeamsInput!
+}
+
+input LeagueUpsertWithWhereUniqueWithoutPostedByInput {
+  where: LeagueWhereUniqueInput!
+  update: LeagueUpdateWithoutPostedByDataInput!
+  create: LeagueCreateWithoutPostedByInput!
+}
+
+input LeagueWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  teams_every: TeamWhereInput
+  teams_some: TeamWhereInput
+  teams_none: TeamWhereInput
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  AND: [LeagueWhereInput!]
+  OR: [LeagueWhereInput!]
+  NOT: [LeagueWhereInput!]
+}
+
+input LeagueWhereUniqueInput {
+  id: ID
+  name: String
 }
 
 scalar Long
 
+type Loss {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  team: Team!
+  game: Game!
+}
+
+type LossConnection {
+  pageInfo: PageInfo!
+  edges: [LossEdge]!
+  aggregate: AggregateLoss!
+}
+
+input LossCreateInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  team: TeamCreateOneWithoutLossesInput!
+  game: GameCreateOneInput!
+}
+
+input LossCreateManyWithoutTeamInput {
+  create: [LossCreateWithoutTeamInput!]
+  connect: [LossWhereUniqueInput!]
+}
+
+input LossCreateWithoutTeamInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  game: GameCreateOneInput!
+}
+
+type LossEdge {
+  node: Loss!
+  cursor: String!
+}
+
+enum LossOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type LossPreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input LossScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [LossScalarWhereInput!]
+  OR: [LossScalarWhereInput!]
+  NOT: [LossScalarWhereInput!]
+}
+
+type LossSubscriptionPayload {
+  mutation: MutationType!
+  node: Loss
+  updatedFields: [String!]
+  previousValues: LossPreviousValues
+}
+
+input LossSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LossWhereInput
+  AND: [LossSubscriptionWhereInput!]
+  OR: [LossSubscriptionWhereInput!]
+  NOT: [LossSubscriptionWhereInput!]
+}
+
+input LossUpdateInput {
+  postedBy: UserUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutLossesInput
+  game: GameUpdateOneRequiredInput
+}
+
+input LossUpdateManyWithoutTeamInput {
+  create: [LossCreateWithoutTeamInput!]
+  delete: [LossWhereUniqueInput!]
+  connect: [LossWhereUniqueInput!]
+  set: [LossWhereUniqueInput!]
+  disconnect: [LossWhereUniqueInput!]
+  update: [LossUpdateWithWhereUniqueWithoutTeamInput!]
+  upsert: [LossUpsertWithWhereUniqueWithoutTeamInput!]
+  deleteMany: [LossScalarWhereInput!]
+}
+
+input LossUpdateWithoutTeamDataInput {
+  postedBy: UserUpdateOneRequiredInput
+  game: GameUpdateOneRequiredInput
+}
+
+input LossUpdateWithWhereUniqueWithoutTeamInput {
+  where: LossWhereUniqueInput!
+  data: LossUpdateWithoutTeamDataInput!
+}
+
+input LossUpsertWithWhereUniqueWithoutTeamInput {
+  where: LossWhereUniqueInput!
+  update: LossUpdateWithoutTeamDataInput!
+  create: LossCreateWithoutTeamInput!
+}
+
+input LossWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  team: TeamWhereInput
+  game: GameWhereInput
+  AND: [LossWhereInput!]
+  OR: [LossWhereInput!]
+  NOT: [LossWhereInput!]
+}
+
+input LossWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
-  createLink(data: LinkCreateInput!): Link!
-  updateLink(data: LinkUpdateInput!, where: LinkWhereUniqueInput!): Link
-  updateManyLinks(data: LinkUpdateManyMutationInput!, where: LinkWhereInput): BatchPayload!
-  upsertLink(where: LinkWhereUniqueInput!, create: LinkCreateInput!, update: LinkUpdateInput!): Link!
-  deleteLink(where: LinkWhereUniqueInput!): Link
-  deleteManyLinks(where: LinkWhereInput): BatchPayload!
+  createGame(data: GameCreateInput!): Game!
+  updateGame(data: GameUpdateInput!, where: GameWhereUniqueInput!): Game
+  updateManyGames(data: GameUpdateManyMutationInput!, where: GameWhereInput): BatchPayload!
+  upsertGame(where: GameWhereUniqueInput!, create: GameCreateInput!, update: GameUpdateInput!): Game!
+  deleteGame(where: GameWhereUniqueInput!): Game
+  deleteManyGames(where: GameWhereInput): BatchPayload!
+  createLeague(data: LeagueCreateInput!): League!
+  updateLeague(data: LeagueUpdateInput!, where: LeagueWhereUniqueInput!): League
+  updateManyLeagues(data: LeagueUpdateManyMutationInput!, where: LeagueWhereInput): BatchPayload!
+  upsertLeague(where: LeagueWhereUniqueInput!, create: LeagueCreateInput!, update: LeagueUpdateInput!): League!
+  deleteLeague(where: LeagueWhereUniqueInput!): League
+  deleteManyLeagues(where: LeagueWhereInput): BatchPayload!
+  createLoss(data: LossCreateInput!): Loss!
+  updateLoss(data: LossUpdateInput!, where: LossWhereUniqueInput!): Loss
+  upsertLoss(where: LossWhereUniqueInput!, create: LossCreateInput!, update: LossUpdateInput!): Loss!
+  deleteLoss(where: LossWhereUniqueInput!): Loss
+  deleteManyLosses(where: LossWhereInput): BatchPayload!
+  createPlayer(data: PlayerCreateInput!): Player!
+  updatePlayer(data: PlayerUpdateInput!, where: PlayerWhereUniqueInput!): Player
+  updateManyPlayers(data: PlayerUpdateManyMutationInput!, where: PlayerWhereInput): BatchPayload!
+  upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
+  deletePlayer(where: PlayerWhereUniqueInput!): Player
+  deleteManyPlayers(where: PlayerWhereInput): BatchPayload!
+  createTeam(data: TeamCreateInput!): Team!
+  updateTeam(data: TeamUpdateInput!, where: TeamWhereUniqueInput!): Team
+  updateManyTeams(data: TeamUpdateManyMutationInput!, where: TeamWhereInput): BatchPayload!
+  upsertTeam(where: TeamWhereUniqueInput!, create: TeamCreateInput!, update: TeamUpdateInput!): Team!
+  deleteTeam(where: TeamWhereUniqueInput!): Team
+  deleteManyTeams(where: TeamWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createWin(data: WinCreateInput!): Win!
+  updateWin(data: WinUpdateInput!, where: WinWhereUniqueInput!): Win
+  upsertWin(where: WinWhereUniqueInput!, create: WinCreateInput!, update: WinUpdateInput!): Win!
+  deleteWin(where: WinWhereUniqueInput!): Win
+  deleteManyWins(where: WinWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -171,15 +954,1313 @@ type PageInfo {
   endCursor: String
 }
 
+type Player {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  name: String!
+  played: Int!
+  goals: Int!
+  assists: Int!
+  saves: Int!
+  team: Team!
+}
+
+type PlayerConnection {
+  pageInfo: PageInfo!
+  edges: [PlayerEdge]!
+  aggregate: AggregatePlayer!
+}
+
+input PlayerCreateInput {
+  id: ID
+  postedBy: UserCreateOneWithoutPlayersInput!
+  name: String!
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
+  team: TeamCreateOneInput!
+}
+
+input PlayerCreateManyWithoutPostedByInput {
+  create: [PlayerCreateWithoutPostedByInput!]
+  connect: [PlayerWhereUniqueInput!]
+}
+
+input PlayerCreateWithoutPostedByInput {
+  id: ID
+  name: String!
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
+  team: TeamCreateOneInput!
+}
+
+type PlayerEdge {
+  node: Player!
+  cursor: String!
+}
+
+enum PlayerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  played_ASC
+  played_DESC
+  goals_ASC
+  goals_DESC
+  assists_ASC
+  assists_DESC
+  saves_ASC
+  saves_DESC
+}
+
+type PlayerPreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  played: Int!
+  goals: Int!
+  assists: Int!
+  saves: Int!
+}
+
+input PlayerScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  played: Int
+  played_not: Int
+  played_in: [Int!]
+  played_not_in: [Int!]
+  played_lt: Int
+  played_lte: Int
+  played_gt: Int
+  played_gte: Int
+  goals: Int
+  goals_not: Int
+  goals_in: [Int!]
+  goals_not_in: [Int!]
+  goals_lt: Int
+  goals_lte: Int
+  goals_gt: Int
+  goals_gte: Int
+  assists: Int
+  assists_not: Int
+  assists_in: [Int!]
+  assists_not_in: [Int!]
+  assists_lt: Int
+  assists_lte: Int
+  assists_gt: Int
+  assists_gte: Int
+  saves: Int
+  saves_not: Int
+  saves_in: [Int!]
+  saves_not_in: [Int!]
+  saves_lt: Int
+  saves_lte: Int
+  saves_gt: Int
+  saves_gte: Int
+  AND: [PlayerScalarWhereInput!]
+  OR: [PlayerScalarWhereInput!]
+  NOT: [PlayerScalarWhereInput!]
+}
+
+type PlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: Player
+  updatedFields: [String!]
+  previousValues: PlayerPreviousValues
+}
+
+input PlayerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PlayerWhereInput
+  AND: [PlayerSubscriptionWhereInput!]
+  OR: [PlayerSubscriptionWhereInput!]
+  NOT: [PlayerSubscriptionWhereInput!]
+}
+
+input PlayerUpdateInput {
+  postedBy: UserUpdateOneRequiredWithoutPlayersInput
+  name: String
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
+  team: TeamUpdateOneRequiredInput
+}
+
+input PlayerUpdateManyDataInput {
+  name: String
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
+}
+
+input PlayerUpdateManyMutationInput {
+  name: String
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
+}
+
+input PlayerUpdateManyWithoutPostedByInput {
+  create: [PlayerCreateWithoutPostedByInput!]
+  delete: [PlayerWhereUniqueInput!]
+  connect: [PlayerWhereUniqueInput!]
+  set: [PlayerWhereUniqueInput!]
+  disconnect: [PlayerWhereUniqueInput!]
+  update: [PlayerUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [PlayerUpsertWithWhereUniqueWithoutPostedByInput!]
+  deleteMany: [PlayerScalarWhereInput!]
+  updateMany: [PlayerUpdateManyWithWhereNestedInput!]
+}
+
+input PlayerUpdateManyWithWhereNestedInput {
+  where: PlayerScalarWhereInput!
+  data: PlayerUpdateManyDataInput!
+}
+
+input PlayerUpdateWithoutPostedByDataInput {
+  name: String
+  played: Int
+  goals: Int
+  assists: Int
+  saves: Int
+  team: TeamUpdateOneRequiredInput
+}
+
+input PlayerUpdateWithWhereUniqueWithoutPostedByInput {
+  where: PlayerWhereUniqueInput!
+  data: PlayerUpdateWithoutPostedByDataInput!
+}
+
+input PlayerUpsertWithWhereUniqueWithoutPostedByInput {
+  where: PlayerWhereUniqueInput!
+  update: PlayerUpdateWithoutPostedByDataInput!
+  create: PlayerCreateWithoutPostedByInput!
+}
+
+input PlayerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  played: Int
+  played_not: Int
+  played_in: [Int!]
+  played_not_in: [Int!]
+  played_lt: Int
+  played_lte: Int
+  played_gt: Int
+  played_gte: Int
+  goals: Int
+  goals_not: Int
+  goals_in: [Int!]
+  goals_not_in: [Int!]
+  goals_lt: Int
+  goals_lte: Int
+  goals_gt: Int
+  goals_gte: Int
+  assists: Int
+  assists_not: Int
+  assists_in: [Int!]
+  assists_not_in: [Int!]
+  assists_lt: Int
+  assists_lte: Int
+  assists_gt: Int
+  assists_gte: Int
+  saves: Int
+  saves_not: Int
+  saves_in: [Int!]
+  saves_not_in: [Int!]
+  saves_lt: Int
+  saves_lte: Int
+  saves_gt: Int
+  saves_gte: Int
+  team: TeamWhereInput
+  AND: [PlayerWhereInput!]
+  OR: [PlayerWhereInput!]
+  NOT: [PlayerWhereInput!]
+}
+
+input PlayerWhereUniqueInput {
+  id: ID
+}
+
 type Query {
-  link(where: LinkWhereUniqueInput!): Link
-  links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link]!
-  linksConnection(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LinkConnection!
+  game(where: GameWhereUniqueInput!): Game
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game]!
+  gamesConnection(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameConnection!
+  league(where: LeagueWhereUniqueInput!): League
+  leagues(where: LeagueWhereInput, orderBy: LeagueOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [League]!
+  leaguesConnection(where: LeagueWhereInput, orderBy: LeagueOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LeagueConnection!
+  loss(where: LossWhereUniqueInput!): Loss
+  losses(where: LossWhereInput, orderBy: LossOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loss]!
+  lossesConnection(where: LossWhereInput, orderBy: LossOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LossConnection!
+  player(where: PlayerWhereUniqueInput!): Player
+  players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player]!
+  playersConnection(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlayerConnection!
+  team(where: TeamWhereUniqueInput!): Team
+  teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team]!
+  teamsConnection(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TeamConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  win(where: WinWhereUniqueInput!): Win
+  wins(where: WinWhereInput, orderBy: WinOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Win]!
+  winsConnection(where: WinWhereInput, orderBy: WinOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WinConnection!
   node(id: ID!): Node
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 type Subscription {
-  link(where: LinkSubscriptionWhereInput): LinkSubscriptionPayload
+  game(where: GameSubscriptionWhereInput): GameSubscriptionPayload
+  league(where: LeagueSubscriptionWhereInput): LeagueSubscriptionPayload
+  loss(where: LossSubscriptionWhereInput): LossSubscriptionPayload
+  player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
+  team(where: TeamSubscriptionWhereInput): TeamSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  win(where: WinSubscriptionWhereInput): WinSubscriptionPayload
+}
+
+type Team {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  name: String!
+  wins(where: WinWhereInput, orderBy: WinOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Win!]
+  losses(where: LossWhereInput, orderBy: LossOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loss!]
+  league: League!
+}
+
+type TeamConnection {
+  pageInfo: PageInfo!
+  edges: [TeamEdge]!
+  aggregate: AggregateTeam!
+}
+
+input TeamCreateInput {
+  id: ID
+  postedBy: UserCreateOneWithoutTeamsInput!
+  name: String!
+  wins: WinCreateManyWithoutTeamInput
+  losses: LossCreateManyWithoutTeamInput
+  league: LeagueCreateOneWithoutTeamsInput!
+}
+
+input TeamCreateManyWithoutLeagueInput {
+  create: [TeamCreateWithoutLeagueInput!]
+  connect: [TeamWhereUniqueInput!]
+}
+
+input TeamCreateManyWithoutPostedByInput {
+  create: [TeamCreateWithoutPostedByInput!]
+  connect: [TeamWhereUniqueInput!]
+}
+
+input TeamCreateOneInput {
+  create: TeamCreateInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamCreateOneWithoutLossesInput {
+  create: TeamCreateWithoutLossesInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamCreateOneWithoutWinsInput {
+  create: TeamCreateWithoutWinsInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamCreateWithoutLeagueInput {
+  id: ID
+  postedBy: UserCreateOneWithoutTeamsInput!
+  name: String!
+  wins: WinCreateManyWithoutTeamInput
+  losses: LossCreateManyWithoutTeamInput
+}
+
+input TeamCreateWithoutLossesInput {
+  id: ID
+  postedBy: UserCreateOneWithoutTeamsInput!
+  name: String!
+  wins: WinCreateManyWithoutTeamInput
+  league: LeagueCreateOneWithoutTeamsInput!
+}
+
+input TeamCreateWithoutPostedByInput {
+  id: ID
+  name: String!
+  wins: WinCreateManyWithoutTeamInput
+  losses: LossCreateManyWithoutTeamInput
+  league: LeagueCreateOneWithoutTeamsInput!
+}
+
+input TeamCreateWithoutWinsInput {
+  id: ID
+  postedBy: UserCreateOneWithoutTeamsInput!
+  name: String!
+  losses: LossCreateManyWithoutTeamInput
+  league: LeagueCreateOneWithoutTeamsInput!
+}
+
+type TeamEdge {
+  node: Team!
+  cursor: String!
+}
+
+enum TeamOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type TeamPreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+}
+
+input TeamScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [TeamScalarWhereInput!]
+  OR: [TeamScalarWhereInput!]
+  NOT: [TeamScalarWhereInput!]
+}
+
+type TeamSubscriptionPayload {
+  mutation: MutationType!
+  node: Team
+  updatedFields: [String!]
+  previousValues: TeamPreviousValues
+}
+
+input TeamSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TeamWhereInput
+  AND: [TeamSubscriptionWhereInput!]
+  OR: [TeamSubscriptionWhereInput!]
+  NOT: [TeamSubscriptionWhereInput!]
+}
+
+input TeamUpdateDataInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  losses: LossUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+}
+
+input TeamUpdateInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  losses: LossUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+}
+
+input TeamUpdateManyDataInput {
+  name: String
+}
+
+input TeamUpdateManyMutationInput {
+  name: String
+}
+
+input TeamUpdateManyWithoutLeagueInput {
+  create: [TeamCreateWithoutLeagueInput!]
+  delete: [TeamWhereUniqueInput!]
+  connect: [TeamWhereUniqueInput!]
+  set: [TeamWhereUniqueInput!]
+  disconnect: [TeamWhereUniqueInput!]
+  update: [TeamUpdateWithWhereUniqueWithoutLeagueInput!]
+  upsert: [TeamUpsertWithWhereUniqueWithoutLeagueInput!]
+  deleteMany: [TeamScalarWhereInput!]
+  updateMany: [TeamUpdateManyWithWhereNestedInput!]
+}
+
+input TeamUpdateManyWithoutPostedByInput {
+  create: [TeamCreateWithoutPostedByInput!]
+  delete: [TeamWhereUniqueInput!]
+  connect: [TeamWhereUniqueInput!]
+  set: [TeamWhereUniqueInput!]
+  disconnect: [TeamWhereUniqueInput!]
+  update: [TeamUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [TeamUpsertWithWhereUniqueWithoutPostedByInput!]
+  deleteMany: [TeamScalarWhereInput!]
+  updateMany: [TeamUpdateManyWithWhereNestedInput!]
+}
+
+input TeamUpdateManyWithWhereNestedInput {
+  where: TeamScalarWhereInput!
+  data: TeamUpdateManyDataInput!
+}
+
+input TeamUpdateOneRequiredInput {
+  create: TeamCreateInput
+  update: TeamUpdateDataInput
+  upsert: TeamUpsertNestedInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamUpdateOneRequiredWithoutLossesInput {
+  create: TeamCreateWithoutLossesInput
+  update: TeamUpdateWithoutLossesDataInput
+  upsert: TeamUpsertWithoutLossesInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamUpdateOneRequiredWithoutWinsInput {
+  create: TeamCreateWithoutWinsInput
+  update: TeamUpdateWithoutWinsDataInput
+  upsert: TeamUpsertWithoutWinsInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamUpdateWithoutLeagueDataInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  losses: LossUpdateManyWithoutTeamInput
+}
+
+input TeamUpdateWithoutLossesDataInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+}
+
+input TeamUpdateWithoutPostedByDataInput {
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  losses: LossUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+}
+
+input TeamUpdateWithoutWinsDataInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
+  name: String
+  losses: LossUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+}
+
+input TeamUpdateWithWhereUniqueWithoutLeagueInput {
+  where: TeamWhereUniqueInput!
+  data: TeamUpdateWithoutLeagueDataInput!
+}
+
+input TeamUpdateWithWhereUniqueWithoutPostedByInput {
+  where: TeamWhereUniqueInput!
+  data: TeamUpdateWithoutPostedByDataInput!
+}
+
+input TeamUpsertNestedInput {
+  update: TeamUpdateDataInput!
+  create: TeamCreateInput!
+}
+
+input TeamUpsertWithoutLossesInput {
+  update: TeamUpdateWithoutLossesDataInput!
+  create: TeamCreateWithoutLossesInput!
+}
+
+input TeamUpsertWithoutWinsInput {
+  update: TeamUpdateWithoutWinsDataInput!
+  create: TeamCreateWithoutWinsInput!
+}
+
+input TeamUpsertWithWhereUniqueWithoutLeagueInput {
+  where: TeamWhereUniqueInput!
+  update: TeamUpdateWithoutLeagueDataInput!
+  create: TeamCreateWithoutLeagueInput!
+}
+
+input TeamUpsertWithWhereUniqueWithoutPostedByInput {
+  where: TeamWhereUniqueInput!
+  update: TeamUpdateWithoutPostedByDataInput!
+  create: TeamCreateWithoutPostedByInput!
+}
+
+input TeamWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  wins_every: WinWhereInput
+  wins_some: WinWhereInput
+  wins_none: WinWhereInput
+  losses_every: LossWhereInput
+  losses_some: LossWhereInput
+  losses_none: LossWhereInput
+  league: LeagueWhereInput
+  AND: [TeamWhereInput!]
+  OR: [TeamWhereInput!]
+  NOT: [TeamWhereInput!]
+}
+
+input TeamWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type User {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  password: String!
+  email: String!
+  role: Role!
+  leagues(where: LeagueWhereInput, orderBy: LeagueOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [League!]
+  teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team!]
+  players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game!]
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  id: ID
+  name: String!
+  password: String!
+  email: String!
+  role: Role
+  leagues: LeagueCreateManyWithoutPostedByInput
+  teams: TeamCreateManyWithoutPostedByInput
+  players: PlayerCreateManyWithoutPostedByInput
+  games: GameCreateManyWithoutPostedByInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutGamesInput {
+  create: UserCreateWithoutGamesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutLeaguesInput {
+  create: UserCreateWithoutLeaguesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutPlayersInput {
+  create: UserCreateWithoutPlayersInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutTeamsInput {
+  create: UserCreateWithoutTeamsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutGamesInput {
+  id: ID
+  name: String!
+  password: String!
+  email: String!
+  role: Role
+  leagues: LeagueCreateManyWithoutPostedByInput
+  teams: TeamCreateManyWithoutPostedByInput
+  players: PlayerCreateManyWithoutPostedByInput
+}
+
+input UserCreateWithoutLeaguesInput {
+  id: ID
+  name: String!
+  password: String!
+  email: String!
+  role: Role
+  teams: TeamCreateManyWithoutPostedByInput
+  players: PlayerCreateManyWithoutPostedByInput
+  games: GameCreateManyWithoutPostedByInput
+}
+
+input UserCreateWithoutPlayersInput {
+  id: ID
+  name: String!
+  password: String!
+  email: String!
+  role: Role
+  leagues: LeagueCreateManyWithoutPostedByInput
+  teams: TeamCreateManyWithoutPostedByInput
+  games: GameCreateManyWithoutPostedByInput
+}
+
+input UserCreateWithoutTeamsInput {
+  id: ID
+  name: String!
+  password: String!
+  email: String!
+  role: Role
+  leagues: LeagueCreateManyWithoutPostedByInput
+  players: PlayerCreateManyWithoutPostedByInput
+  games: GameCreateManyWithoutPostedByInput
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  password_ASC
+  password_DESC
+  email_ASC
+  email_DESC
+  role_ASC
+  role_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  password: String!
+  email: String!
+  role: Role!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateDataInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+  leagues: LeagueUpdateManyWithoutPostedByInput
+  teams: TeamUpdateManyWithoutPostedByInput
+  players: PlayerUpdateManyWithoutPostedByInput
+  games: GameUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+  leagues: LeagueUpdateManyWithoutPostedByInput
+  teams: TeamUpdateManyWithoutPostedByInput
+  players: PlayerUpdateManyWithoutPostedByInput
+  games: GameUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateManyMutationInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutGamesInput {
+  create: UserCreateWithoutGamesInput
+  update: UserUpdateWithoutGamesDataInput
+  upsert: UserUpsertWithoutGamesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutLeaguesInput {
+  create: UserCreateWithoutLeaguesInput
+  update: UserUpdateWithoutLeaguesDataInput
+  upsert: UserUpsertWithoutLeaguesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutPlayersInput {
+  create: UserCreateWithoutPlayersInput
+  update: UserUpdateWithoutPlayersDataInput
+  upsert: UserUpsertWithoutPlayersInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutTeamsInput {
+  create: UserCreateWithoutTeamsInput
+  update: UserUpdateWithoutTeamsDataInput
+  upsert: UserUpsertWithoutTeamsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutGamesDataInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+  leagues: LeagueUpdateManyWithoutPostedByInput
+  teams: TeamUpdateManyWithoutPostedByInput
+  players: PlayerUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateWithoutLeaguesDataInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+  teams: TeamUpdateManyWithoutPostedByInput
+  players: PlayerUpdateManyWithoutPostedByInput
+  games: GameUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateWithoutPlayersDataInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+  leagues: LeagueUpdateManyWithoutPostedByInput
+  teams: TeamUpdateManyWithoutPostedByInput
+  games: GameUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateWithoutTeamsDataInput {
+  name: String
+  password: String
+  email: String
+  role: Role
+  leagues: LeagueUpdateManyWithoutPostedByInput
+  players: PlayerUpdateManyWithoutPostedByInput
+  games: GameUpdateManyWithoutPostedByInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithoutGamesInput {
+  update: UserUpdateWithoutGamesDataInput!
+  create: UserCreateWithoutGamesInput!
+}
+
+input UserUpsertWithoutLeaguesInput {
+  update: UserUpdateWithoutLeaguesDataInput!
+  create: UserCreateWithoutLeaguesInput!
+}
+
+input UserUpsertWithoutPlayersInput {
+  update: UserUpdateWithoutPlayersDataInput!
+  create: UserCreateWithoutPlayersInput!
+}
+
+input UserUpsertWithoutTeamsInput {
+  update: UserUpdateWithoutTeamsDataInput!
+  create: UserCreateWithoutTeamsInput!
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
+  leagues_every: LeagueWhereInput
+  leagues_some: LeagueWhereInput
+  leagues_none: LeagueWhereInput
+  teams_every: TeamWhereInput
+  teams_some: TeamWhereInput
+  teams_none: TeamWhereInput
+  players_every: PlayerWhereInput
+  players_some: PlayerWhereInput
+  players_none: PlayerWhereInput
+  games_every: GameWhereInput
+  games_some: GameWhereInput
+  games_none: GameWhereInput
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+type Win {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  team: Team!
+  game: Game!
+}
+
+type WinConnection {
+  pageInfo: PageInfo!
+  edges: [WinEdge]!
+  aggregate: AggregateWin!
+}
+
+input WinCreateInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  team: TeamCreateOneWithoutWinsInput!
+  game: GameCreateOneInput!
+}
+
+input WinCreateManyWithoutTeamInput {
+  create: [WinCreateWithoutTeamInput!]
+  connect: [WinWhereUniqueInput!]
+}
+
+input WinCreateWithoutTeamInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  game: GameCreateOneInput!
+}
+
+type WinEdge {
+  node: Win!
+  cursor: String!
+}
+
+enum WinOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type WinPreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input WinScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [WinScalarWhereInput!]
+  OR: [WinScalarWhereInput!]
+  NOT: [WinScalarWhereInput!]
+}
+
+type WinSubscriptionPayload {
+  mutation: MutationType!
+  node: Win
+  updatedFields: [String!]
+  previousValues: WinPreviousValues
+}
+
+input WinSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: WinWhereInput
+  AND: [WinSubscriptionWhereInput!]
+  OR: [WinSubscriptionWhereInput!]
+  NOT: [WinSubscriptionWhereInput!]
+}
+
+input WinUpdateInput {
+  postedBy: UserUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutWinsInput
+  game: GameUpdateOneRequiredInput
+}
+
+input WinUpdateManyWithoutTeamInput {
+  create: [WinCreateWithoutTeamInput!]
+  delete: [WinWhereUniqueInput!]
+  connect: [WinWhereUniqueInput!]
+  set: [WinWhereUniqueInput!]
+  disconnect: [WinWhereUniqueInput!]
+  update: [WinUpdateWithWhereUniqueWithoutTeamInput!]
+  upsert: [WinUpsertWithWhereUniqueWithoutTeamInput!]
+  deleteMany: [WinScalarWhereInput!]
+}
+
+input WinUpdateWithoutTeamDataInput {
+  postedBy: UserUpdateOneRequiredInput
+  game: GameUpdateOneRequiredInput
+}
+
+input WinUpdateWithWhereUniqueWithoutTeamInput {
+  where: WinWhereUniqueInput!
+  data: WinUpdateWithoutTeamDataInput!
+}
+
+input WinUpsertWithWhereUniqueWithoutTeamInput {
+  where: WinWhereUniqueInput!
+  update: WinUpdateWithoutTeamDataInput!
+  create: WinCreateWithoutTeamInput!
+}
+
+input WinWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  team: TeamWhereInput
+  game: GameWhereInput
+  AND: [WinWhereInput!]
+  OR: [WinWhereInput!]
+  NOT: [WinWhereInput!]
+}
+
+input WinWhereUniqueInput {
+  id: ID
 }
 `
       }

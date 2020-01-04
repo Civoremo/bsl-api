@@ -1,6 +1,89 @@
-type Link {
+# type Link {
+# 	id: ID! @id
+# 	url: String!
+# 	description: String!
+# }
+
+type User {
 	id: ID! @id
-	createdAt: DateTime! @createdAt
-	description: String!
-	url: String!
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	name: String!
+	password: String!
+	email: String! @unique
+	role: Role! @default(value: USER)
+	leagues: [League!]!
+	teams: [Team!]!
+	players: [Player!]!
+	games: [Game!]!
+}
+
+type League {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	name: String! @unique
+	teams: [Team!]!
+	location: String!
+}
+
+type Team {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	name: String! @unique
+	wins: [Win!]!
+	losses: [Loss!]!
+	league: League!
+}
+
+type Player {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	name: String!
+	played: Int! @default(value: 0)
+	goals: Int! @default(value: 0)
+	assists: Int! @default(value: 0)
+	saves: Int! @default(value: 0)
+	team: Team!
+}
+
+type Win {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	team: Team!
+	game: Game!
+}
+
+type Loss {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	team: Team!
+	game: Game!
+}
+
+type Game {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	homeTeam: Team! @relation(name: "HomeTeam")
+	awayTeam: Team! @relation(name: "AwayTeam")
+	score: String! @default(value: " v ")
+	day: String!
+	time: String! @default(value: " 16 : 30 ")
+	videoURL: String!
+}
+
+enum Role {
+	ADMIN
+	USER
 }
