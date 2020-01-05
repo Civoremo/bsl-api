@@ -19,6 +19,15 @@ type Mutation {
 	postLeague(name: String!, location: String!): League
 	postTeam(name: String!, leagueId: String!): Team
 	postPlayer(name: String!, teamId: String!): Player
+	postGame(
+		homeTeam: String!
+		awayTeam: String!
+		leagueId: String!
+		day: String!
+		time: String
+		score: String
+		videoURL: String
+	): Game
 }
 
 type AuthPayload {
@@ -34,6 +43,7 @@ type Team {
 	players: [Player!]!
 	league: League!
 	postedBy: User!
+	games: [Game!]!
 }
 
 type Player {
@@ -62,12 +72,13 @@ type Loss {
 type Game {
 	id: ID!
 	day: String!
-	homeTeam: Team
-	awayTeam: Team
+	homeTeam: Team!
+	awayTeam: Team!
 	score: String!
 	time: String!
 	videoURL: String!
 	postedBy: User!
+	league: League!
 }
 
 type League {
@@ -76,6 +87,7 @@ type League {
 	location: String!
 	name: String!
 	postedBy: User!
+	games: [Game!]!
 }
 
 type User {

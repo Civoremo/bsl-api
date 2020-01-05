@@ -48,6 +48,7 @@ type Game {
   day: String!
   time: String!
   videoURL: String!
+  league: League!
 }
 
 type GameConnection {
@@ -64,7 +65,13 @@ input GameCreateInput {
   score: String
   day: String!
   time: String
-  videoURL: String!
+  videoURL: String
+  league: LeagueCreateOneWithoutGamesInput!
+}
+
+input GameCreateManyWithoutLeagueInput {
+  create: [GameCreateWithoutLeagueInput!]
+  connect: [GameWhereUniqueInput!]
 }
 
 input GameCreateManyWithoutPostedByInput {
@@ -77,6 +84,17 @@ input GameCreateOneInput {
   connect: GameWhereUniqueInput
 }
 
+input GameCreateWithoutLeagueInput {
+  id: ID
+  postedBy: UserCreateOneWithoutGamesInput!
+  homeTeam: TeamCreateOneInput!
+  awayTeam: TeamCreateOneInput!
+  score: String
+  day: String!
+  time: String
+  videoURL: String
+}
+
 input GameCreateWithoutPostedByInput {
   id: ID
   homeTeam: TeamCreateOneInput!
@@ -84,7 +102,8 @@ input GameCreateWithoutPostedByInput {
   score: String
   day: String!
   time: String
-  videoURL: String!
+  videoURL: String
+  league: LeagueCreateOneWithoutGamesInput!
 }
 
 type GameEdge {
@@ -237,6 +256,7 @@ input GameUpdateDataInput {
   day: String
   time: String
   videoURL: String
+  league: LeagueUpdateOneRequiredWithoutGamesInput
 }
 
 input GameUpdateInput {
@@ -247,6 +267,7 @@ input GameUpdateInput {
   day: String
   time: String
   videoURL: String
+  league: LeagueUpdateOneRequiredWithoutGamesInput
 }
 
 input GameUpdateManyDataInput {
@@ -261,6 +282,18 @@ input GameUpdateManyMutationInput {
   day: String
   time: String
   videoURL: String
+}
+
+input GameUpdateManyWithoutLeagueInput {
+  create: [GameCreateWithoutLeagueInput!]
+  delete: [GameWhereUniqueInput!]
+  connect: [GameWhereUniqueInput!]
+  set: [GameWhereUniqueInput!]
+  disconnect: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutLeagueInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutLeagueInput!]
+  deleteMany: [GameScalarWhereInput!]
+  updateMany: [GameUpdateManyWithWhereNestedInput!]
 }
 
 input GameUpdateManyWithoutPostedByInput {
@@ -287,6 +320,16 @@ input GameUpdateOneRequiredInput {
   connect: GameWhereUniqueInput
 }
 
+input GameUpdateWithoutLeagueDataInput {
+  postedBy: UserUpdateOneRequiredWithoutGamesInput
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+}
+
 input GameUpdateWithoutPostedByDataInput {
   homeTeam: TeamUpdateOneRequiredInput
   awayTeam: TeamUpdateOneRequiredInput
@@ -294,6 +337,12 @@ input GameUpdateWithoutPostedByDataInput {
   day: String
   time: String
   videoURL: String
+  league: LeagueUpdateOneRequiredWithoutGamesInput
+}
+
+input GameUpdateWithWhereUniqueWithoutLeagueInput {
+  where: GameWhereUniqueInput!
+  data: GameUpdateWithoutLeagueDataInput!
 }
 
 input GameUpdateWithWhereUniqueWithoutPostedByInput {
@@ -304,6 +353,12 @@ input GameUpdateWithWhereUniqueWithoutPostedByInput {
 input GameUpsertNestedInput {
   update: GameUpdateDataInput!
   create: GameCreateInput!
+}
+
+input GameUpsertWithWhereUniqueWithoutLeagueInput {
+  where: GameWhereUniqueInput!
+  update: GameUpdateWithoutLeagueDataInput!
+  create: GameCreateWithoutLeagueInput!
 }
 
 input GameUpsertWithWhereUniqueWithoutPostedByInput {
@@ -402,6 +457,7 @@ input GameWhereInput {
   videoURL_not_starts_with: String
   videoURL_ends_with: String
   videoURL_not_ends_with: String
+  league: LeagueWhereInput
   AND: [GameWhereInput!]
   OR: [GameWhereInput!]
   NOT: [GameWhereInput!]
@@ -419,6 +475,7 @@ type League {
   name: String!
   teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team!]
   location: String!
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game!]
 }
 
 type LeagueConnection {
@@ -433,6 +490,7 @@ input LeagueCreateInput {
   name: String!
   teams: TeamCreateManyWithoutLeagueInput
   location: String!
+  games: GameCreateManyWithoutLeagueInput
 }
 
 input LeagueCreateManyWithoutPostedByInput {
@@ -440,9 +498,22 @@ input LeagueCreateManyWithoutPostedByInput {
   connect: [LeagueWhereUniqueInput!]
 }
 
+input LeagueCreateOneWithoutGamesInput {
+  create: LeagueCreateWithoutGamesInput
+  connect: LeagueWhereUniqueInput
+}
+
 input LeagueCreateOneWithoutTeamsInput {
   create: LeagueCreateWithoutTeamsInput
   connect: LeagueWhereUniqueInput
+}
+
+input LeagueCreateWithoutGamesInput {
+  id: ID
+  postedBy: UserCreateOneWithoutLeaguesInput!
+  name: String!
+  teams: TeamCreateManyWithoutLeagueInput
+  location: String!
 }
 
 input LeagueCreateWithoutPostedByInput {
@@ -450,6 +521,7 @@ input LeagueCreateWithoutPostedByInput {
   name: String!
   teams: TeamCreateManyWithoutLeagueInput
   location: String!
+  games: GameCreateManyWithoutLeagueInput
 }
 
 input LeagueCreateWithoutTeamsInput {
@@ -457,6 +529,7 @@ input LeagueCreateWithoutTeamsInput {
   postedBy: UserCreateOneWithoutLeaguesInput!
   name: String!
   location: String!
+  games: GameCreateManyWithoutLeagueInput
 }
 
 type LeagueEdge {
@@ -572,6 +645,7 @@ input LeagueUpdateInput {
   name: String
   teams: TeamUpdateManyWithoutLeagueInput
   location: String
+  games: GameUpdateManyWithoutLeagueInput
 }
 
 input LeagueUpdateManyDataInput {
@@ -601,6 +675,13 @@ input LeagueUpdateManyWithWhereNestedInput {
   data: LeagueUpdateManyDataInput!
 }
 
+input LeagueUpdateOneRequiredWithoutGamesInput {
+  create: LeagueCreateWithoutGamesInput
+  update: LeagueUpdateWithoutGamesDataInput
+  upsert: LeagueUpsertWithoutGamesInput
+  connect: LeagueWhereUniqueInput
+}
+
 input LeagueUpdateOneRequiredWithoutTeamsInput {
   create: LeagueCreateWithoutTeamsInput
   update: LeagueUpdateWithoutTeamsDataInput
@@ -608,21 +689,35 @@ input LeagueUpdateOneRequiredWithoutTeamsInput {
   connect: LeagueWhereUniqueInput
 }
 
+input LeagueUpdateWithoutGamesDataInput {
+  postedBy: UserUpdateOneRequiredWithoutLeaguesInput
+  name: String
+  teams: TeamUpdateManyWithoutLeagueInput
+  location: String
+}
+
 input LeagueUpdateWithoutPostedByDataInput {
   name: String
   teams: TeamUpdateManyWithoutLeagueInput
   location: String
+  games: GameUpdateManyWithoutLeagueInput
 }
 
 input LeagueUpdateWithoutTeamsDataInput {
   postedBy: UserUpdateOneRequiredWithoutLeaguesInput
   name: String
   location: String
+  games: GameUpdateManyWithoutLeagueInput
 }
 
 input LeagueUpdateWithWhereUniqueWithoutPostedByInput {
   where: LeagueWhereUniqueInput!
   data: LeagueUpdateWithoutPostedByDataInput!
+}
+
+input LeagueUpsertWithoutGamesInput {
+  update: LeagueUpdateWithoutGamesDataInput!
+  create: LeagueCreateWithoutGamesInput!
 }
 
 input LeagueUpsertWithoutTeamsInput {
@@ -699,6 +794,9 @@ input LeagueWhereInput {
   location_not_starts_with: String
   location_ends_with: String
   location_not_ends_with: String
+  games_every: GameWhereInput
+  games_some: GameWhereInput
+  games_none: GameWhereInput
   AND: [LeagueWhereInput!]
   OR: [LeagueWhereInput!]
   NOT: [LeagueWhereInput!]
