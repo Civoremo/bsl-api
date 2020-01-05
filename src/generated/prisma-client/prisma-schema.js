@@ -23,6 +23,10 @@ type AggregateTeam {
   count: Int!
 }
 
+type AggregateTie {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -1022,6 +1026,11 @@ type Mutation {
   upsertTeam(where: TeamWhereUniqueInput!, create: TeamCreateInput!, update: TeamUpdateInput!): Team!
   deleteTeam(where: TeamWhereUniqueInput!): Team
   deleteManyTeams(where: TeamWhereInput): BatchPayload!
+  createTie(data: TieCreateInput!): Tie!
+  updateTie(data: TieUpdateInput!, where: TieWhereUniqueInput!): Tie
+  upsertTie(where: TieWhereUniqueInput!, create: TieCreateInput!, update: TieUpdateInput!): Tie!
+  deleteTie(where: TieWhereUniqueInput!): Tie
+  deleteManyTies(where: TieWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1446,6 +1455,9 @@ type Query {
   team(where: TeamWhereUniqueInput!): Team
   teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team]!
   teamsConnection(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TeamConnection!
+  tie(where: TieWhereUniqueInput!): Tie
+  ties(where: TieWhereInput, orderBy: TieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tie]!
+  tiesConnection(where: TieWhereInput, orderBy: TieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TieConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1468,6 +1480,7 @@ type Subscription {
   loss(where: LossSubscriptionWhereInput): LossSubscriptionPayload
   player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
   team(where: TeamSubscriptionWhereInput): TeamSubscriptionPayload
+  tie(where: TieSubscriptionWhereInput): TieSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   win(where: WinSubscriptionWhereInput): WinSubscriptionPayload
 }
@@ -1480,6 +1493,7 @@ type Team {
   name: String!
   wins(where: WinWhereInput, orderBy: WinOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Win!]
   losses(where: LossWhereInput, orderBy: LossOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loss!]
+  ties(where: TieWhereInput, orderBy: TieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tie!]
   league: League!
   players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
 }
@@ -1496,6 +1510,7 @@ input TeamCreateInput {
   name: String!
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
+  ties: TieCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
   players: PlayerCreateManyWithoutTeamInput
 }
@@ -1525,6 +1540,11 @@ input TeamCreateOneWithoutPlayersInput {
   connect: TeamWhereUniqueInput
 }
 
+input TeamCreateOneWithoutTiesInput {
+  create: TeamCreateWithoutTiesInput
+  connect: TeamWhereUniqueInput
+}
+
 input TeamCreateOneWithoutWinsInput {
   create: TeamCreateWithoutWinsInput
   connect: TeamWhereUniqueInput
@@ -1536,6 +1556,7 @@ input TeamCreateWithoutLeagueInput {
   name: String!
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
+  ties: TieCreateManyWithoutTeamInput
   players: PlayerCreateManyWithoutTeamInput
 }
 
@@ -1544,6 +1565,7 @@ input TeamCreateWithoutLossesInput {
   postedBy: UserCreateOneWithoutTeamsInput!
   name: String!
   wins: WinCreateManyWithoutTeamInput
+  ties: TieCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
   players: PlayerCreateManyWithoutTeamInput
 }
@@ -1554,11 +1576,23 @@ input TeamCreateWithoutPlayersInput {
   name: String!
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
+  ties: TieCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
 }
 
 input TeamCreateWithoutPostedByInput {
   id: ID
+  name: String!
+  wins: WinCreateManyWithoutTeamInput
+  losses: LossCreateManyWithoutTeamInput
+  ties: TieCreateManyWithoutTeamInput
+  league: LeagueCreateOneWithoutTeamsInput!
+  players: PlayerCreateManyWithoutTeamInput
+}
+
+input TeamCreateWithoutTiesInput {
+  id: ID
+  postedBy: UserCreateOneWithoutTeamsInput!
   name: String!
   wins: WinCreateManyWithoutTeamInput
   losses: LossCreateManyWithoutTeamInput
@@ -1571,6 +1605,7 @@ input TeamCreateWithoutWinsInput {
   postedBy: UserCreateOneWithoutTeamsInput!
   name: String!
   losses: LossCreateManyWithoutTeamInput
+  ties: TieCreateManyWithoutTeamInput
   league: LeagueCreateOneWithoutTeamsInput!
   players: PlayerCreateManyWithoutTeamInput
 }
@@ -1671,6 +1706,7 @@ input TeamUpdateDataInput {
   name: String
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
   players: PlayerUpdateManyWithoutTeamInput
 }
@@ -1680,6 +1716,7 @@ input TeamUpdateInput {
   name: String
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
   players: PlayerUpdateManyWithoutTeamInput
 }
@@ -1742,6 +1779,13 @@ input TeamUpdateOneRequiredWithoutPlayersInput {
   connect: TeamWhereUniqueInput
 }
 
+input TeamUpdateOneRequiredWithoutTiesInput {
+  create: TeamCreateWithoutTiesInput
+  update: TeamUpdateWithoutTiesDataInput
+  upsert: TeamUpsertWithoutTiesInput
+  connect: TeamWhereUniqueInput
+}
+
 input TeamUpdateOneRequiredWithoutWinsInput {
   create: TeamCreateWithoutWinsInput
   update: TeamUpdateWithoutWinsDataInput
@@ -1754,6 +1798,7 @@ input TeamUpdateWithoutLeagueDataInput {
   name: String
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
   players: PlayerUpdateManyWithoutTeamInput
 }
 
@@ -1761,6 +1806,7 @@ input TeamUpdateWithoutLossesDataInput {
   postedBy: UserUpdateOneRequiredWithoutTeamsInput
   name: String
   wins: WinUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
   players: PlayerUpdateManyWithoutTeamInput
 }
@@ -1770,10 +1816,21 @@ input TeamUpdateWithoutPlayersDataInput {
   name: String
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
 }
 
 input TeamUpdateWithoutPostedByDataInput {
+  name: String
+  wins: WinUpdateManyWithoutTeamInput
+  losses: LossUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
+  league: LeagueUpdateOneRequiredWithoutTeamsInput
+  players: PlayerUpdateManyWithoutTeamInput
+}
+
+input TeamUpdateWithoutTiesDataInput {
+  postedBy: UserUpdateOneRequiredWithoutTeamsInput
   name: String
   wins: WinUpdateManyWithoutTeamInput
   losses: LossUpdateManyWithoutTeamInput
@@ -1785,6 +1842,7 @@ input TeamUpdateWithoutWinsDataInput {
   postedBy: UserUpdateOneRequiredWithoutTeamsInput
   name: String
   losses: LossUpdateManyWithoutTeamInput
+  ties: TieUpdateManyWithoutTeamInput
   league: LeagueUpdateOneRequiredWithoutTeamsInput
   players: PlayerUpdateManyWithoutTeamInput
 }
@@ -1812,6 +1870,11 @@ input TeamUpsertWithoutLossesInput {
 input TeamUpsertWithoutPlayersInput {
   update: TeamUpdateWithoutPlayersDataInput!
   create: TeamCreateWithoutPlayersInput!
+}
+
+input TeamUpsertWithoutTiesInput {
+  update: TeamUpdateWithoutTiesDataInput!
+  create: TeamCreateWithoutTiesInput!
 }
 
 input TeamUpsertWithoutWinsInput {
@@ -1883,6 +1946,9 @@ input TeamWhereInput {
   losses_every: LossWhereInput
   losses_some: LossWhereInput
   losses_none: LossWhereInput
+  ties_every: TieWhereInput
+  ties_some: TieWhereInput
+  ties_none: TieWhereInput
   league: LeagueWhereInput
   players_every: PlayerWhereInput
   players_some: PlayerWhereInput
@@ -1895,6 +1961,189 @@ input TeamWhereInput {
 input TeamWhereUniqueInput {
   id: ID
   name: String
+}
+
+type Tie {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  postedBy: User!
+  team: Team!
+  game: Game!
+}
+
+type TieConnection {
+  pageInfo: PageInfo!
+  edges: [TieEdge]!
+  aggregate: AggregateTie!
+}
+
+input TieCreateInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  team: TeamCreateOneWithoutTiesInput!
+  game: GameCreateOneInput!
+}
+
+input TieCreateManyWithoutTeamInput {
+  create: [TieCreateWithoutTeamInput!]
+  connect: [TieWhereUniqueInput!]
+}
+
+input TieCreateWithoutTeamInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  game: GameCreateOneInput!
+}
+
+type TieEdge {
+  node: Tie!
+  cursor: String!
+}
+
+enum TieOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type TiePreviousValues {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TieScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [TieScalarWhereInput!]
+  OR: [TieScalarWhereInput!]
+  NOT: [TieScalarWhereInput!]
+}
+
+type TieSubscriptionPayload {
+  mutation: MutationType!
+  node: Tie
+  updatedFields: [String!]
+  previousValues: TiePreviousValues
+}
+
+input TieSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TieWhereInput
+  AND: [TieSubscriptionWhereInput!]
+  OR: [TieSubscriptionWhereInput!]
+  NOT: [TieSubscriptionWhereInput!]
+}
+
+input TieUpdateInput {
+  postedBy: UserUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutTiesInput
+  game: GameUpdateOneRequiredInput
+}
+
+input TieUpdateManyWithoutTeamInput {
+  create: [TieCreateWithoutTeamInput!]
+  delete: [TieWhereUniqueInput!]
+  connect: [TieWhereUniqueInput!]
+  set: [TieWhereUniqueInput!]
+  disconnect: [TieWhereUniqueInput!]
+  update: [TieUpdateWithWhereUniqueWithoutTeamInput!]
+  upsert: [TieUpsertWithWhereUniqueWithoutTeamInput!]
+  deleteMany: [TieScalarWhereInput!]
+}
+
+input TieUpdateWithoutTeamDataInput {
+  postedBy: UserUpdateOneRequiredInput
+  game: GameUpdateOneRequiredInput
+}
+
+input TieUpdateWithWhereUniqueWithoutTeamInput {
+  where: TieWhereUniqueInput!
+  data: TieUpdateWithoutTeamDataInput!
+}
+
+input TieUpsertWithWhereUniqueWithoutTeamInput {
+  where: TieWhereUniqueInput!
+  update: TieUpdateWithoutTeamDataInput!
+  create: TieCreateWithoutTeamInput!
+}
+
+input TieWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  postedBy: UserWhereInput
+  team: TeamWhereInput
+  game: GameWhereInput
+  AND: [TieWhereInput!]
+  OR: [TieWhereInput!]
+  NOT: [TieWhereInput!]
+}
+
+input TieWhereUniqueInput {
+  id: ID
 }
 
 type User {

@@ -14,6 +14,10 @@ const losses = (parent, args, context) => {
 	return context.prisma.team({ id: parent.id }).losses();
 };
 
+const ties = (parent, args, context) => {
+	return context.prisma.team({ id: parent.id }).ties();
+};
+
 const players = (parent, args, context) => {
 	return context.prisma.team({ id: parent.id }).players();
 };
@@ -29,4 +33,5 @@ module.exports = {
 	losses,
 	players,
 	games,
+	ties,
 };

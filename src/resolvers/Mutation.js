@@ -149,6 +149,111 @@ const postGame = async (parent, args, context, info) => {
 	});
 };
 
+const postWin = async (parent, args, context, info) => {
+	const userId = getUserId(context);
+
+	const gameFragment = `
+    fragment gamePostedBy on Game {
+      postedBy {
+        id
+        name
+      }
+      homeTeam {
+        id
+      }
+      awayTeam {
+        id
+      }
+      score
+    }
+  `;
+
+	const winFragment = `
+    fragment teamWonInGame on Win {
+      game{
+        homeTeam{
+          id
+          name
+        }
+        awayTeam {
+          id
+          name
+        }
+      }
+    }
+  `;
+
+	const winInfo = await context.prisma
+		.wins({ where: { game: { id: args.gameId } } })
+		.$fragment(winFragment);
+
+	const posterInfo = await context.prisma.game({ id: args.gameId }).$fragment(gameFragment);
+
+	if (winInfo.length > 0) {
+		if (winInfo[0].game.homeTeam.id == args.teamId || winInfo[0].game.awayTeam.id == args.teamId) {
+			throw new Error("Winning team is already selected for this game!");
+		}
+	}
+	if (posterInfo.score == " v ") {
+		throw new Error("Can not declare winner without first posting the score!");
+	}
+	if (posterInfo == null) {
+		throw new Error("Could not find the game");
+	}
+	if (posterInfo.postedBy.id != userId) {
+		throw new Error("Not your game to score!");
+	}
+	if (posterInfo.homeTeam.id == args.teamId || posterInfo.awayTeam.id == args.teamId) {
+		return await context.prisma.createWin({
+			postedBy: { connect: { id: userId } },
+			team: { connect: { id: args.teamId } },
+			game: { connect: { id: args.gameId } },
+		});
+	} else {
+		throw new Error("Team is not associated with game!");
+	}
+};
+
+const postLoss = async (parent, args, context, info) => {
+	const userId = getUserId(context);
+
+	const gameFragment = `
+    fragment gamePostedBy on Game {
+      postedBy {
+        id
+        name
+      }
+      homeTeam {
+        id
+      }
+      awayTeam {
+        id
+      }
+      score
+    }
+  `;
+
+	const posterInfo = await context.prisma.game({ id: args.gameId }).$fragment(gameFragment);
+	if (posterInfo.score == " v ") {
+		throw new Error("Can not declare loser without first posting the score!");
+	}
+	if (posterInfo == null) {
+		throw new Error("Could not find the game");
+	}
+	if (posterInfo.postedBy.id != userId) {
+		throw new Error("Not your game to score!");
+	}
+	if (posterInfo.homeTeam.id == args.teamId || posterInfo.awayTeam.id == args.teamId) {
+		return await context.prisma.createLoss({
+			postedBy: { connect: { id: userId } },
+			team: { connect: { id: args.teamId } },
+			game: { connect: { id: args.gameId } },
+		});
+	} else {
+		throw new Error("Team is not associated with game!");
+	}
+};
+
 module.exports = {
 	signup,
 	login,
@@ -156,4 +261,6 @@ module.exports = {
 	postTeam,
 	postPlayer,
 	postGame,
+	postWin,
+	postLoss,
 };

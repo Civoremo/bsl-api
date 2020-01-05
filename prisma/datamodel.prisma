@@ -31,6 +31,7 @@ type Team {
 	name: String! @unique
 	wins: [Win!]!
 	losses: [Loss!]!
+	ties: [Tie!]!
 	league: League!
 	players: [Player!]!
 }
@@ -58,6 +59,15 @@ type Win {
 }
 
 type Loss {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	team: Team!
+	game: Game!
+}
+
+type Tie {
 	id: ID! @id
 	createdAt: DateTime @createdAt
 	updatedAt: DateTime @updatedAt

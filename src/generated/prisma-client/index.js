@@ -29,6 +29,10 @@ var models = [
     embedded: false
   },
   {
+    name: "Tie",
+    embedded: false
+  },
+  {
     name: "Game",
     embedded: false
   },

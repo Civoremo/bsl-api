@@ -12,6 +12,7 @@ const Player = require("./resolvers/Player");
 const Game = require("./resolvers/Game");
 const Win = require("./resolvers/Win");
 const Loss = require("./resolvers/Loss");
+const Tie = require("./resolvers/Tie");
 
 const resolvers = {
 	// Query: {
