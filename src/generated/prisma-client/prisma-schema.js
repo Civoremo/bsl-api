@@ -53,6 +53,9 @@ type Game {
   time: String!
   videoURL: String!
   league: League!
+  wins(where: WinWhereInput, orderBy: WinOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Win!]
+  losses(where: LossWhereInput, orderBy: LossOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loss!]
+  ties(where: TieWhereInput, orderBy: TieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tie!]
 }
 
 type GameConnection {
@@ -71,6 +74,9 @@ input GameCreateInput {
   time: String
   videoURL: String
   league: LeagueCreateOneWithoutGamesInput!
+  wins: WinCreateManyWithoutGameInput
+  losses: LossCreateManyWithoutGameInput
+  ties: TieCreateManyWithoutGameInput
 }
 
 input GameCreateManyWithoutLeagueInput {
@@ -83,8 +89,18 @@ input GameCreateManyWithoutPostedByInput {
   connect: [GameWhereUniqueInput!]
 }
 
-input GameCreateOneInput {
-  create: GameCreateInput
+input GameCreateOneWithoutLossesInput {
+  create: GameCreateWithoutLossesInput
+  connect: GameWhereUniqueInput
+}
+
+input GameCreateOneWithoutTiesInput {
+  create: GameCreateWithoutTiesInput
+  connect: GameWhereUniqueInput
+}
+
+input GameCreateOneWithoutWinsInput {
+  create: GameCreateWithoutWinsInput
   connect: GameWhereUniqueInput
 }
 
@@ -97,6 +113,23 @@ input GameCreateWithoutLeagueInput {
   day: String!
   time: String
   videoURL: String
+  wins: WinCreateManyWithoutGameInput
+  losses: LossCreateManyWithoutGameInput
+  ties: TieCreateManyWithoutGameInput
+}
+
+input GameCreateWithoutLossesInput {
+  id: ID
+  postedBy: UserCreateOneWithoutGamesInput!
+  homeTeam: TeamCreateOneInput!
+  awayTeam: TeamCreateOneInput!
+  score: String
+  day: String!
+  time: String
+  videoURL: String
+  league: LeagueCreateOneWithoutGamesInput!
+  wins: WinCreateManyWithoutGameInput
+  ties: TieCreateManyWithoutGameInput
 }
 
 input GameCreateWithoutPostedByInput {
@@ -108,6 +141,37 @@ input GameCreateWithoutPostedByInput {
   time: String
   videoURL: String
   league: LeagueCreateOneWithoutGamesInput!
+  wins: WinCreateManyWithoutGameInput
+  losses: LossCreateManyWithoutGameInput
+  ties: TieCreateManyWithoutGameInput
+}
+
+input GameCreateWithoutTiesInput {
+  id: ID
+  postedBy: UserCreateOneWithoutGamesInput!
+  homeTeam: TeamCreateOneInput!
+  awayTeam: TeamCreateOneInput!
+  score: String
+  day: String!
+  time: String
+  videoURL: String
+  league: LeagueCreateOneWithoutGamesInput!
+  wins: WinCreateManyWithoutGameInput
+  losses: LossCreateManyWithoutGameInput
+}
+
+input GameCreateWithoutWinsInput {
+  id: ID
+  postedBy: UserCreateOneWithoutGamesInput!
+  homeTeam: TeamCreateOneInput!
+  awayTeam: TeamCreateOneInput!
+  score: String
+  day: String!
+  time: String
+  videoURL: String
+  league: LeagueCreateOneWithoutGamesInput!
+  losses: LossCreateManyWithoutGameInput
+  ties: TieCreateManyWithoutGameInput
 }
 
 type GameEdge {
@@ -252,17 +316,6 @@ input GameSubscriptionWhereInput {
   NOT: [GameSubscriptionWhereInput!]
 }
 
-input GameUpdateDataInput {
-  postedBy: UserUpdateOneRequiredWithoutGamesInput
-  homeTeam: TeamUpdateOneRequiredInput
-  awayTeam: TeamUpdateOneRequiredInput
-  score: String
-  day: String
-  time: String
-  videoURL: String
-  league: LeagueUpdateOneRequiredWithoutGamesInput
-}
-
 input GameUpdateInput {
   postedBy: UserUpdateOneRequiredWithoutGamesInput
   homeTeam: TeamUpdateOneRequiredInput
@@ -272,6 +325,9 @@ input GameUpdateInput {
   time: String
   videoURL: String
   league: LeagueUpdateOneRequiredWithoutGamesInput
+  wins: WinUpdateManyWithoutGameInput
+  losses: LossUpdateManyWithoutGameInput
+  ties: TieUpdateManyWithoutGameInput
 }
 
 input GameUpdateManyDataInput {
@@ -317,10 +373,24 @@ input GameUpdateManyWithWhereNestedInput {
   data: GameUpdateManyDataInput!
 }
 
-input GameUpdateOneRequiredInput {
-  create: GameCreateInput
-  update: GameUpdateDataInput
-  upsert: GameUpsertNestedInput
+input GameUpdateOneRequiredWithoutLossesInput {
+  create: GameCreateWithoutLossesInput
+  update: GameUpdateWithoutLossesDataInput
+  upsert: GameUpsertWithoutLossesInput
+  connect: GameWhereUniqueInput
+}
+
+input GameUpdateOneRequiredWithoutTiesInput {
+  create: GameCreateWithoutTiesInput
+  update: GameUpdateWithoutTiesDataInput
+  upsert: GameUpsertWithoutTiesInput
+  connect: GameWhereUniqueInput
+}
+
+input GameUpdateOneRequiredWithoutWinsInput {
+  create: GameCreateWithoutWinsInput
+  update: GameUpdateWithoutWinsDataInput
+  upsert: GameUpsertWithoutWinsInput
   connect: GameWhereUniqueInput
 }
 
@@ -332,6 +402,22 @@ input GameUpdateWithoutLeagueDataInput {
   day: String
   time: String
   videoURL: String
+  wins: WinUpdateManyWithoutGameInput
+  losses: LossUpdateManyWithoutGameInput
+  ties: TieUpdateManyWithoutGameInput
+}
+
+input GameUpdateWithoutLossesDataInput {
+  postedBy: UserUpdateOneRequiredWithoutGamesInput
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+  league: LeagueUpdateOneRequiredWithoutGamesInput
+  wins: WinUpdateManyWithoutGameInput
+  ties: TieUpdateManyWithoutGameInput
 }
 
 input GameUpdateWithoutPostedByDataInput {
@@ -342,6 +428,35 @@ input GameUpdateWithoutPostedByDataInput {
   time: String
   videoURL: String
   league: LeagueUpdateOneRequiredWithoutGamesInput
+  wins: WinUpdateManyWithoutGameInput
+  losses: LossUpdateManyWithoutGameInput
+  ties: TieUpdateManyWithoutGameInput
+}
+
+input GameUpdateWithoutTiesDataInput {
+  postedBy: UserUpdateOneRequiredWithoutGamesInput
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+  league: LeagueUpdateOneRequiredWithoutGamesInput
+  wins: WinUpdateManyWithoutGameInput
+  losses: LossUpdateManyWithoutGameInput
+}
+
+input GameUpdateWithoutWinsDataInput {
+  postedBy: UserUpdateOneRequiredWithoutGamesInput
+  homeTeam: TeamUpdateOneRequiredInput
+  awayTeam: TeamUpdateOneRequiredInput
+  score: String
+  day: String
+  time: String
+  videoURL: String
+  league: LeagueUpdateOneRequiredWithoutGamesInput
+  losses: LossUpdateManyWithoutGameInput
+  ties: TieUpdateManyWithoutGameInput
 }
 
 input GameUpdateWithWhereUniqueWithoutLeagueInput {
@@ -354,9 +469,19 @@ input GameUpdateWithWhereUniqueWithoutPostedByInput {
   data: GameUpdateWithoutPostedByDataInput!
 }
 
-input GameUpsertNestedInput {
-  update: GameUpdateDataInput!
-  create: GameCreateInput!
+input GameUpsertWithoutLossesInput {
+  update: GameUpdateWithoutLossesDataInput!
+  create: GameCreateWithoutLossesInput!
+}
+
+input GameUpsertWithoutTiesInput {
+  update: GameUpdateWithoutTiesDataInput!
+  create: GameCreateWithoutTiesInput!
+}
+
+input GameUpsertWithoutWinsInput {
+  update: GameUpdateWithoutWinsDataInput!
+  create: GameCreateWithoutWinsInput!
 }
 
 input GameUpsertWithWhereUniqueWithoutLeagueInput {
@@ -462,6 +587,15 @@ input GameWhereInput {
   videoURL_ends_with: String
   videoURL_not_ends_with: String
   league: LeagueWhereInput
+  wins_every: WinWhereInput
+  wins_some: WinWhereInput
+  wins_none: WinWhereInput
+  losses_every: LossWhereInput
+  losses_some: LossWhereInput
+  losses_none: LossWhereInput
+  ties_every: TieWhereInput
+  ties_some: TieWhereInput
+  ties_none: TieWhereInput
   AND: [GameWhereInput!]
   OR: [GameWhereInput!]
   NOT: [GameWhereInput!]
@@ -832,7 +966,12 @@ input LossCreateInput {
   id: ID
   postedBy: UserCreateOneInput!
   team: TeamCreateOneWithoutLossesInput!
-  game: GameCreateOneInput!
+  game: GameCreateOneWithoutLossesInput!
+}
+
+input LossCreateManyWithoutGameInput {
+  create: [LossCreateWithoutGameInput!]
+  connect: [LossWhereUniqueInput!]
 }
 
 input LossCreateManyWithoutTeamInput {
@@ -840,10 +979,16 @@ input LossCreateManyWithoutTeamInput {
   connect: [LossWhereUniqueInput!]
 }
 
+input LossCreateWithoutGameInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  team: TeamCreateOneWithoutLossesInput!
+}
+
 input LossCreateWithoutTeamInput {
   id: ID
   postedBy: UserCreateOneInput!
-  game: GameCreateOneInput!
+  game: GameCreateOneWithoutLossesInput!
 }
 
 type LossEdge {
@@ -923,7 +1068,18 @@ input LossSubscriptionWhereInput {
 input LossUpdateInput {
   postedBy: UserUpdateOneRequiredInput
   team: TeamUpdateOneRequiredWithoutLossesInput
-  game: GameUpdateOneRequiredInput
+  game: GameUpdateOneRequiredWithoutLossesInput
+}
+
+input LossUpdateManyWithoutGameInput {
+  create: [LossCreateWithoutGameInput!]
+  delete: [LossWhereUniqueInput!]
+  connect: [LossWhereUniqueInput!]
+  set: [LossWhereUniqueInput!]
+  disconnect: [LossWhereUniqueInput!]
+  update: [LossUpdateWithWhereUniqueWithoutGameInput!]
+  upsert: [LossUpsertWithWhereUniqueWithoutGameInput!]
+  deleteMany: [LossScalarWhereInput!]
 }
 
 input LossUpdateManyWithoutTeamInput {
@@ -937,14 +1093,30 @@ input LossUpdateManyWithoutTeamInput {
   deleteMany: [LossScalarWhereInput!]
 }
 
+input LossUpdateWithoutGameDataInput {
+  postedBy: UserUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutLossesInput
+}
+
 input LossUpdateWithoutTeamDataInput {
   postedBy: UserUpdateOneRequiredInput
-  game: GameUpdateOneRequiredInput
+  game: GameUpdateOneRequiredWithoutLossesInput
+}
+
+input LossUpdateWithWhereUniqueWithoutGameInput {
+  where: LossWhereUniqueInput!
+  data: LossUpdateWithoutGameDataInput!
 }
 
 input LossUpdateWithWhereUniqueWithoutTeamInput {
   where: LossWhereUniqueInput!
   data: LossUpdateWithoutTeamDataInput!
+}
+
+input LossUpsertWithWhereUniqueWithoutGameInput {
+  where: LossWhereUniqueInput!
+  update: LossUpdateWithoutGameDataInput!
+  create: LossCreateWithoutGameInput!
 }
 
 input LossUpsertWithWhereUniqueWithoutTeamInput {
@@ -1982,7 +2154,12 @@ input TieCreateInput {
   id: ID
   postedBy: UserCreateOneInput!
   team: TeamCreateOneWithoutTiesInput!
-  game: GameCreateOneInput!
+  game: GameCreateOneWithoutTiesInput!
+}
+
+input TieCreateManyWithoutGameInput {
+  create: [TieCreateWithoutGameInput!]
+  connect: [TieWhereUniqueInput!]
 }
 
 input TieCreateManyWithoutTeamInput {
@@ -1990,10 +2167,16 @@ input TieCreateManyWithoutTeamInput {
   connect: [TieWhereUniqueInput!]
 }
 
+input TieCreateWithoutGameInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  team: TeamCreateOneWithoutTiesInput!
+}
+
 input TieCreateWithoutTeamInput {
   id: ID
   postedBy: UserCreateOneInput!
-  game: GameCreateOneInput!
+  game: GameCreateOneWithoutTiesInput!
 }
 
 type TieEdge {
@@ -2073,7 +2256,18 @@ input TieSubscriptionWhereInput {
 input TieUpdateInput {
   postedBy: UserUpdateOneRequiredInput
   team: TeamUpdateOneRequiredWithoutTiesInput
-  game: GameUpdateOneRequiredInput
+  game: GameUpdateOneRequiredWithoutTiesInput
+}
+
+input TieUpdateManyWithoutGameInput {
+  create: [TieCreateWithoutGameInput!]
+  delete: [TieWhereUniqueInput!]
+  connect: [TieWhereUniqueInput!]
+  set: [TieWhereUniqueInput!]
+  disconnect: [TieWhereUniqueInput!]
+  update: [TieUpdateWithWhereUniqueWithoutGameInput!]
+  upsert: [TieUpsertWithWhereUniqueWithoutGameInput!]
+  deleteMany: [TieScalarWhereInput!]
 }
 
 input TieUpdateManyWithoutTeamInput {
@@ -2087,14 +2281,30 @@ input TieUpdateManyWithoutTeamInput {
   deleteMany: [TieScalarWhereInput!]
 }
 
+input TieUpdateWithoutGameDataInput {
+  postedBy: UserUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutTiesInput
+}
+
 input TieUpdateWithoutTeamDataInput {
   postedBy: UserUpdateOneRequiredInput
-  game: GameUpdateOneRequiredInput
+  game: GameUpdateOneRequiredWithoutTiesInput
+}
+
+input TieUpdateWithWhereUniqueWithoutGameInput {
+  where: TieWhereUniqueInput!
+  data: TieUpdateWithoutGameDataInput!
 }
 
 input TieUpdateWithWhereUniqueWithoutTeamInput {
   where: TieWhereUniqueInput!
   data: TieUpdateWithoutTeamDataInput!
+}
+
+input TieUpsertWithWhereUniqueWithoutGameInput {
+  where: TieWhereUniqueInput!
+  update: TieUpdateWithoutGameDataInput!
+  create: TieCreateWithoutGameInput!
 }
 
 input TieUpsertWithWhereUniqueWithoutTeamInput {
@@ -2544,7 +2754,12 @@ input WinCreateInput {
   id: ID
   postedBy: UserCreateOneInput!
   team: TeamCreateOneWithoutWinsInput!
-  game: GameCreateOneInput!
+  game: GameCreateOneWithoutWinsInput!
+}
+
+input WinCreateManyWithoutGameInput {
+  create: [WinCreateWithoutGameInput!]
+  connect: [WinWhereUniqueInput!]
 }
 
 input WinCreateManyWithoutTeamInput {
@@ -2552,10 +2767,16 @@ input WinCreateManyWithoutTeamInput {
   connect: [WinWhereUniqueInput!]
 }
 
+input WinCreateWithoutGameInput {
+  id: ID
+  postedBy: UserCreateOneInput!
+  team: TeamCreateOneWithoutWinsInput!
+}
+
 input WinCreateWithoutTeamInput {
   id: ID
   postedBy: UserCreateOneInput!
-  game: GameCreateOneInput!
+  game: GameCreateOneWithoutWinsInput!
 }
 
 type WinEdge {
@@ -2635,7 +2856,18 @@ input WinSubscriptionWhereInput {
 input WinUpdateInput {
   postedBy: UserUpdateOneRequiredInput
   team: TeamUpdateOneRequiredWithoutWinsInput
-  game: GameUpdateOneRequiredInput
+  game: GameUpdateOneRequiredWithoutWinsInput
+}
+
+input WinUpdateManyWithoutGameInput {
+  create: [WinCreateWithoutGameInput!]
+  delete: [WinWhereUniqueInput!]
+  connect: [WinWhereUniqueInput!]
+  set: [WinWhereUniqueInput!]
+  disconnect: [WinWhereUniqueInput!]
+  update: [WinUpdateWithWhereUniqueWithoutGameInput!]
+  upsert: [WinUpsertWithWhereUniqueWithoutGameInput!]
+  deleteMany: [WinScalarWhereInput!]
 }
 
 input WinUpdateManyWithoutTeamInput {
@@ -2649,14 +2881,30 @@ input WinUpdateManyWithoutTeamInput {
   deleteMany: [WinScalarWhereInput!]
 }
 
+input WinUpdateWithoutGameDataInput {
+  postedBy: UserUpdateOneRequiredInput
+  team: TeamUpdateOneRequiredWithoutWinsInput
+}
+
 input WinUpdateWithoutTeamDataInput {
   postedBy: UserUpdateOneRequiredInput
-  game: GameUpdateOneRequiredInput
+  game: GameUpdateOneRequiredWithoutWinsInput
+}
+
+input WinUpdateWithWhereUniqueWithoutGameInput {
+  where: WinWhereUniqueInput!
+  data: WinUpdateWithoutGameDataInput!
 }
 
 input WinUpdateWithWhereUniqueWithoutTeamInput {
   where: WinWhereUniqueInput!
   data: WinUpdateWithoutTeamDataInput!
+}
+
+input WinUpsertWithWhereUniqueWithoutGameInput {
+  where: WinWhereUniqueInput!
+  update: WinUpdateWithoutGameDataInput!
+  create: WinCreateWithoutGameInput!
 }
 
 input WinUpsertWithWhereUniqueWithoutTeamInput {
