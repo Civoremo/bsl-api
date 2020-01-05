@@ -39,6 +39,7 @@ const resolvers = {
 	Game,
 	Win,
 	Loss,
+	Tie,
 };
 
 const server = new GraphQLServer({

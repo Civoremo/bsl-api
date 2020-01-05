@@ -10,6 +10,7 @@ type Query {
 	team(id: ID!): Team
 	player(id: ID!): Player
 	game(id: ID!): Game
+	tie(id: ID!): [Tie]
 }
 
 type Mutation {
@@ -30,6 +31,7 @@ type Mutation {
 	): Game
 	postWin(gameId: String!, teamId: String!): Win
 	postLoss(gameId: String!, teamId: String!): Loss
+	postTie(gameId: String!, homeTeamId: String!, awayTeamId: String!): [Tie]
 }
 
 type AuthPayload {
