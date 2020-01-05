@@ -153,10 +153,9 @@ const postWin = async (parent, args, context, info) => {
 	const userId = getUserId(context);
 
 	const gameFragment = `
-    fragment gamePostedBy on Game {
+    fragment gameWinPostedBy on Game {
       postedBy {
         id
-        name
       }
       homeTeam {
         id
@@ -173,11 +172,9 @@ const postWin = async (parent, args, context, info) => {
       game{
         homeTeam{
           id
-          name
         }
         awayTeam {
           id
-          name
         }
       }
     }
@@ -191,7 +188,7 @@ const postWin = async (parent, args, context, info) => {
 
 	if (winInfo.length > 0) {
 		if (winInfo[0].game.homeTeam.id == args.teamId || winInfo[0].game.awayTeam.id == args.teamId) {
-			throw new Error("Winning team is already selected for this game!");
+			throw new Error("Winning team has already been picked for this game!");
 		}
 	}
 	if (posterInfo.score == " v ") {
@@ -218,7 +215,7 @@ const postLoss = async (parent, args, context, info) => {
 	const userId = getUserId(context);
 
 	const gameFragment = `
-    fragment gamePostedBy on Game {
+    fragment gameLossPostedBy on Game {
       postedBy {
         id
         name
@@ -233,7 +230,33 @@ const postLoss = async (parent, args, context, info) => {
     }
   `;
 
+	const lossFragment = `
+    fragment teamLossInGame on Loss {
+      game{
+        homeTeam{
+          id
+        }
+        awayTeam {
+          id
+        }
+      }
+    }
+  `;
+
+	const lossInfo = await context.prisma
+		.losses({ where: { game: { id: args.gameId } } })
+		.$fragment(lossFragment);
+
 	const posterInfo = await context.prisma.game({ id: args.gameId }).$fragment(gameFragment);
+
+	if (lossInfo.length > 0) {
+		if (
+			lossInfo[0].game.homeTeam.id == args.teamId ||
+			lossInfo[0].game.awayTeam.id == args.teamId
+		) {
+			throw new Error("Losing team has already been picked for this game!");
+		}
+	}
 	if (posterInfo.score == " v ") {
 		throw new Error("Can not declare loser without first posting the score!");
 	}
