@@ -14,9 +14,24 @@ const awayTeam = (parent, args, context) => {
 	return context.prisma.game({ id: parent.id }).awayTeam();
 };
 
+const wins = (parent, args, context) => {
+	return context.prisma.game({ id: parent.id }).wins();
+};
+
+const losses = (parent, args, context) => {
+	return context.prisma.game({ id: parent.id }).losses();
+};
+
+const ties = (parent, args, context) => {
+	return context.prisma.game({ id: parent.id }).ties();
+};
+
 module.exports = {
 	postedBy,
 	league,
 	homeTeam,
 	awayTeam,
+	wins,
+	losses,
+	ties,
 };

@@ -93,6 +93,9 @@ type Game {
 	videoURL: String!
 	postedBy: User!
 	league: League!
+	wins: [Win!]!
+	losses: [Loss!]!
+	ties: [Tie!]!
 }
 
 type League {
