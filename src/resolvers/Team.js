@@ -18,10 +18,15 @@ const players = (parent, args, context) => {
 	return context.prisma.team({ id: parent.id }).players();
 };
 
+const games = (parent, args, context) => {
+	return context.prisma.team({ id: parent.id }).games();
+};
+
 module.exports = {
 	postedBy,
 	league,
 	wins,
 	losses,
 	players,
+	games,
 };

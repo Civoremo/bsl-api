@@ -20,6 +20,7 @@ type League {
 	name: String! @unique
 	teams: [Team!]!
 	location: String!
+	games: [Game!]!
 }
 
 type Team {
@@ -75,7 +76,8 @@ type Game {
 	score: String! @default(value: " v ")
 	day: String!
 	time: String! @default(value: " 16 : 30 ")
-	videoURL: String!
+	videoURL: String! @default(value: "No Link")
+	league: League!
 }
 
 enum Role {
