@@ -10,6 +10,7 @@ type Query {
 	team(id: ID!): Team
 	player(id: ID!): Player
 	game(id: ID!): Game
+	tie(id: ID!): [Tie]
 }
 
 type Mutation {
@@ -28,6 +29,9 @@ type Mutation {
 		score: String
 		videoURL: String
 	): Game
+	postWin(gameId: String!, teamId: String!): Win
+	postLoss(gameId: String!, teamId: String!): Loss
+	postTie(gameId: String!, homeTeamId: String!, awayTeamId: String!): [Tie]
 }
 
 type AuthPayload {
@@ -40,6 +44,7 @@ type Team {
 	name: String!
 	wins: [Win!]!
 	losses: [Loss!]!
+	ties: [Tie!]!
 	players: [Player!]!
 	league: League!
 	postedBy: User!
@@ -60,13 +65,22 @@ type Player {
 type Win {
 	id: ID!
 	team: Team!
-	game: [Game!]!
+	game: Game!
+	postedBy: User!
 }
 
 type Loss {
 	id: ID!
 	team: Team!
-	game: [Game!]!
+	game: Game!
+	postedBy: User!
+}
+
+type Tie {
+	id: ID!
+	team: Team!
+	game: Game!
+	postedBy: User!
 }
 
 type Game {

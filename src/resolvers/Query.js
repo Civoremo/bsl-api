@@ -45,6 +45,10 @@ const player = (parent, args, context, info) => {
 	return context.prisma.player({ id: args.id });
 };
 
+const tie = (parent, args, context, info) => {
+	return context.prisma.ties({ where: { game: { id: args.id } } });
+};
+
 module.exports = {
 	info,
 	me,
@@ -57,4 +61,5 @@ module.exports = {
 	team,
 	game,
 	player,
+	tie,
 };
