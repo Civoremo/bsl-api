@@ -15,21 +15,6 @@ const Loss = require("./resolvers/Loss");
 const Tie = require("./resolvers/Tie");
 
 const resolvers = {
-	// Query: {
-	// 	info: () => "This is the API of BSL",
-	// 	allUsers: (root, args, context, info) => {
-	// 		return context.prisma.users();
-	// 	},
-	// },
-	// Mutation: {
-	// 	// post: (root, args, context) => {
-	// 	// 	return context.prisma.createLink({
-	// 	// 		url: args.url,
-	// 	// 		description: args.description,
-	// 	// 	});
-	// 	// },
-	// 	post: () => "We made a post",
-	// },
 	Query,
 	Mutation,
 	User,
