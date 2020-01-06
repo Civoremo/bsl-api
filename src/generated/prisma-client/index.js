@@ -37,6 +37,34 @@ var models = [
     embedded: false
   },
   {
+    name: "Tournament",
+    embedded: false
+  },
+  {
+    name: "TournamentTeam",
+    embedded: false
+  },
+  {
+    name: "TournamentPlayer",
+    embedded: false
+  },
+  {
+    name: "TournamentGame",
+    embedded: false
+  },
+  {
+    name: "TournamentWin",
+    embedded: false
+  },
+  {
+    name: "TournamentLoss",
+    embedded: false
+  },
+  {
+    name: "TournamentTie",
+    embedded: false
+  },
+  {
     name: "Role",
     embedded: false
   }
