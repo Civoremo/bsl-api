@@ -93,6 +93,86 @@ type Game {
 	ties: [Tie!]!
 }
 
+type Tournament {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	name: String! @unique
+	teams: [Team!]!
+	day: String!
+	location: String!
+}
+
+type TournamentTeam {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	name: String! @unique
+	wins: [TournamentWin!]!
+	losses: [TournamentLoss!]!
+	ties: [TournamentTie!]!
+	players: [TournamentPlayer!]!
+}
+
+type TournamentPlayer {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	name: String!
+	played: Int! @default(value: 0)
+	goals: Int! @default(value: 0)
+	assists: Int! @default(value: 0)
+	saves: Int! @default(value: 0)
+	team: TournamentTeam!
+}
+
+type TournamentGame {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	homeTeam: TournamentTeam! @relation(name: "HomeTeamTournament")
+	awayTeam: TournamentTeam! @relation(name: "AwayTeamTournament")
+	score: String! @default(value: " v ")
+	day: String!
+	time: String! @default(value: " 15 : 00 ")
+	videoURL: String! @default(value: "No Link")
+	tournament: Tournament!
+	wins: [TournamentWin!]!
+	losses: [TournamentLoss!]!
+	ties: [TournamentTie!]!
+}
+
+type TournamentWin {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	team: TournamentTeam!
+	game: TournamentGame!
+}
+
+type TournamentLoss {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	team: TournamentTeam!
+	game: TournamentGame!
+}
+
+type TournamentTie {
+	id: ID! @id
+	createdAt: DateTime @createdAt
+	updatedAt: DateTime @updatedAt
+	postedBy: User!
+	team: TournamentTeam!
+	game: TournamentGame!
+}
+
 enum Role {
 	SUPERADMIN
 	ADMIN

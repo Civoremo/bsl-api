@@ -10,7 +10,19 @@ type Query {
 	team(id: ID!): Team
 	player(id: ID!): Player
 	game(id: ID!): Game
+	win(id: ID!): Win!
+	loss(id: ID!): Loss!
 	tie(id: ID!): [Tie]
+	allTournaments: [Tournament!]!
+	allTeamsTournament: [TournamentTeam!]!
+	allPlayerTournament: [TournamentPlayer!]!
+	tournament(id: ID!): Tournament
+	teamTournament(id: ID!): TournamentTeam!
+	gameTournament(id: ID!): TournamentGame!
+	playerTournament(id: ID!): TournamentPlayer!
+	winTournament(id: ID!): TournamentWin!
+	lossTournament(id: ID!): TournamentLoss!
+	tieTournament(id: ID!): [TournamentTie!]!
 }
 
 type Mutation {
@@ -115,4 +127,73 @@ type User {
 	teams: [Team!]!
 	games: [Game!]!
 	players: [Player!]!
+}
+
+type Tournament {
+	id: ID!
+	postedBy: User!
+	teams: [TournamentTeam!]!
+	location: String!
+	name: String!
+	day: String!
+	games: [TournamentGame!]!
+}
+
+type TournamentTeam {
+	id: ID!
+	postedBy: User!
+	name: String!
+	tournament: Tournament!
+	players: [TournamentPlayer!]!
+	games: [TournamentGame!]!
+	wins: [TournamentWin!]!
+	losses: [TournamentLoss!]!
+	ties: [TournamentTie!]!
+}
+
+type TournamentGame {
+	id: ID!
+	postedBy: User!
+	day: String!
+	homeTeam: TournamentTeam!
+	awayTeam: TournamentTeam!
+	tournament: Tournament!
+	score: String!
+	time: String!
+	videoURL: String!
+	wins: [TournamentWin!]!
+	losses: [TournamentLoss!]!
+	ties: [TournamentTie!]!
+}
+
+type TournamentPlayer {
+	id: ID!
+	postedBy: User!
+	name: String!
+	played: Int!
+	goals: Int!
+	assists: Int!
+	saves: Int!
+	team: TournamentTeam!
+}
+
+type TournamentWin {
+	id: ID!
+	postedBy: User!
+	game: TournamentGame!
+	team: TournamentTeam!
+}
+
+type TournamentLoss {
+	id: ID!
+	postedBy: User!
+	game: TournamentGame!
+	team: TournamentTeam!
+}
+
+type TournamentTie {
+	id: ID!
+	postedBy: User!
+	game: TournamentGame!
+	team: TournamentTeam!
 }
