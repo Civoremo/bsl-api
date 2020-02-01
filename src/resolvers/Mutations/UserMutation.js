@@ -59,8 +59,38 @@ const updateProfile = async (parent, args, context, info) => {
 	return updated;
 };
 
+const updateUserPassword = async (parent, args, context, info) => {
+	const userId = getUserId(context);
+
+	if (!userId) {
+		throw new Error("You must be logged in to update password");
+	}
+	const user = await context.prisma.user({ id: userId });
+
+	if (args.newPass1 !== args.newPass2) {
+		throw new Error("New passwords do not match");
+	}
+
+	const checkOldPassword = await bcrypt.compare(args.oldPass, user.password);
+	if (!checkOldPassword) {
+		throw new Error("Incorrect password provided");
+	}
+
+	const updatedPassword = await bcrypt.hash(args.newPass1, 14);
+
+	const updatedUser = await context.prisma.updateUser({
+		where: { id: userId },
+		data: {
+			password: updatedPassword,
+		},
+	});
+
+	return { message: "Password update successful" };
+};
+
 module.exports = {
 	signup,
 	login,
 	updateProfile,
+	updateUserPassword,
 };
