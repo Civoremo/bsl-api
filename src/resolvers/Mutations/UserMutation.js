@@ -41,7 +41,26 @@ const login = async (parent, args, context, info) => {
 	};
 };
 
+const updateUser = async (parent, args, context, info) => {
+	const userId = getUserId(context);
+
+	if (!userId) {
+		throw new Error("You must be logged in to update your profile");
+	}
+
+	const updated = await context.prisma.updateUser(
+		{
+			where: { id: userId },
+			data: { ...args },
+		},
+		info
+	);
+
+	return updated;
+};
+
 module.exports = {
 	signup,
 	login,
+	updateUser,
 };
