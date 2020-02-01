@@ -41,7 +41,7 @@ const login = async (parent, args, context, info) => {
 	};
 };
 
-const updateUser = async (parent, args, context, info) => {
+const updateProfile = async (parent, args, context, info) => {
 	const userId = getUserId(context);
 
 	if (!userId) {
@@ -62,5 +62,5 @@ const updateUser = async (parent, args, context, info) => {
 module.exports = {
 	signup,
 	login,
-	updateUser,
+	updateProfile,
 };
