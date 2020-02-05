@@ -4338,8 +4338,11 @@ type User {
   id: ID!
   createdAt: DateTime
   updatedAt: DateTime
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role!
   leagues(where: LeagueWhereInput, orderBy: LeagueOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [League!]
@@ -4356,8 +4359,11 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role
   leagues: LeagueCreateManyWithoutPostedByInput
@@ -4393,8 +4399,11 @@ input UserCreateOneWithoutTeamsInput {
 
 input UserCreateWithoutGamesInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role
   leagues: LeagueCreateManyWithoutPostedByInput
@@ -4404,8 +4413,11 @@ input UserCreateWithoutGamesInput {
 
 input UserCreateWithoutLeaguesInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role
   teams: TeamCreateManyWithoutPostedByInput
@@ -4415,8 +4427,11 @@ input UserCreateWithoutLeaguesInput {
 
 input UserCreateWithoutPlayersInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role
   leagues: LeagueCreateManyWithoutPostedByInput
@@ -4426,8 +4441,11 @@ input UserCreateWithoutPlayersInput {
 
 input UserCreateWithoutTeamsInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role
   leagues: LeagueCreateManyWithoutPostedByInput
@@ -4447,10 +4465,16 @@ enum UserOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
-  name_ASC
-  name_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
   password_ASC
   password_DESC
+  resetToken_ASC
+  resetToken_DESC
+  resetTokenExpiration_ASC
+  resetTokenExpiration_DESC
   email_ASC
   email_DESC
   role_ASC
@@ -4461,8 +4485,11 @@ type UserPreviousValues {
   id: ID!
   createdAt: DateTime
   updatedAt: DateTime
-  name: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  resetToken: String
+  resetTokenExpiration: Float
   email: String!
   role: Role!
 }
@@ -4486,8 +4513,11 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
   leagues: LeagueUpdateManyWithoutPostedByInput
@@ -4497,8 +4527,11 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
   leagues: LeagueUpdateManyWithoutPostedByInput
@@ -4508,8 +4541,11 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyMutationInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
 }
@@ -4550,8 +4586,11 @@ input UserUpdateOneRequiredWithoutTeamsInput {
 }
 
 input UserUpdateWithoutGamesDataInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
   leagues: LeagueUpdateManyWithoutPostedByInput
@@ -4560,8 +4599,11 @@ input UserUpdateWithoutGamesDataInput {
 }
 
 input UserUpdateWithoutLeaguesDataInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
   teams: TeamUpdateManyWithoutPostedByInput
@@ -4570,8 +4612,11 @@ input UserUpdateWithoutLeaguesDataInput {
 }
 
 input UserUpdateWithoutPlayersDataInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
   leagues: LeagueUpdateManyWithoutPostedByInput
@@ -4580,8 +4625,11 @@ input UserUpdateWithoutPlayersDataInput {
 }
 
 input UserUpdateWithoutTeamsDataInput {
-  name: String
+  firstName: String
+  lastName: String
   password: String
+  resetToken: String
+  resetTokenExpiration: Float
   email: String
   role: Role
   leagues: LeagueUpdateManyWithoutPostedByInput
@@ -4645,20 +4693,34 @@ input UserWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
   password: String
   password_not: String
   password_in: [String!]
@@ -4673,6 +4735,28 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  resetToken: String
+  resetToken_not: String
+  resetToken_in: [String!]
+  resetToken_not_in: [String!]
+  resetToken_lt: String
+  resetToken_lte: String
+  resetToken_gt: String
+  resetToken_gte: String
+  resetToken_contains: String
+  resetToken_not_contains: String
+  resetToken_starts_with: String
+  resetToken_not_starts_with: String
+  resetToken_ends_with: String
+  resetToken_not_ends_with: String
+  resetTokenExpiration: Float
+  resetTokenExpiration_not: Float
+  resetTokenExpiration_in: [Float!]
+  resetTokenExpiration_not_in: [Float!]
+  resetTokenExpiration_lt: Float
+  resetTokenExpiration_lte: Float
+  resetTokenExpiration_gt: Float
+  resetTokenExpiration_gte: Float
   email: String
   email_not: String
   email_in: [String!]

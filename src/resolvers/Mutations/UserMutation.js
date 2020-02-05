@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { randomBytes } = require("crypto");
 const { getUserId } = require("../../utils");
 
 const tokenExpiresIn = "3h";
@@ -88,9 +89,31 @@ const updateUserPassword = async (parent, args, context, info) => {
 	return { message: "Password update successful" };
 };
 
+const requestPasswordReset = async (parent, { email }, context, info) => {
+	const user = await context.prisma.user({ email: email });
+
+	if (!user) {
+		throw new Error(`No user found with that email ${email}`);
+	}
+
+	const random = await randomBytes(20);
+
+	const resetToken = random.toString("hex");
+	const resetTokenExpiration = Date.now() + 3600000;
+	const res = await context.prisma.updateUser({
+		where: { email: email },
+		data: { resetToken: resetToken, resetTokenExpiration: resetTokenExpiration },
+	});
+
+	// console.log(JSON.stringify(res) + "\n\n");
+	// console.log(resetToken);
+	return { message: "Reset link sent to email" };
+};
+
 module.exports = {
 	signup,
 	login,
 	updateProfile,
 	updateUserPassword,
+	requestPasswordReset,
 };

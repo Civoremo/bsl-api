@@ -27,10 +27,11 @@ type Query {
 
 type Mutation {
 	post: String!
-	signup(name: String!, email: String!, password: String!): AuthPayload!
+	signup(firstName: String!, lastName: String!, email: String!, password: String!): AuthPayload!
 	login(email: String!, password: String!): AuthPayload!
 	updateProfile(name: String, email: String): User!
 	updateUserPassword(newPass1: String!, newPass2: String!, oldPass: String!): Message
+	requestPasswordReset(email: String!): Message
 	postLeague(name: String!, location: String!): League
 	postTeam(name: String!, leagueId: String!): Team
 	postPlayer(name: String!, teamId: String!): Player
@@ -123,7 +124,8 @@ type League {
 
 type User {
 	id: ID!
-	name: String!
+	firstName: String!
+	lastName: String!
 	email: String!
 	leagues: [League!]!
 	teams: [Team!]!
