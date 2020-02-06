@@ -32,6 +32,7 @@ type Mutation {
 	updateProfile(name: String, email: String): User!
 	updateUserPassword(newPass1: String!, newPass2: String!, oldPass: String!): Message
 	requestPasswordReset(email: String!): Message
+	resetPassword(resetToken: String!, password: String!): User!
 	postLeague(name: String!, location: String!): League
 	postTeam(name: String!, leagueId: String!): Team
 	postPlayer(name: String!, teamId: String!): Player

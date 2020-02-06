@@ -107,7 +107,42 @@ const requestPasswordReset = async (parent, { email }, context, info) => {
 
 	// console.log(JSON.stringify(res) + "\n\n");
 	// console.log(resetToken);
+
+	////////////////////////
+	// email system needs to be implemented for sending the request to user
+	///////////////////////
+
 	return { message: "Reset link sent to email" };
+};
+
+const resetPassword = async (parent, args, context, info) => {
+	const [user] = await context.prisma.users({
+		where: {
+			resetToken: args.resetToken,
+			resetTokenExpiration_gte: Date.now() - 3600000,
+		},
+	});
+
+	// console.log("USER", user);
+
+	if (!user) {
+		throw new Error("Token is invalid or expired");
+	}
+
+	const newPassword = await bcrypt.hash(args.password, 14);
+
+	const updatedUser = await context.prisma.updateUser({
+		where: { email: user.email },
+		data: {
+			password: newPassword,
+			resetToken: null,
+			resetTokenExpiration: null,
+		},
+	});
+
+	// console.log("\n\n UPDATED", updatedUser);
+
+	return updatedUser;
 };
 
 module.exports = {
@@ -116,4 +151,5 @@ module.exports = {
 	updateProfile,
 	updateUserPassword,
 	requestPasswordReset,
+	resetPassword,
 };
