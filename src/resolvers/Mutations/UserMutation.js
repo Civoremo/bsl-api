@@ -107,7 +107,54 @@ const requestPasswordReset = async (parent, { email }, context, info) => {
 
 	// console.log(JSON.stringify(res) + "\n\n");
 	// console.log(resetToken);
+
+	////////////////////////
+	// email system needs to be implemented for sending the request to user
+	// <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click Here to Reset</a>
+	///////////////////////
+
 	return { message: "Reset link sent to email" };
+};
+
+const resetPassword = async (parent, args, context, info) => {
+	const [user] = await context.prisma.users({
+		where: {
+			resetToken: args.resetToken,
+			resetTokenExpiration_gte: Date.now() - 3600000,
+		},
+	});
+
+	// console.log("USER", user);
+	// console.log(Date.now() > user.resetTokenExpiration);
+
+	if (!user) {
+		throw new Error("User could not be found");
+	}
+
+	if (!user.resetTokenExpiration < Date.now()) {
+		throw new Error("Token is invalid or expired");
+	}
+
+	const newPassword = await bcrypt.hash(args.password, 14);
+
+	const checkPassword = await bcrypt.compare(newPassword, user.password);
+
+	if (!checkPassword) {
+		throw new Error("Password has been used before, try another");
+	}
+
+	const updatedUser = await context.prisma.updateUser({
+		where: { email: user.email },
+		data: {
+			password: newPassword,
+			resetToken: null,
+			resetTokenExpiration: null,
+		},
+	});
+
+	// console.log("\n\n UPDATED", updatedUser);
+
+	return updatedUser;
 };
 
 module.exports = {
@@ -116,4 +163,5 @@ module.exports = {
 	updateProfile,
 	updateUserPassword,
 	requestPasswordReset,
+	resetPassword,
 };
