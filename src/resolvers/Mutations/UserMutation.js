@@ -110,6 +110,7 @@ const requestPasswordReset = async (parent, { email }, context, info) => {
 
 	////////////////////////
 	// email system needs to be implemented for sending the request to user
+	// <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click Here to Reset</a>
 	///////////////////////
 
 	return { message: "Reset link sent to email" };
@@ -130,6 +131,12 @@ const resetPassword = async (parent, args, context, info) => {
 	}
 
 	const newPassword = await bcrypt.hash(args.password, 14);
+
+	const checkPassword = await bcrypt.compare(newPassword, user.password);
+
+	if (!checkPassword) {
+		throw new Error("Password has been used before, try another");
+	}
 
 	const updatedUser = await context.prisma.updateUser({
 		where: { email: user.email },
