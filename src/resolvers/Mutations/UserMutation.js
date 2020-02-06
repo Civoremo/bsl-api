@@ -125,8 +125,13 @@ const resetPassword = async (parent, args, context, info) => {
 	});
 
 	// console.log("USER", user);
+	// console.log(Date.now() > user.resetTokenExpiration);
 
 	if (!user) {
+		throw new Error("User could not be found");
+	}
+
+	if (!user.resetTokenExpiration < Date.now()) {
 		throw new Error("Token is invalid or expired");
 	}
 
