@@ -35,6 +35,7 @@ type Mutation {
 	resetPassword(resetToken: String!, password: String!): User!
 	postLeague(name: String!, location: String!): League
 	updateLeague(leagueId: String!, leagueName: String, leagueLocation: String): League
+	deleteLeague(leagueId: String!): Message
 	postTeam(name: String!, leagueId: String!): Team
 	postPlayer(name: String!, teamId: String!): Player
 	postGame(
