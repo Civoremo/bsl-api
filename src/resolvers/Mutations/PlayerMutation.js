@@ -79,7 +79,32 @@ const updatePlayer = async (parent, args, context, info) => {
 	return updatedPlayer;
 };
 
+const deletePlayer = async (parent, args, context, info) => {
+	const userId = await getUserId(context);
+
+	const playerInfo = await context.prisma.player({ id: args.playerId }).$fragment(playerFragment);
+
+	if (!userId) {
+		throw new Error("You must be logged in to delete a player");
+	}
+
+	if (!playerInfo) {
+		throw new Error("Could not find player with the provided ID");
+	}
+
+	if (playerInfo.postedBy.id !== userId) {
+		throw new Error("You must be the owner to delete player");
+	}
+
+	const deletedPlayer = await context.prisma.deletePlayer({
+		id: args.playerId,
+	});
+
+	return { message: "Player has been deleted" };
+};
+
 module.exports = {
 	postPlayer,
 	updatePlayer,
+	deletePlayer,
 };

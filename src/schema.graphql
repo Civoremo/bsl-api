@@ -49,6 +49,7 @@ type Mutation {
 		saves: Int
 		teamId: String
 	): Player
+	deletePlayer(playerId: String!): Message
 	postGame(
 		homeTeam: String!
 		awayTeam: String!
