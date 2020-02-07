@@ -40,6 +40,15 @@ type Mutation {
 	updateTeam(teamId: String!, name: String, leagueId: String): Team
 	deleteTeam(teamId: String!): Message
 	postPlayer(name: String!, teamId: String!): Player
+	updatePlayer(
+		playerId: String!
+		name: String
+		played: Int
+		goals: Int
+		assists: Int
+		saves: Int
+		teamId: String
+	): Player
 	postGame(
 		homeTeam: String!
 		awayTeam: String!
