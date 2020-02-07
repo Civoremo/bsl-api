@@ -38,6 +38,7 @@ type Mutation {
 	deleteLeague(leagueId: String!): Message
 	postTeam(name: String!, leagueId: String!): Team
 	updateTeam(teamId: String!, name: String, leagueId: String): Team
+	deleteTeam(teamId: String!): Message
 	postPlayer(name: String!, teamId: String!): Player
 	postGame(
 		homeTeam: String!
